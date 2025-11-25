@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="251mm"
+   height="82mm"
+   viewBox="0 0 251 81.999995"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="laser-figure.svg"
+   inkscape:export-filename="/users/federo/Desktop/laser.jpg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showguides="true"
+     inkscape:lockguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="0.65765887"
+     inkscape:cx="735.94384"
+     inkscape:cy="53.979352"
+     inkscape:window-width="1846"
+     inkscape:window-height="1006"
+     inkscape:window-x="1994"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2"
+     units="mm"
+     width="100mm">
+    <sodipodi:guide
+       position="75.046823,49.529505"
+       orientation="0,-1"
+       id="guide33062" />
+    <sodipodi:guide
+       position="200.55679,120.17363"
+       orientation="1,0"
+       id="guide33076" />
+    <sodipodi:guide
+       position="49.264554,125.50288"
+       orientation="1,0"
+       id="guide33080" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid3462" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient4740"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4738" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter4832"
+       x="-0.42902565"
+       y="-0.46537132"
+       width="1.8580513"
+       height="1.9307426">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="4.6959688"
+         id="feGaussianBlur4834" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Base"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline"
+     transform="translate(56.435966,-6.9625636)">
+    <ellipse
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke-width:1.065;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter4832)"
+       id="path872"
+       cx="62.117458"
+       cy="93.128944"
+       rx="13.134791"
+       ry="12.108959"
+       inkscape:export-filename="/users/federo/Desktop/laser.png"
+       inkscape:export-xdpi="253.42"
+       inkscape:export-ydpi="253.42" />
+    <ellipse
+       style="fill:none;fill-opacity:1;stroke-width:1.065;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path5104"
+       cx="13.328651"
+       cy="74.82737"
+       rx="69.764618"
+       ry="66.056458" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="background"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Added edges"
+     style="display:inline"
+     transform="translate(56.435966,-6.9625636)">
+    <g
+       id="g35751"
+       transform="matrix(1.2285131,0,0,1.2285131,-15.720697,-23.185476)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="-19.941221"
+         y="89.820923"
+         id="text7204-7"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75"><tspan
+           sodipodi:role="line"
+           id="tspan7202-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:aakar;-inkscape-font-specification:aakar;stroke-width:0.264583"
+           x="-19.941221"
+           y="89.820923">SPECTRAL</tspan></text>
+      <ellipse
+         style="display:inline;fill:#669ede;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-5"
+         cx="-6.949441"
+         cy="28.799044"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-2"
+         cx="-20.723455"
+         cy="39.40897"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-5"
+         cx="-6.9185495"
+         cy="39.337261"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-4"
+         cx="8.4011755"
+         cy="39.22234"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-7"
+         cx="15.492812"
+         cy="49.397911"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-4"
+         cx="1.2074574"
+         cy="49.262272"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-4"
+         cx="-14.036286"
+         cy="49.47007"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-3"
+         cx="-27.412031"
+         cy="49.20797"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3-0"
+         cx="15.434058"
+         cy="78.870392"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6-7"
+         cx="1.2564381"
+         cy="78.734756"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1-8"
+         cx="-13.985047"
+         cy="78.942551"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0-6"
+         cx="-27.391249"
+         cy="78.68045"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3-6-8"
+         cx="15.561667"
+         cy="59.183556"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6-3-8"
+         cx="1.2763051"
+         cy="59.04792"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1-2-4"
+         cx="-13.967439"
+         cy="59.255714"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0-0-3"
+         cx="-27.343184"
+         cy="58.993614"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -4.663588,30.728676 6.249411,37.607334"
+         id="path37042-1"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -6.92531,31.663975 v 4.987539"
+         id="path37044-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -9.209024,30.643207 -18.7906,37.227205"
+         id="path37048-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -26.652154,46.35616 4.200293,-4.407188"
+         id="path37050-2"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -19.159045,41.951554 3.776543,5.15247"
+         id="path37052-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.422265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -18.116537,40.873885 17.469132,6.3089"
+         id="path37054-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -6.92531,42.17309 -5.913562,4.661609"
+         id="path37056-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.397252;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -5.94492,42.22402 5.391084,5.004033"
+         id="path37058-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 9.772491,41.777678 4.207047,5.154885"
+         id="path37060-2"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 15.593177,52.24972 0.0611,3.979399"
+         id="path37064-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 1.294111,52.215903 0.04689,3.915437"
+         id="path37066-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -12.2682,56.96869 -0.703011,51.693129"
+         id="path37068-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -25.78331,51.725136 9.742117,5.56206"
+         id="path37070-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -25.673926,56.514465 9.489797,-5.115163"
+         id="path37072-5"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -27.500561,52.219441 0.03482,3.876902"
+         id="path37074-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 15.526947,75.963294 Z"
+         id="path37314-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-8"
+         cx="-11.542344"
+         cy="65.081444"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5-7"
+         cx="-5.3478403"
+         cy="65.110588"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5-4-1"
+         cx="0.012648482"
+         cy="65.14901"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.424804;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 13.070506,68.601738 1.646901,7.564986"
+         id="path46770-7"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 11.856233,68.937078 3.148829,76.20924"
+         id="path46772-2"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.29774;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -0.62778669,68.991711 -12.779745,76.201273"
+         id="path46774-7"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M -9.800761,68.598921 1.404588,75.969006"
+         id="path46891-2"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -10.294792,68.794063 -2.486577,7.409164"
+         id="path46893-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -10.803979,68.474275 -15.502104,7.641112"
+         id="path46895-1"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -25.192119,68.601738 10.656124,7.484504"
+         id="path46899-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.416633;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 2.147014,68.681415 13.941009,76.42736"
+         id="path46901-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.43109;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1.519866,68.601738 1.405085,75.969791"
+         id="path46903-1"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -25.83303,68.601738 -1.35219,7.185599"
+         id="path47098-5"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="136.42648"
+         y="89.743469"
+         id="text7204"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75"><tspan
+           sodipodi:role="line"
+           id="tspan7202"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:aakar;-inkscape-font-specification:aakar;stroke-width:0.264583"
+           x="136.42648"
+           y="89.743469">LASER</tspan></text>
+      <ellipse
+         style="display:inline;fill:#669ede;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248"
+         cx="144.29379"
+         cy="28.630888"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9"
+         cx="130.51978"
+         cy="39.24081"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7"
+         cx="144.32468"
+         cy="39.169102"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3"
+         cx="159.64441"
+         cy="39.05418"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6"
+         cx="166.73604"
+         cy="49.229752"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1"
+         cx="152.45068"
+         cy="49.094112"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2"
+         cx="137.20694"
+         cy="49.30191"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9"
+         cx="123.83119"
+         cy="49.03981"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3"
+         cx="166.67729"
+         cy="78.702248"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6"
+         cx="152.49966"
+         cy="78.566612"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1"
+         cx="137.25818"
+         cy="78.774406"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0"
+         cx="123.85197"
+         cy="78.512306"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3-6"
+         cx="166.8049"
+         cy="59.015396"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6-3"
+         cx="152.51953"
+         cy="58.879761"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1-2"
+         cx="137.27579"
+         cy="59.087555"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0-0"
+         cx="123.90004"
+         cy="58.825455"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 146.57964,30.560522 10.91299,6.878658"
+         id="path37042"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 144.31791,31.495821 V 36.48336"
+         id="path37044"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 142.0342,30.475053 -9.58158,6.583998"
+         id="path37048"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 124.59107,46.188006 4.20029,-4.407188"
+         id="path37050"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 132.08418,41.7834 3.77654,5.15247"
+         id="path37052"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.422265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 133.12669,40.705731 17.46913,6.3089"
+         id="path37054"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 144.31791,42.004936 -5.91356,4.661609"
+         id="path37056"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.397252;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 145.2983,42.055866 5.39109,5.004033"
+         id="path37058"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 161.01571,41.609524 4.20705,5.154885"
+         id="path37060"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 166.83641,52.081566 0.0611,3.979399"
+         id="path37064"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 152.53733,52.047749 0.0469,3.915437"
+         id="path37066"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 138.97502,56.800536 11.56519,-5.275561"
+         id="path37068"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 125.45991,51.556982 9.74212,5.56206"
+         id="path37070"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 125.5693,56.346311 9.48979,-5.115163"
+         id="path37072"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 123.74266,52.051287 0.0348,3.876902"
+         id="path37074"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 166.77017,75.79514 Z"
+         id="path37314"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644"
+         cx="139.70088"
+         cy="64.9133"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5"
+         cx="145.89539"
+         cy="64.942444"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5-4"
+         cx="151.25587"
+         cy="64.980865"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.424804;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 164.31373,68.433584 1.6469,7.564986"
+         id="path46770"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 163.09946,68.768924 -8.70741,7.272162"
+         id="path46772"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.418782;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 162.44924,68.772766 138.47081,76.00107"
+         id="path46774"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 141.44246,68.430767 11.20535,7.370085"
+         id="path46891"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 140.94843,68.625909 -2.48658,7.409164"
+         id="path46893"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 140.43924,68.306121 -15.5021,7.641112"
+         id="path46895"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 126.0511,68.433584 10.65613,7.484504"
+         id="path46899"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.416633;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 153.39024,68.513261 11.79399,7.745945"
+         id="path46901"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.43109;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 152.76309,68.433584 -0.11478,7.368053"
+         id="path46903"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 125.41019,68.433584 124.058,75.619183"
+         id="path47098"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="57.908726"
+         y="89.812622"
+         id="text7204-7-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75"><tspan
+           sodipodi:role="line"
+           id="tspan7202-5-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:aakar;-inkscape-font-specification:aakar;stroke-width:0.264583"
+           x="57.908726"
+           y="89.812622">SPATIAL</tspan></text>
+      <ellipse
+         style="display:inline;fill:#669ede;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-4"
+         cx="68.602715"
+         cy="28.371408"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-4"
+         cx="54.828701"
+         cy="38.981331"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-7"
+         cx="68.633598"
+         cy="38.909622"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-63"
+         cx="83.953331"
+         cy="38.794701"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-17"
+         cx="91.04496"
+         cy="48.970276"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-5"
+         cx="76.759605"
+         cy="48.834633"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-96"
+         cx="61.515865"
+         cy="49.042435"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-2"
+         cx="48.14011"
+         cy="48.780334"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3-1"
+         cx="90.986214"
+         cy="78.442764"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6-78"
+         cx="76.808586"
+         cy="78.307129"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1-5"
+         cx="61.567104"
+         cy="78.514923"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#c4c4c4;fill-opacity:0.640047;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0-7"
+         cx="48.1609"
+         cy="78.252823"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-3-6-4"
+         cx="91.113823"
+         cy="58.75592"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-6-3-1"
+         cx="76.828453"
+         cy="58.620285"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-1-2-8"
+         cx="61.584713"
+         cy="58.828079"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#43a35c;fill-opacity:1;stroke:#000000;stroke-width:0.491671;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path32248-9-7-3-6-1-2-9-0-0-5"
+         cx="48.208965"
+         cy="58.565979"
+         rx="2.8745449"
+         ry="2.8745441"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 70.888556,30.301041 10.913,6.878658"
+         id="path37042-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 68.626826,31.23634 v 4.987539"
+         id="path37044-7"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 66.343116,30.215572 -9.58158,6.583998"
+         id="path37048-5"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#aeaeae;fill-opacity:0.5;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 48.899986,45.928525 4.20029,-4.407188"
+         id="path37050-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 56.393096,41.523919 3.77654,5.15247"
+         id="path37052-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.422265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 57.435606,40.44625 17.46913,6.3089"
+         id="path37054-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 68.626826,41.745455 -5.91356,4.661609"
+         id="path37056-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.397252;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 69.607216,41.796385 5.39109,5.004033"
+         id="path37058-1"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 85.324636,41.350043 4.20704,5.154885"
+         id="path37060-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 91.145326,51.822085 0.0611,3.979399"
+         id="path37064-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 76.846256,51.788268 0.0469,3.915437"
+         id="path37066-64"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 63.283936,56.541055 11.56519,-5.275561"
+         id="path37068-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 49.768826,51.297501 9.74212,5.56206"
+         id="path37070-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 49.878216,56.08683 9.4898,-5.115163"
+         id="path37072-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 48.051576,51.791806 0.0348,3.876902"
+         id="path37074-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 91.079086,75.535662 Z"
+         id="path37314-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-0"
+         cx="64.009804"
+         cy="64.653816"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5-48"
+         cx="70.204308"
+         cy="64.682961"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <ellipse
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.444255"
+         id="path45644-5-4-8"
+         cx="75.564796"
+         cy="64.721382"
+         rx="0.57269591"
+         ry="0.55554187"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.424804;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 88.622646,68.174103 1.6469,7.564989"
+         id="path46770-8"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 87.408376,68.509443 -8.70741,7.272159"
+         id="path46772-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.418782;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 86.758156,68.513285 -23.97843,7.228307"
+         id="path46774-77"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 65.751376,68.171286 11.20535,7.370086"
+         id="path46891-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 65.257346,68.366428 -2.48657,7.409164"
+         id="path46893-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 64.748166,68.04664 -15.50211,7.641112"
+         id="path46895-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 50.360026,68.174103 10.65612,7.484509"
+         id="path46899-3"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.416633;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 77.699156,68.25378 11.79399,7.745942"
+         id="path46901-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.43109;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 77.072006,68.174103 -0.11478,7.368049"
+         id="path46903-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 49.719106,68.174103 -1.35219,7.185599"
+         id="path47098-2"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.496422;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.97853, 0.992844;stroke-dashoffset:0;stroke-opacity:1"
+         d="M -5.2978096,31.613571 13.810815,76.08483"
+         id="path49681-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 1;stroke-dashoffset:0;stroke-opacity:1"
+         d="M -8.72443,31.518944 -26.306083,76.115387"
+         id="path49681-4-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.501791;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.01074, 1.00358;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 145.49412,31.851172 165.14852,56.6757"
+         id="path49681"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.008, 1.004;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 146.42002,31.255915 16.95413,16.22044"
+         id="path56904-6-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 1;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 70.399195,31.268371 19.19976,25.231312"
+         id="path49681-44"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.461988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.77192, 0.923975;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 68.864667,31.847079 6.030007,24.040445"
+         id="path49681-44-5"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.458333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.74999, 0.916665;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 68.070659,31.777146 63.218075,55.878364"
+         id="path49681-44-5-9"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 1;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 66.922491,31.281704 49.607341,55.400717"
+         id="path49681-44-5-9-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.509869;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.03948, 1.01974;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 69.702589,31.551949 6.059138,14.189387"
+         id="path56904"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.008, 1.004;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 70.938846,30.909795 16.95413,16.22044"
+         id="path56904-6"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.503149;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.0126, 1.0063;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 67.471389,31.679369 62.11442,45.956518"
+         id="path56904-4"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+      <path
+         style="display:inline;fill:#43a395;fill-opacity:1;stroke:#43a35c;stroke-width:0.502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.008, 1.004;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 66.548896,30.906725 50.743036,46.471829"
+         id="path56904-4-0"
+         inkscape:export-filename="/users/federo/Desktop/laser.pdf"
+         inkscape:export-xdpi="240.75"
+         inkscape:export-ydpi="240.75" />
+    </g>
+  </g>
+</svg>

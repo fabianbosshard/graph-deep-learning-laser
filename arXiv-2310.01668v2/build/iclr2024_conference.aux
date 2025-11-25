@@ -1,0 +1,287 @@
+\relax 
+\providecommand{\transparent@use}[1]{}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{sperduti1994encoding,goller1996learning,gori2005new,scarselli2008graph,bruna2013spectral,defferrard2016convolutional}
+\citation{gilmer2017neural}
+\citation{barcelo2019logical}
+\citation{alon2020bottleneck}
+\citation{topping2021understanding}
+\citation{black2023understanding,di2023over}
+\citation{topping2021understanding}
+\citation{bruel2022rewiring,abboud2022shortest}
+\citation{kreuzer2021rethinking,mialon2021graphit,ying2021transformers,rampavsek2022recipe}
+\citation{arnaiz2022diffwire,karhadkar2022fosr,black2023understanding}
+\citation{nt2019revisiting,Oono2019,rusch2020coupled,di2022graph}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{karhadkar2022fosr}
+\citation{chandra1996electrical}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Difference between spectral (left), spatial (middle), and \textbf  {LASER} (right) rewirings in green with respect to the blue node of reference. Spectral rewirings are sparse and connect distant nodes. Spatial rewirings are able to retain local inductive biases at the cost of sparsity. \textbf  {LASER }remains both local and sparse by optimizing over the edges to be added.}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:rewirings}{{1}{2}{Difference between spectral (left), spatial (middle), and \textbf {LASER} (right) rewirings in green with respect to the blue node of reference. Spectral rewirings are sparse and connect distant nodes. Spatial rewirings are able to retain local inductive biases at the cost of sparsity. \LASER remains both local and sparse by optimizing over the edges to be added}{figure.caption.1}{}}
+\newlabel{fig:rewirings@cref}{{[figure][1][]1}{[1][1][]2}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Contributions and outline.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Preliminaries on graphs.}{2}{section*.3}\protected@file@percent }
+\citation{alon2020bottleneck}
+\citation{topping2021understanding}
+\citation{black2023understanding,di2023over}
+\citation{deac2022expander}
+\citation{cai2023connection}
+\citation{bodnar2021weisfeilercell}
+\citation{klicpera2019diffusion}
+\citation{abu2019mixhop,ma2020path,wang2020multi,nikolentzos2020k}
+\citation{alon2020bottleneck}
+\citation{bruel2022rewiring,abboud2022shortest}
+\citation{ying2021transformers,mialon2021graphit,kreuzer2021rethinking,rampavsek2022recipe}
+\citation{topping2021understanding,nguyen2022revisiting}
+\@writefile{toc}{\contentsline {paragraph}{The message-passing paradigm.}{3}{section*.4}\protected@file@percent }
+\newlabel{eq:mpnn_update}{{1}{3}{The message-passing paradigm}{equation.1}{}}
+\newlabel{eq:mpnn_update@cref}{{[equation][1][]1}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Over-squashing and long-range interactions.}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Existing graph-rewiring approaches and their limitations}{3}{section.3}\protected@file@percent }
+\newlabel{sec:ideal_rewiring}{{3}{3}{Existing graph-rewiring approaches and their limitations}{section.3}{}}
+\newlabel{sec:ideal_rewiring@cref}{{[section][3][]3}{[1][3][]3}{}{}{}}
+\newlabel{eq:mpnn_rewiring}{{2}{3}{Existing graph-rewiring approaches and their limitations}{equation.2}{}}
+\newlabel{eq:mpnn_rewiring@cref}{{[equation][2][]2}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Related work on spatial rewiring.}{3}{section*.6}\protected@file@percent }
+\citation{karhadkar2022fosr}
+\citation{arnaiz2022diffwire,banerjee2022oversquashing,black2023understanding}
+\citation{black2023understanding,di2023over}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Properties of different types of rewirings.\vspace  {-5mm}}}{4}{table.caption.7}\protected@file@percent }
+\newlabel{tab:checkmarks}{{1}{4}{Properties of different types of rewirings.\vspace {-5mm}}{table.caption.7}{}}
+\newlabel{tab:checkmarks@cref}{{[table][1][]1}{[1][3][]4}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Related work on spectral rewiring methods.}{4}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{An ideal rewiring approach.}{4}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}A general paradigm: dynamic rewiring with local constraints}{4}{section.4}\protected@file@percent }
+\newlabel{sec:general_framework}{{4}{4}{A general paradigm: dynamic rewiring with local constraints}{section.4}{}}
+\newlabel{sec:general_framework@cref}{{[section][4][]4}{[1][4][]4}{}{}{}}
+\newlabel{eq:sequence_rewiring}{{3}{4}{A general paradigm: dynamic rewiring with local constraints}{equation.3}{}}
+\newlabel{eq:sequence_rewiring@cref}{{[equation][3][]3}{[1][4][]4}{}{}{}}
+\newlabel{eq:sequence_rewiring_mpnn}{{4}{4}{A general paradigm: dynamic rewiring with local constraints}{equation.4}{}}
+\newlabel{eq:sequence_rewiring_mpnn@cref}{{[equation][4][]4}{[1][4][]4}{}{}{}}
+\citation{karhadkar2022fosr}
+\citation{battaglia2018relational,barcelo2022weisfeiler}
+\citation{battaglia2018relational}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{rossi2020temporal}
+\citation{gao2022equivalence}
+\@writefile{toc}{\contentsline {paragraph}{Improving connectivity while preserving locality.}{5}{section*.10}\protected@file@percent }
+\newlabel{eq:local_constraint}{{5}{5}{Improving connectivity while preserving locality}{equation.5}{}}
+\newlabel{eq:local_constraint@cref}{{[equation][5][]5}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Instantaneous vs sequential rewiring.}{5}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{An equivalent perspective: multi-relational GNNs.}{5}{section*.12}\protected@file@percent }
+\newlabel{eq:multi_gnn_1}{{6}{5}{An equivalent perspective: multi-relational GNNs}{equation.6}{}}
+\newlabel{eq:multi_gnn_1@cref}{{[equation][6][]6}{[1][5][]5}{}{}{}}
+\newlabel{eq:multi_gnn_2}{{7}{5}{An equivalent perspective: multi-relational GNNs}{equation.7}{}}
+\newlabel{eq:multi_gnn_2@cref}{{[equation][7][]7}{[1][5][]5}{}{}{}}
+\citation{feng2022powerful}
+\citation{topping2021understanding,black2023understanding,di2023over}
+\citation{di2023over}
+\citation{feng2022powerful}
+\citation{xu2018representation,di2023over}
+\citation{di2023over,black2023understanding}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Locality-Aware SEquential Rewiring: the LASER framework}{6}{section.5}\protected@file@percent }
+\newlabel{sec:laser_framework}{{5}{6}{Locality-Aware SEquential Rewiring: the LASER framework}{section.5}{}}
+\newlabel{sec:laser_framework@cref}{{[section][5][]5}{[1][5][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{The choice of locality.}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The choice of the connectivity measure $\mu $.}{6}{section*.14}\protected@file@percent }
+\newlabel{eq:mu_k}{{8}{6}{The choice of the connectivity measure $\mu $}{equation.8}{}}
+\newlabel{eq:mu_k@cref}{{[equation][8][]8}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{LASER focus.}{6}{section*.15}\protected@file@percent }
+\newlabel{eq:laser-update}{{9}{6}{LASER focus}{equation.9}{}}
+\newlabel{eq:laser-update@cref}{{[equation][9][]9}{[1][6][]6}{}{}{}}
+\citation{dwivedi2022long}
+\citation{morris2020tudataset}
+\citation{topping2021understanding}
+\citation{nguyen2023revisiting}
+\citation{karhadkar2022fosr}
+\citation{black2023understanding}
+\citation{arnaiz2022diffwire}
+\citation{karhadkar2022fosr}
+\citation{schlichtkrull2018modeling}
+\newlabel{prop:frob}{{5.2}{7}{}{theorem.5.2}{}}
+\newlabel{prop:frob@cref}{{[theorem][2][5]5.2}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments}{7}{section.6}\protected@file@percent }
+\newlabel{sec:exp}{{6}{7}{Experiments}{section.6}{}}
+\newlabel{sec:exp@cref}{{[section][6][]6}{[1][7][]7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Results for the \texttt  {Peptides-func}\xspace  , \texttt  {Peptides-struct}\xspace  , and \texttt  {PCQM-Contact} datasets. Performances are Average Precision (AP) (higher is better), Mean Absolute Error (MAE) (lower is better), and Mean Reciprocal Rank (MRR) (higher is better), respectively.}}{7}{table.caption.16}\protected@file@percent }
+\newlabel{tab:peptides-exps}{{2}{7}{Results for the \pepfunc , \pepstruct , and \texttt {PCQM-Contact} datasets. Performances are Average Precision (AP) (higher is better), Mean Absolute Error (MAE) (lower is better), and Mean Reciprocal Rank (MRR) (higher is better), respectively}{table.caption.16}{}}
+\newlabel{tab:peptides-exps@cref}{{[table][2][]2}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Benchmarks.}{7}{section*.17}\protected@file@percent }
+\citation{dwivedi2022long}
+\citation{dwivedi2020benchmarking}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{ioffe2015batch}
+\citation{black2023understanding,di2023over}
+\@writefile{toc}{\contentsline {paragraph}{LRGB.}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{TUDatasets.}{8}{section*.19}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Accuracy $\pm $ std over $25$ random splits for the datasets and rewirings. Colors highlight \textcolor {red}{First}, \textcolor {blue}{Second}, and \textcolor {orange}{Third}; we report the mean rank achieved on the valid runs. OOM is Out of Memory.}}{8}{table.caption.20}\protected@file@percent }
+\newlabel{tab:tudatasets}{{3}{8}{Accuracy $\pm $ std over $25$ random splits for the datasets and rewirings. Colors highlight \textcolor {red}{First}, \textcolor {blue}{Second}, and \textcolor {orange}{Third}; we report the mean rank achieved on the valid runs. OOM is Out of Memory}{table.caption.20}{}}
+\newlabel{tab:tudatasets@cref}{{[table][3][]3}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ablation studies.}{8}{section*.21}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparison between \textbf  {LASER }and random sampling, with $L=3$ and $\rho = 0.1$.}}{8}{table.caption.23}\protected@file@percent }
+\newlabel{table:random-rewiring-ablation}{{4}{8}{Comparison between \LASER and random sampling, with $L=3$ and $\rho = 0.1$}{table.caption.23}{}}
+\newlabel{table:random-rewiring-ablation@cref}{{[table][4][]4}{[1][8][]8}{}{}{}}
+\citation{arnaiz2022diffwire}
+\bibdata{iclr2024_conference}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Total effective resistance and graph distance, as measured by the Frobenius norm, when varying the number of snapshots from $2$ to $5$ and $\rho $ from $0.1$ to $1$. }}{9}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:peptides-ablation}{{2}{9}{Total effective resistance and graph distance, as measured by the Frobenius norm, when varying the number of snapshots from $2$ to $5$ and $\rho $ from $0.1$ to $1$}{figure.caption.22}{}}
+\newlabel{fig:peptides-ablation@cref}{{[figure][2][]2}{[1][8][]9}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Performance on the \texttt  {Peptides} tasks when varying the number of snapshots from $2$ to $5$ and $\rho $ from $0.1$ to $1$. The baseline indicates a standard GCN model.}}{9}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:snapshots}{{3}{9}{Performance on the \texttt {Peptides} tasks when varying the number of snapshots from $2$ to $5$ and $\rho $ from $0.1$ to $1$. The baseline indicates a standard GCN model}{figure.caption.22}{}}
+\newlabel{fig:snapshots@cref}{{[figure][3][]3}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Scalability.}{9}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{9}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limitations and Future Work.}{9}{section*.25}\protected@file@percent }
+\bibcite{abboud2022shortest}{{1}{2022}{{Abboud et~al.}}{{Abboud, Dimitrov, and Ceylan}}}
+\bibcite{abu2019mixhop}{{2}{2019}{{Abu-El-Haija et~al.}}{{Abu-El-Haija, Perozzi, Kapoor, Alipourfard, Lerman, Harutyunyan, Ver~Steeg, and Galstyan}}}
+\bibcite{alon2020bottleneck}{{3}{2021}{{Alon \& Yahav}}{{Alon and Yahav}}}
+\bibcite{arnaiz2022diffwire}{{4}{2022}{{Arnaiz-Rodr{\'i}guez et~al.}}{{Arnaiz-Rodr{\'i}guez, Begga, Escolano, and Oliver}}}
+\bibcite{banerjee2022oversquashing}{{5}{2022}{{Banerjee et~al.}}{{Banerjee, Karhadkar, Wang, Alon, and Mont{\'u}far}}}
+\bibcite{barcelo2019logical}{{6}{2019}{{Barcel{\'o} et~al.}}{{Barcel{\'o}, Kostylev, Monet, P{\'e}rez, Reutter, and Silva}}}
+\bibcite{barcelo2022weisfeiler}{{7}{2022}{{Barcelo et~al.}}{{Barcelo, Galkin, Morris, and Orth}}}
+\bibcite{battaglia2018relational}{{8}{2018}{{Battaglia et~al.}}{{Battaglia, Hamrick, Bapst, Sanchez-Gonzalez, Zambaldi, Malinowski, Tacchetti, Raposo, Santoro, Faulkner, et~al.}}}
+\bibcite{black2023understanding}{{9}{2023}{{Black et~al.}}{{Black, Wan, Nayyeri, and Wang}}}
+\bibcite{bodnar2021weisfeilercell}{{10}{2021}{{Bodnar et~al.}}{{Bodnar, Frasca, Otter, Wang, Lio, Montufar, and Bronstein}}}
+\bibcite{bruel2022rewiring}{{11}{2022}{{Br{\"u}el-Gabrielsson et~al.}}{{Br{\"u}el-Gabrielsson, Yurochkin, and Solomon}}}
+\bibcite{bruna2013spectral}{{12}{2014}{{Bruna et~al.}}{{Bruna, Zaremba, Szlam, and LeCun}}}
+\bibcite{cai2023connection}{{13}{2023}{{Cai et~al.}}{{Cai, Hy, Yu, and Wang}}}
+\bibcite{chandra1996electrical}{{14}{1996}{{Chandra et~al.}}{{Chandra, Raghavan, Ruzzo, Smolensky, and Tiwari}}}
+\bibcite{deac2022expander}{{15}{2022}{{Deac et~al.}}{{Deac, Lackenby, and Veli{\v {c}}kovi{\'c}}}}
+\bibcite{defferrard2016convolutional}{{16}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Acknowledgements}{10}{section.8}\protected@file@percent }
+\bibcite{di2022graph}{{17}{2022}{{Di~Giovanni et~al.}}{{Di~Giovanni, Rowbottom, Chamberlain, Markovich, and Bronstein}}}
+\bibcite{di2023over}{{18}{2023}{{Di~Giovanni et~al.}}{{Di~Giovanni, Giusti, Barbero, Luise, Lio, and Bronstein}}}
+\bibcite{dwivedi2020benchmarking}{{19}{2020}{{Dwivedi et~al.}}{{Dwivedi, Joshi, Laurent, Bengio, and Bresson}}}
+\bibcite{dwivedi2022long}{{20}{2022}{{Dwivedi et~al.}}{{Dwivedi, Ramp{\'a}{\v {s}}ek, Galkin, Parviz, Wolf, Luu, and Beaini}}}
+\bibcite{feng2022powerful}{{21}{2022}{{Feng et~al.}}{{Feng, Chen, Li, Sarkar, and Zhang}}}
+\bibcite{gao2022equivalence}{{22}{2022}{{Gao \& Ribeiro}}{{Gao and Ribeiro}}}
+\bibcite{gilmer2017neural}{{23}{2017}{{Gilmer et~al.}}{{Gilmer, Schoenholz, Riley, Vinyals, and Dahl}}}
+\bibcite{goller1996learning}{{24}{1996}{{Goller \& Kuchler}}{{Goller and Kuchler}}}
+\bibcite{gori2005new}{{25}{2005}{{Gori et~al.}}{{Gori, Monfardini, and Scarselli}}}
+\bibcite{hamilton2017inductive}{{26}{2017}{{Hamilton et~al.}}{{Hamilton, Ying, and Leskovec}}}
+\bibcite{ioffe2015batch}{{27}{2015}{{Ioffe \& Szegedy}}{{Ioffe and Szegedy}}}
+\bibcite{karhadkar2022fosr}{{28}{2022}{{Karhadkar et~al.}}{{Karhadkar, Banerjee, and Mont{\'u}far}}}
+\bibcite{kingma2017adam}{{29}{2015}{{Kingma \& Ba}}{{Kingma and Ba}}}
+\bibcite{kipf2016semi}{{30}{2017}{{Kipf \& Welling}}{{Kipf and Welling}}}
+\bibcite{klicpera2019diffusion}{{31}{2019}{{Klicpera et~al.}}{{Klicpera, Weissenberger, and G\"{u}nnemann}}}
+\bibcite{kreuzer2021rethinking}{{32}{2021}{{Kreuzer et~al.}}{{Kreuzer, Beaini, Hamilton, L{\'e}tourneau, and Tossou}}}
+\bibcite{ma2020path}{{33}{2020}{{Ma et~al.}}{{Ma, Xuan, Wang, Li, and Li{\`o}}}}
+\bibcite{mialon2021graphit}{{34}{2021}{{Mialon et~al.}}{{Mialon, Chen, Selosse, and Mairal}}}
+\bibcite{morris2020tudataset}{{35}{2020}{{Morris et~al.}}{{Morris, Kriege, Bause, Kersting, Mutzel, and Neumann}}}
+\bibcite{nguyen2022revisiting}{{36}{2022}{{Nguyen et~al.}}{{Nguyen, Nguyen, Ho, Nguyen, Nong, and Nguyen}}}
+\bibcite{nguyen2023revisiting}{{37}{2023}{{Nguyen et~al.}}{{Nguyen, Hieu, Nguyen, Ho, Osher, and Nguyen}}}
+\bibcite{nikolentzos2020k}{{38}{2020}{{Nikolentzos et~al.}}{{Nikolentzos, Dasoulas, and Vazirgiannis}}}
+\bibcite{nt2019revisiting}{{39}{2019}{{Nt \& Maehara}}{{Nt and Maehara}}}
+\bibcite{Oono2019}{{40}{2020}{{Oono \& Suzuki}}{{Oono and Suzuki}}}
+\bibcite{rampavsek2022recipe}{{41}{2022}{{Rampasek et~al.}}{{Rampasek, Galkin, Dwivedi, Luu, Wolf, and Beaini}}}
+\bibcite{rossi2020temporal}{{42}{2020}{{Rossi et~al.}}{{Rossi, Chamberlain, Frasca, Eynard, Monti, and Bronstein}}}
+\bibcite{rusch2020coupled}{{43}{2020}{{Rusch \& Mishra}}{{Rusch and Mishra}}}
+\bibcite{scarselli2008graph}{{44}{2008}{{Scarselli et~al.}}{{Scarselli, Gori, Tsoi, Hagenbuchner, and Monfardini}}}
+\bibcite{schlichtkrull2018modeling}{{45}{2018}{{Schlichtkrull et~al.}}{{Schlichtkrull, Kipf, Bloem, Van Den~Berg, Titov, and Welling}}}
+\bibcite{sperduti1994encoding}{{46}{1993}{{Sperduti}}{{}}}
+\bibcite{tonshoff2023did}{{47}{2023}{{T{\"o}nshoff et~al.}}{{T{\"o}nshoff, Ritzert, Rosenbluth, and Grohe}}}
+\bibcite{topping2021understanding}{{48}{2022}{{Topping et~al.}}{{Topping, Di~Giovanni, Chamberlain, Dong, and Bronstein}}}
+\bibcite{velivckovic2017graph}{{49}{2018}{{Veličković et~al.}}{{Veličković, Cucurull, Casanova, Romero, Liò, and Bengio}}}
+\bibcite{wang2020multi}{{50}{2020}{{Wang et~al.}}{{Wang, Ying, Huang, and Leskovec}}}
+\bibcite{xu2018how}{{51}{2019}{{Xu et~al.}}{{Xu, Hu, Leskovec, and Jegelka}}}
+\bibcite{xu2018representation}{{52}{2018}{{Xu et~al.}}{{Xu, Li, Tian, Sonobe, Kawarabayashi, and Jegelka}}}
+\bibcite{ying2021transformers}{{53}{2021}{{Ying et~al.}}{{Ying, Cai, Luo, Zheng, Ke, He, Shen, and Liu}}}
+\bibstyle{iclr2024_conference}
+\citation{xu2018representation}
+\citation{di2023over}
+\citation{kipf2016semi}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional details on theory and framework}{14}{appendix.A}\protected@file@percent }
+\newlabel{app:sec:theory}{{A}{14}{Additional details on theory and framework}{appendix.A}{}}
+\newlabel{app:sec:theory@cref}{{[section][1][]A}{[1][14][]14}{}{}{}}
+\newlabel{eq:laser-GCN}{{10}{14}{Additional details on theory and framework}{equation.10}{}}
+\newlabel{eq:laser-GCN@cref}{{[equation][10][]10}{[1][14][]14}{}{}{}}
+\citation{chandra1996electrical}
+\citation{dwivedi2020benchmarking}
+\citation{dwivedi2022long}
+\citation{kingma2017adam}
+\citation{ioffe2015batch}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Experimental Details}{15}{appendix.B}\protected@file@percent }
+\newlabel{appendix:exps}{{B}{15}{Experimental Details}{appendix.B}{}}
+\newlabel{appendix:exps@cref}{{[section][2][]B}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Reproducibility statement.}{15}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hyper-parameters.}{15}{section*.28}\protected@file@percent }
+\citation{dwivedi2022long}
+\citation{dwivedi2022long}
+\citation{tonshoff2023did}
+\citation{dwivedi2022long}
+\citation{morris2020tudataset}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\@writefile{toc}{\contentsline {paragraph}{Hardware.}{16}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Datasets}{16}{subsection.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{LRGB}{16}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{TUDatasets}{16}{section*.31}\protected@file@percent }
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\citation{karhadkar2022fosr}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Discussion on the TUDatasets}{17}{subsection.B.2}\protected@file@percent }
+\newlabel{app:tudatasets}{{B.2}{17}{Discussion on the TUDatasets}{subsection.B.2}{}}
+\newlabel{app:tudatasets@cref}{{[subsection][2][2]B.2}{[1][16][]17}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Additional Results}{17}{appendix.C}\protected@file@percent }
+\newlabel{app:sec:additional-results}{{C}{17}{Additional Results}{appendix.C}{}}
+\newlabel{app:sec:additional-results@cref}{{[section][3][]C}{[1][17][]17}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Permutation-Equivariance of \textbf  {LASER }.}{17}{subsection.C.1}\protected@file@percent }
+\newlabel{app:perm-equivariance}{{C.1}{17}{Permutation-Equivariance of \LASER }{subsection.C.1}{}}
+\newlabel{app:perm-equivariance@cref}{{[subsection][1][3]C.1}{[1][17][]17}{}{}{}}
+\citation{kipf2016semi}
+\citation{xu2018how}
+\citation{velivckovic2017graph}
+\citation{hamilton2017inductive}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Performance on the \texttt  {Peptides} tasks given a \textbf  {LASER }implementation that is not permutation-equivariant (choosing top $k$ based on $\mu $ and tie-breaks are chosen based on node id) and one that is equivariant (through sampling uniformly from the tie-breaks). Bold denotes best.}}{18}{table.caption.32}\protected@file@percent }
+\newlabel{table:equivariant-tiebreak}{{5}{18}{Performance on the \texttt {Peptides} tasks given a \LASER implementation that is not permutation-equivariant (choosing top $k$ based on $\mu $ and tie-breaks are chosen based on node id) and one that is equivariant (through sampling uniformly from the tie-breaks). Bold denotes best}{table.caption.32}{}}
+\newlabel{table:equivariant-tiebreak@cref}{{[table][5][]5}{[1][18][]18}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Mean added edges per graph given a \textbf  {LASER }rewiring with a density of $\rho = 0.1$ and $\rho = 1$ on the \texttt  {Peptides} dataset.}}{18}{table.caption.33}\protected@file@percent }
+\newlabel{table:density}{{6}{18}{Mean added edges per graph given a \LASER rewiring with a density of $\rho = 0.1$ and $\rho = 1$ on the \texttt {Peptides} dataset}{table.caption.33}{}}
+\newlabel{table:density@cref}{{[table][6][]6}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Density Ablation.}{18}{subsection.C.2}\protected@file@percent }
+\newlabel{app:subsec:density}{{C.2}{18}{Density Ablation}{subsection.C.2}{}}
+\newlabel{app:subsec:density@cref}{{[subsection][2][3]C.2}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.3}Performance with Different Underlying MPNNs}{18}{subsection.C.3}\protected@file@percent }
+\newlabel{app:different-mpnns}{{C.3}{18}{Performance with Different Underlying MPNNs}{subsection.C.3}{}}
+\newlabel{app:different-mpnns@cref}{{[subsection][3][3]C.3}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.4}Motivating Locality}{18}{subsection.C.4}\protected@file@percent }
+\newlabel{app:motivating-locality}{{C.4}{18}{Motivating Locality}{subsection.C.4}{}}
+\newlabel{app:motivating-locality@cref}{{[subsection][4][3]C.4}{[1][18][]18}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Results for \texttt  {Peptides-func}\xspace  and \texttt  {Peptides-struct}\xspace  . Performances are Average Precision (AP) (higher is better) and Mean Absolute Error (MAE) (lower is better), respectively. Results in \textbf  {bold} denote the best result for each MPNN.}}{19}{table.caption.34}\protected@file@percent }
+\newlabel{tab:convolutions}{{7}{19}{Results for \pepfunc and \pepstruct . Performances are Average Precision (AP) (higher is better) and Mean Absolute Error (MAE) (lower is better), respectively. Results in \textbf {bold} denote the best result for each MPNN}{table.caption.34}{}}
+\newlabel{tab:convolutions@cref}{{[table][7][]7}{[1][18][]19}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Scalability and Implementation}{19}{appendix.D}\protected@file@percent }
+\newlabel{app:scalability}{{D}{19}{Scalability and Implementation}{appendix.D}{}}
+\newlabel{app:scalability@cref}{{[section][4][]D}{[1][19][]19}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Average Precision (AP) on \texttt  {Peptides-func}\xspace  obtained by varying the number of snapshots for \textbf  {LASER }and FOSR, respecting the 500k parameter budget. For \textbf  {LASER }, we fix $\rho = 0.1$. For FOSR, each snapshot contains $10$ iterations.}}{20}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:local-global-ablation}{{4}{20}{Average Precision (AP) on \pepfunc obtained by varying the number of snapshots for \LASER and FOSR, respecting the 500k parameter budget. For \LASER , we fix $\rho = 0.1$. For FOSR, each snapshot contains $10$ iterations}{figure.caption.35}{}}
+\newlabel{fig:local-global-ablation@cref}{{[figure][4][]4}{[1][19][]20}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Complexity Analysis}{20}{subsection.D.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textbf  {Fast $\mu , \nu $ Computation}}}{20}{algorithm.1}\protected@file@percent }
+\newlabel{alg:conn-and-locality}{{1}{20}{\textbf {Fast $\mu , \nu $ Computation}}{algorithm.1}{}}
+\newlabel{alg:conn-and-locality@cref}{{[algorithm][1][]1}{[1][20][]20}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces \textbf  {\textbf  {LASER }rewiring for locality value $r$}}}{21}{algorithm.2}\protected@file@percent }
+\newlabel{alg:laser}{{2}{21}{\textbf {\LASER rewiring for locality value $r$}}{algorithm.2}{}}
+\newlabel{alg:laser@cref}{{[algorithm][2][]2}{[1][21][]21}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.2}Real-world Graphs Scaling}{21}{subsection.D.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Rewiring and Training+Inference times for the \texttt  {PCQM-Contact} and  \texttt  {PascalVOC-SP} datasets.}}{21}{table.caption.36}\protected@file@percent }
+\newlabel{tab:scalability_rewiring}{{8}{21}{Rewiring and Training+Inference times for the \texttt {PCQM-Contact} and  \texttt {PascalVOC-SP} datasets}{table.caption.36}{}}
+\newlabel{tab:scalability_rewiring@cref}{{[table][8][]8}{[1][21][]21}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.3}Synthetic Scaling Experiment}{21}{subsection.D.3}\protected@file@percent }
+\citation{hamilton2017inductive}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Run-time on \texttt  {Peptides-func}\xspace  with different rewirings and SAGE. For FOSR and SDRF we set the number of iterations to $40$ and for \textbf  {LASER }we set $\rho =0.5$. $L$ denotes the number of rewirings.}}{22}{table.caption.37}\protected@file@percent }
+\newlabel{tab:sage-scaling}{{9}{22}{Run-time on \pepfunc with different rewirings and SAGE. For FOSR and SDRF we set the number of iterations to $40$ and for \LASER we set $\rho =0.5$. $L$ denotes the number of rewirings}{table.caption.37}{}}
+\newlabel{tab:sage-scaling@cref}{{[table][9][]9}{[1][21][]22}{}{}{}}
+\gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{\m@ne }}
+\gdef \@abspage@last{22}

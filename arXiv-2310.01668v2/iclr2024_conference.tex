@@ -1,0 +1,1183 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2024_conference,times}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{pdfpages}
+
+
+\title{Locality-Aware Graph Rewiring in GNNs}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+\author{\hspace*{-5pt}Federico Barbero\textsuperscript{1}\thanks{Correspondence to federico.barbero@cs.ox.ac.uk.}, Ameya Velingker\textsuperscript{2}, Amin Saberi\textsuperscript{3}, Michael Bronstein\textsuperscript{1}, Francesco Di Giovanni\textsuperscript{1}\\
+\hspace*{-5pt}\textsuperscript{1}University of Oxford, Department of Computer Science\\
+\hspace*{-5pt}\textsuperscript{2}Google Research\\
+\hspace*{-5pt}\textsuperscript{3}Stanford University, Department of Management Science and Engineering\\
+\vspace{-20pt}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+
+% - EXTRAS - 
+% For theorems and such
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+% \usepackage[dvipsnames]{xcolor}         % colors
+\usepackage{float}
+
+\usepackage{algorithm}
+\makeatletter
+\renewcommand{\ALG@name}{Algorithm}
+\makeatother
+\usepackage{algpseudocode}
+\algblockdefx{ForAllP}{EndFaP}[1]%
+{\textbf{for all }#1 \textbf{do in parallel}}%
+{\textbf{end for}}
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+\renewcommand{\P}{\mathbb{P}}
+\usepackage{accents}
+\usepackage{setspace}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+% \usepackage{svg}
+\usepackage[inkscapearea=page]{svg}
+
+% if you use cleveref..
+\definecolor{bluegray}{rgb}{0.4, 0.6, 0.8}
+\definecolor{electriclime}{rgb}{0.8, 1.0, 0.0}
+\definecolor{malachite}{rgb}{0.04, 0.85, 0.32}
+\definecolor{darkred}{rgb}{0.55, 0.0, 0.0}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkorchid}{rgb}{0.6, 0.2, 0.8}
+\usepackage[noabbrev,capitalise,nameinlink]{cleveref}
+\hypersetup{colorlinks={true},linkcolor={darkred},citecolor=darkblue}
+
+% \theoremstyle{plain}
+\usepackage{multirow}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+% \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+% \theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\bo}[1]{\textcolor{red}{\bf #1}} %
+
+
+\newcommand{\gph}{\mathsf{G}} % graph G
+\newcommand{\MPNN}{\text{MPNN}}
+\newcommand{\cheeg}{\mathsf{h}_{\mathsf{Cheeg}
+}}
+\newcommand{\res}{\mathsf{Res}}
+\newcommand{\V}{\mathsf{V}}
+\newcommand{\E}{\mathsf{E}}
+\newcommand{\GAMma}{\boldsymbol{\Gamma}}
+\newcommand{\R}{\mathbb{R}}
+%\newcommand{\MPNN}{\mathrm{MPNN}}
+\newcommand{\Hi}{\mathbf{H}}
+\newcommand{\Hit}{\mathbf{H}^{(t)}}
+\newcommand{\up}{\sigma}
+\newcommand{\rs}{\mathsf{r}}
+\newcommand{\mpas}{\mathsf{a}}
+\newcommand{\agg}{\mathsf{agg}}
+\newcommand{\com}{\mathsf{com}}
+% \newcommand{\gph}{\mathsf{G}} % graph G
+\newcommand{\colfirst}{\textcolor{red}}
+\newcommand{\colsecond}{\textcolor{blue}}
+\newcommand{\colthird}{\textcolor{violet}}
+% \newcommand{\MPNN}{\mathsf{MPNN}}
+\newcommand{\rew}{\mathcal{R}}
+\newcommand{\eigen}{\boldsymbol{\psi}}
+\newcommand{\cost}{\mathsf{c}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\DELta}{\boldsymbol{\Delta}}
+\newcommand{\KER}{\mathcal{K}}
+\newcommand{\OMEga}{\boldsymbol{\Omega}}
+\newcommand{\Anorm}{\boldsymbol{\mathsf{A}}}
+\newcommand{\tel}{\mathsf{MPNN}_{\mathsf{tel}}}
+\newcommand{\poly}{\mathsf{p}}
+\newcommand{\ourname}{\text{telescopic}-\mathsf{MPNN}}
+\newcommand{\oper}{\boldsymbol{\mathsf{S}}_{\rs,\mpas}}
+\newcommand{\xb}{\vb{x}}
+\newcommand{\Xb}{\mathbf{X}}
+\newcommand{\Wb}{\vb{W}}
+\newcommand{\Hb}{\mathbf{H}}
+\newcommand{\Ab}{\mathbf{A}}
+\newcommand{\Ib}{\mathbf{I}}
+\newcommand{\hb}{\mathbf{h}}
+\newcommand{\phib}{\boldsymbol{\phi}}
+\newcommand{\pepfunc}{\texttt{Peptides-func}\xspace}
+\newcommand{\pepstruct}{\texttt{Peptides-struct}\xspace}
+% \usepackage[demo]{graphicx}
+\usepackage{caption}
+% \usepackage{subcaption}
+
+% checkmarks
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\usepackage{changepage,threeparttable} % for wide tables
+\usepackage{makecell}
+\usepackage{colortbl}
+\usepackage{xspace}
+\usepackage{enumitem}
+% \usepackage{subfigure}
+\usepackage{wrapfig}
+% \usepackage{subcaption}
+
+
+%Todo Notes
+\usepackage[textsize=tiny]{todonotes}
+\newcommand{\avtodo}[2]{\todo[color=Melon]{Ameya: #1}}
+
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightPink}{HTML}{FCE1EF}%{ffcce7}
+\definecolor{LightGreen}{HTML}{EEF7E1}
+\newcolumntype{A}{>{\columncolor{white}}c}
+\newcolumntype{B}{>{\columncolor{LightGreen}}c}
+\newcolumntype{C}{>{\columncolor{LightPink}}c}
+
+\newcommand{\first}[1]{\textbf{\textcolor{red}{#1}}}
+
+\newcommand{\second}[1]{\textbf{\textcolor{blue}{#1}}}
+\newcommand{\third}[1]{\textbf{\textcolor{orange}{#1}}}
+\newcommand{\LASER}{\textbf{LASER }}
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Graph Neural Networks (GNNs) are popular models for machine learning on graphs that typically follow the message-passing paradigm, whereby the feature of a node is updated recursively upon aggregating information over its neighbors. While exchanging messages over the input graph endows GNNs with a strong inductive bias, it can also make GNNs susceptible to \emph{over-squashing}, thereby preventing them from capturing long-range interactions in the given graph. To rectify this issue, {\em graph rewiring} techniques have been proposed as a means of improving information flow by altering the graph connectivity. In this work, we identify three desiderata for graph-rewiring: (i) reduce over-squashing, (ii) respect the locality of the graph, and 
+(iii) preserve the sparsity of the graph. We highlight fundamental trade-offs that occur between {\em spatial} and {\em spectral} rewiring techniques; while the former often satisfy (i) and (ii) but not (iii), the latter generally satisfy (i) and (iii) at the expense of (ii). We propose a novel rewiring framework that satisfies all of (i)--(iii) through a locality-aware sequence of rewiring operations. We then discuss a specific instance of such rewiring framework and 
+validate its effectiveness on several real-world benchmarks, showing that it either matches or significantly outperforms existing rewiring approaches.
+\end{abstract}
+
+\section{Introduction}
+Graph Neural Networks (GNNs) \citep{sperduti1994encoding, goller1996learning,gori2005new, scarselli2008graph,bruna2013spectral,defferrard2016convolutional} are widely popular types of neural networks operating over graphs. %that have been successfully applied in many scientific domains \citep{bapst2020unveiling, stokes2020deep, mirhoseini2021graph, dezoort2023graph}. 
+%
+The majority of GNN architectures act by locally propagating information across adjacent nodes of the graph and are referred to as  
+%fall into the class of 
+Message Passing Neural Networks (MPNNs) \citep{gilmer2017neural}. Since MPNNs aggregate messages over the neighbors of each node recursively at each layer, a sufficient number of layers is required for distant nodes to interact through message passing \citep{barcelo2019logical}. In general, this could lead to an explosion of information that needs to be summarized into fixed-size vectors, when the receptive field of a node grows too quickly due to the underlying graph topology. This phenomenon is known as {\bf over-squashing} \citep{alon2020bottleneck}, and it has been proved to be heavily related to topological properties of the input graph such as curvature \citep{topping2021understanding} and effective resistance \citep{black2023understanding,di2023over}.
+
+Since over-squashing is a limitation of the message-passing paradigm that originates in the topology of the input-graph, a solution to these problems is \emph{\bf graph rewiring} \citep{topping2021understanding}, in which one alters the connectivity of the graph to favor the propagation of information among poorly connected nodes. {\em Spatial rewiring} techniques often connect each node to any other node in its $k$-hop %, for some $k$,  
+\citep{bruel2022rewiring,abboud2022shortest}, or in the extreme case operate over a fully-connected graph weighted by attention -- such as for Graph-Transformers \citep{kreuzer2021rethinking, mialon2021graphit, ying2021transformers,rampavsek2022recipe}. {\em Spectral rewiring} techniques instead aim to improve the connectivity of the graph by optimizing for graph-theoretic quantities related to its expansion properties such as the spectral gap, commute time, or effective resistance \citep{arnaiz2022diffwire, karhadkar2022fosr, black2023understanding}. % Usually, this is done by improving quantities such as the Cheeger constant \citep{chung1997spectral} indirectly, for example by increasing the spectral gap %(or algebraic connectivity) '
+%of the graph. % indirectly, as computing the Cheeger constant directly becomes quickly computationally intractable. 
+
+While graph rewiring is a promising direction, it also introduces a fundamental trade-off between the preservation of the original topology and the `friendliness' of the graph to message passing. % -- quantified for instance by the diameter, the spectral gap, or the effective resistance. 
+Spatial rewiring techniques partly preserve the graph-distance information (i.e. its `{\em locality}') %induced by the grap 
+%by the graph distance 
+by only adding edges within a certain radius or %in the case of Graph-Transformers, 
+by relying on positional information. However, these methods often result in a dense computational graph that increases memory complexity and can cause issues such as over-smoothing \citep{nt2019revisiting,Oono2019,rusch2020coupled, di2022graph}. %In the extreme case of graph transformers, the original topology is ignored in the aggregation, and any notion of locality needs to be re-discovered through positional and structural encoding. 
+Conversely, spectral rewiring approaches add fewer edges according to some optimization criterion and hence better preserve the sparsity of the input graph. %as a consequence it may seem that they tend to remain more faithful to the original graph. We argue that 
+ %this may actually be not the case, since
+ \begin{figure}[!t]
+
+    \centering
+    % \includegraphics[width=0.9\textwidth]{figures/laser.png}
+    % \includesvg[width=0.9\textwidth]{figures/laser-figure.svg}
+    % \includepdf[width=0.9\textwidth]{figures/laser-figure.pdf}
+    \includegraphics[width=0.9\textwidth]{figures/laser-figure.pdf}
+    % \includegraphics[width=0.9\textwidth]{figures/laser-figure.eps}
+
+        \caption{Difference between spectral (left), spatial (middle), and \textbf{LASER} (right) rewirings in green with respect to the blue node of reference. Spectral rewirings are sparse and connect distant nodes. Spatial rewirings are able to retain local inductive biases at the cost of sparsity. \LASER remains both local and sparse by optimizing over the edges to be added.}
+        \label{fig:rewirings}
+\vspace{-15pt}
+\end{figure}
+However, these methods `maximally' destroy the locality induced by the graph since they typically insert very `long' edges among distant nodes (see Figure \ref{fig:rewirings}).
+%and in fact only remain `close' to the input topology with respect to the graph-edit distance. 
+The following natural question then arises: {\em Can we design a general graph rewiring framework that leverages the inductive bias of spatial methods but in a more edge-efficient way characteristic of spectral methods?
+}
+
+
+
+%\textcolor{red}{Perhaps mention the isomorphism issues as well?}
+
+% While graph rewiring techniques have shown promising results, they have some drawbacks. First, choosing a rewiring is a trade-off between the faithfulness to the original topology and an improved one. One, in general, must either sacrifice the inductive bias given by the graph, or more desirable `message passing-friendly' topology. Second, current graph rewiring techniques lack expressivity. For instance, two non-isomorphic graphs may be rewired to graphs that become isomorphic and therefore indistinguishable.
+
+\vspace{-5pt}
+\paragraph{Contributions and outline.}
+In this work, we address the above question by % address these issues by 
+proposing a general framework for graph-rewiring that improves the connectivity, while preserving locality and sparsity: %Our work is structured as follows:
+\begin{itemize}[leftmargin=*]
+\vspace{-5pt}
+    \item In Section \ref{sec:ideal_rewiring} we review existing rewiring approaches and classify them as either {\em spatial} or {\em spectral}, highlighting their limitations. We then provide a general list of desiderata for rewiring that amounts to (i) reducing over-squashing, and preserving both (ii) the graph-locality and (iii) its sparsity.
+    \item In Section \ref{sec:general_framework} we introduce a {\em paradigm} for rewiring that depends on arbitrary  connectivity and locality measures. We argue that in  order to satisfy (i)--(iii) above, a single rewiring is not enough, and instead propose {\em sequential rewiring}, where multiple graph snapshots are considered. 
+    % earlier snapshots only add edges among local nodes, while later ones also allow more distant nodes to exchange information. 
+    Building on \citet{karhadkar2022fosr}, we also draw an important equivalence between graph-rewiring on one side, and multi-relational GNNs and temporal-GNNs on the other. % connection to multi-relational GNNs and emphasize an important equivalence between graph-rewiring and temporal GNNs. 
+    \item In Section \ref{sec:laser_framework} we present a specific instance of the aforementioned paradigm termed \textbf{L}ocality-\textbf{A}ware \textbf{SE}quential \textbf{R}ewiring (\textbf{LASER}). Our framework leverages the distance similarly to spatial rewiring while also guaranteeing the efficiency of spectral techniques by sampling edges to add according to equivariant, optimal conditions. We show that \LASER reduces over-squashing and better preserves the locality of the graph compared to spectral rewiring techniques.
+    \item In Section \ref{sec:exp} we validate \textbf{LASER} on different tasks, attaining performance that is on par or superior to existing rewiring techniques. In particular, we present extensive ablation studies to support our claim that \textbf{LASER} is more efficient than spatial methods while being better at preserving graph-distance information in comparison to spectral approaches. % often with higher levels of sparsity.
+\end{itemize}
+
+
+
+% \begin{figure}[htbp]
+%   \centering
+%   \includesvg{figures/laser-figure.svg}
+%   \caption{svg image}
+% \end{figure}
+% \section{Background}\label{sec:background}
+
+\section{Background}
+
+\paragraph{Preliminaries on graphs.} Let $\gph = (\V, \E)$ be an undirected graph with $n$ nodes $\V$ and edges $\E$, which are encoded by the non-zero entries of the adjacency matrix $\mathbf{A}\in\R^{n\times n}$. % where $n = |\V|$ is the number of nodes. %Below, we write $\tilde{\mathbf{A}} = \mathbf{A} + \mathbf{I}$ for the adjacency of the graph augmented with self-loops.
+Let $\mathbf{D}$ be the diagonal degree matrix such that $\mathbf{D}_{vv} = d_v$. We recall that the normalized graph Laplacian $\mathbf{\Delta} = \mathbf{D}^{-1/2}(\mathbf{D}-\mathbf{A})\mathbf{D}^{-1/2}$ is a symmetric positive semi-definite operator with % Since $\mathbf{\Delta}$ is symmetric, it has real 
+eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots \leq \lambda_{n-1}$. We assume that $\gph$ is connected, so that $\lambda_1 > 0$ and %write $\lambda_1 = \lambda(\gph)$ and 
+refer to it as the %{\em algebraic connectivity} or 
+{\em spectral gap}. %of $\gph$. 
+From the Cheeger inequality, %\footnote{The Cheeger inequality links the spectral gap $\lambda(\gph)$ and the Cheeger constant $h(\gph)$ measuring the `energy' needed to disconnect the graph. Since $h(\gph)$ is NP-hard to compute, $\lambda(\gph)$ is a common proxy thereof.} 
+it follows that a larger $\lambda_1$ generally means better connectivity of $\gph$. 
+%
+We denote by $d_{\gph}(u,v)$ the shortest-path distance between the nodes $u,v$.  
+%
+We finally recall that a random walk on $\gph$ is a Markov chain on $\mathsf{V}$ with transition matrix $\mathbf{D}^{-1}\mathbf{A}$ and that %probability of moving from node $v$ to node $u$ equal to $(d(v))^{-1}$. 
+%An important property of random walks is their 
+the {\bf commute time} $\mathsf{CT}$ is defined as the expected number of steps required for a random walk to commute between two nodes. Note that the commute time $\mathsf{CT}(v,u)$ between two nodes $v$ and $u$ is proportional to their {\bf effective resistance} $\mathsf{R}(v,u)$ \citep{chandra1996electrical} as $\mathsf{CT}(v,u) = 2|\mathsf{E}|\mathsf{R}(v,u)$. % (the two quantities are often used interchangeably).
+
+%It is natural to call $\lambda(\gph)$ the algebraic connectivity as a higher $\lambda(\gph)$ roughly means that the graph is better connected.
+
+\paragraph{The message-passing paradigm.} We consider the case where each node $v$ has a feature $\mathbf{x}_{v}^{(0)} \in \R^{d}$. It is common to stack the node features into a matrix $\Xb^{(0)} \in \R^{n \times d}$ consistently with the ordering of $\mathbf{A}$. GNNs are functions defined on the featured graph that can output node, edge, or graph-level values. %$\phib: (\gph, \Xb^{(0)}) \mapsto \Xb^{(T)}$, with $T$ denoting the number of layers of the GNN and $\Xb^{(T)} \in \R^{n \times d_T}$. 
+The most common family of GNN architectures are Message Passing Neural Networks ($\MPNN$), which compute latent node representations by stacking $T$ layers of the form:
+\begin{align}\label{eq:mpnn_update}
+    \mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}(\mathbf{x}_{v}^{(t-1)},\mathsf{a}^{(t)}(\{\!\!\{\mathbf{x}_{u}^{(t-1)}: (v,u)\in \E\}\!\!\})),
+\end{align}
+\noindent for $t = 1,\hdots, T$, where  $\mathsf{a}^{(t)}$ is some permutation-invariant {\em aggregation} function, while $\mathsf{up}^{(t)}$ {\em updates} the node's current state with aggregated messages from its neighbors.
+
+
+\paragraph{Over-squashing and long-range interactions.} While the message-passing paradigm usually constitutes a strong inductive bias, it is problematic for capturing long-range interactions due to a phenomenon known as {\em over-squashing}. %One issue is characterized by over-squashing. 
+Given two nodes $u, v$ at distance $d_{\gph}(u, v) = r$, an $\MPNN$ will require $T \geq r$ layers to exchange messages between them. When the receptive fields of the nodes expand too quickly (due to volume growth properties characteristic of many real-world scale free graphs), the MPNN needs to aggregate a large number of messages into fixed-size vectors, leading to some corruption of the information \citep{alon2020bottleneck}. This effect on the propagation of information has been related to the Jacobian of node features decaying exponentially with $r$ %the upper bound on the Jacobian  $\|\partial\mathbf{x}_{v}^{(T)}/ \partial\mathbf{x}_{u}^{(0)}\|$ decaying exponentially with $r$ 
+\citep{topping2021understanding}. More recently, it was shown that the Jacobian is affected by topological properties such as effective resistance \citep{black2023understanding,di2023over}. % which can then be taken as indicators of whether and where over-squashing may manifest itself.  %black2023understanding, di2023over}. Over-squashing is particularly relevant when the graph presents `bottlenecks', which may be identified via edges that have high negative curvature \cite{topping2021understanding}.
+
+\section{Existing graph-rewiring approaches and their limitations}\label{sec:ideal_rewiring}
+
+The main principle behind graph rewiring in GNNs is to decouple the input graph $\gph$ from the computational one. Namely, {\em rewiring} consists of applying an operation $\mathcal{R}$ to 
+$\gph = (\mathsf{V}, \mathsf{E})$, thereby producing a new graph $\mathcal{R}(\gph) = (\mathsf{V},\mathcal{R}(\mathsf{E}))$ on the same vertices but with altered connectivity. We begin by generalizing the  MPNN formalism to account for the rewiring operation $\mathcal{R}$ as follows:
+\begin{equation}\label{eq:mpnn_rewiring}
+    \mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}(\mathbf{x}_{v}^{(t-1)},\mathsf{a}_\gph^{(t)}(\{\!\!\{\mathbf{x}_{u}^{(t-1)}: (v,u)\in \E\}\!\!\}), \mathsf{a}_{\mathcal{R}(\gph)}^{(t)}(\{\!\!\{\mathbf{x}_{u}^{(t-1)}: (v,u)\in \mathcal{R}(\E)\}\!\!\})),
+\end{equation}
+where a node feature is now updated based on information collected over the input graph $\gph$ and the rewired one $\mathcal{R}(\gph)$, through (potentially) independent aggregation maps. Many rewiring-based GNN models simply exchange messages over $\mathcal{R}(\gph)$, i.e., they take $\mathsf{a}_\gph = 0$. 
+%We now review existing rewiring methods. % describing their limitations and finally, providing a list of desiderata that a rewiring strategy should satisfy. 
+The idea of rewiring 
+the graph is implicit to many GNNs, from using Cayley graphs \citep{deac2022expander}, to virtual nodes \citep{cai2023connection} and cellular complexes \citep{bodnar2021weisfeilercell}. Other works have studied the implications of {\em directly} changing the connectivity of the graph to de-noise it \citep{klicpera2019diffusion}, or to explore multi-hop aggregations \citep{abu2019mixhop, ma2020path, wang2020multi, nikolentzos2020k}. Ever since over-squashing was identified as an issue in MPNNs \citep{alon2020bottleneck}, several novel rewiring approaches have been proposed to mitigate this phenomenon. 
+
+%We distinguishes two classes, and later discuss main limitations thereof.
+
+\paragraph{Related work on spatial rewiring.} %Over-squashing stems from the fact that distant nodes $v,u$ can only exchange information through intermediate nodes traversed along each path joining $v$ and $u$. In light of this,
+%\avtodo{Are there not approaches that would fall under "spatial rewiring" but judiciously choose which connections to add? If so, we might want not want to say "every" other node here.}
+
+Most spatial rewiring models attempt to alleviate over-squashing by adding direct connections between a node and every other node within a certain distance \citep{bruel2022rewiring, abboud2022shortest} --- with (dense) Graph Transformers being the extreme case \citep{ying2021transformers, mialon2021graphit, kreuzer2021rethinking, rampavsek2022recipe}.  These frameworks follow \eqref{eq:mpnn_rewiring}, where $\mathsf{a}_\gph$ and $\mathsf{a}_{\mathcal{R}(\gph)}$ are learned independently, or the former is zero while the second implements attention over a dense graph. %the latter separates edges originally in $\gph$ from those that have been added, via attention.
+%The GNN framework then often associates their own features to the newly added edges, or learn independent weights for the messages being aggregated over distant nodes
+ %\textcolor{red}{DREW}. 
+Spatial rewiring reduces over-squashing by creating new paths in the graph, thus decreasing its diameter or pairwise effective resistances between nodes.  %in fact, adding edges decreases the effective resistance, which we know to be correlated to over-squashing \citep{black2023understanding,di2023over}. 
+The rewired graph still preserves some information afforded by the original topology in the form of distance-aware aggregations in multi-hop GNNs, or positional encoding in Graph-Transformers. A drawback of this approach, however, is that we end up compromising the sparsity of the graph, thereby impacting efficiency. Thus, a natural question is whether {\em some of these new connections introduced by spatial rewiring methods may be removed without affecting the improved connectivity.} 
+
+We also mention spatial rewiring methods based on improving the curvature of $\gph$ by only adding edges among nodes at distance at most two \citep{topping2021understanding, nguyen2022revisiting}. Accordingly, these models may fail to significantly improve the effective resistance of the graph unless a large number of local edges is added.
+%redundant or even harmful -- in fact dense graphs are more sensitive to over-smoothing unless additional mechanisms such as delay are being deployed \textcolor{red}{drew}.   
+
+%including GNNs that aggregate information separately across the distance-based orbits \citep{abboud2022shortest} \textcolor{red}{add DRew}, and Graph-Transformers \citep{ying2021transformers, mialon2021graphit, kreuzer2021rethinking, rampavsek2022recipe}.
+
+\begin{wraptable}{r}{8.3cm}
+\vspace{-5mm}
+\caption{Properties of different types of rewirings.\vspace{-5mm}}\label{tab:checkmarks}
+\begin{tabular}{cccc}\\
+Property & Spatial & Spectral & \LASER \\\midrule
+Reduce over-squashing & \cmark & \cmark & \cmark \\  \midrule
+Preserve locality &\cmark & \xmark & \cmark \\  \midrule
+Preserve sparsity & \xmark & \cmark & \cmark\\  \bottomrule
+\end{tabular}\vspace{-3mm}
+\end{wraptable} 
+
+\paragraph{Related work on spectral rewiring methods.}
+A different class of approaches consist of rewiring the graph based on a global \emph{spectral} quantity rather than using spatial distance. %associated with the expansion properties of a graph and hence its overall `connectivity'. 
+Two prototypical measures that have been explored in this regard are spectral gap \citep{karhadkar2022fosr} and effective resistance  \citep{  arnaiz2022diffwire, banerjee2022oversquashing, black2023understanding}. It has recently been shown that a node $v$ is mostly insensitive to information contained at nodes that have high effective resistance \citep{black2023understanding,di2023over}; accordingly, spectral rewiring approaches alleviate over-squashing by reducing the effective resistance. Moreover, they achieve that adding only a few edges by optimally increasing the chosen measure of connectivity, hence maintaining the sparsity level of the input graph. However, the edges that are added in the graph typically end up connecting very distant nodes (since the distance between two nodes is at least as large as their effective resistance), hence {\em rapidly} diminishing the role of {\em locality} provided by distance on the original graph. %Even if in \eqref{eq:mpnn_rewiring} we keep track of the original graph-topology when aggregating messages, we argue that it will be hard for the GNN to disentangle local information collected over the original edges, and the messages that are instead propagated from a few, very distant nodes. 
+
+%Moreover, differently from spatial approaches, in this case only a few nodes benefit from the addition of new edges making it more difficult for the underlying GNN to pick up meaningful signals to associate with them.
+    
+\paragraph{An ideal rewiring approach.} Given a graph $\gph$, an ideal rewiring map $\mathcal{R}$ should satisfy the following desiderata: (i) {\bf Reduce over-squashing:} $\mathcal{R}$ increases the overall connectivity of $\gph$ --- according to some topological measure --- in order to alleviate over-squashing; (ii) {\bf Preserve locality:} $\mathcal{R}$ preserves some inductive bias afforded by $\gph$, e.g., nodes that are ``distant'' should be kept separate from nodes that are closer in the GNN architecture; (iii) {\bf Preserve sparsity:} $\mathcal{R}$ approximately preserves the sparsity of $\gph$, ideally adding a number of edges linear in the number of nodes. % i.e. such that  %it approximately preserves the sparsity of the input-graph -- or more precisely 
+%$\|\mathbf{A}_{\mathcal{R}(\gph)} - \mathbf{A}_{\gph}\| \leq \mathcal{O}(n)$. 
+While condition (i) represents the main rationale for rewiring the input graph, criteria (ii) and (iii) guarantee that the rewiring is efficient and do not allow the role played by the structural information in the input graph to degrade too much. As discussed above and summarized in Table \ref{tab:checkmarks}, spatial methods typically satisfy only (i) and (ii), but not (iii), while spectral-methods meet (i) and (iii) but fail (ii). 
+%summarizes the relationship between different types of rewiring.
+
+
+\textbf{Main idea.} Our main contribution is a novel paradigm for graph rewiring that satisfies criteria (i)--(iii), leveraging a key principle: instead of considering a {\em single} rewired graph $\mathcal{R}(\gph)$, we use a {\em sequence} of rewired graphs $\{\mathcal{R}_\ell(\gph)\}_\ell$ such that for smaller $\ell$, the new edges added in $\mathcal{R}_\ell(\gph)$ are more `local' (with respect to the input graph $\gph$) and sampled based on optimizing a connectivity measure. %We then study an instance of this paradigm, giving rise to the {\bf L}ocality {\bf A}ware {\bf SE}quential {\bf R}ewiring ({\bf LASER}) framework.
+
+
+%We argue that in order to achieve the list of desiderata, instead of considering a single rewired graph $\mathcal{R}(\gph)$, we should account for a sequence (or trajectory) of rewired graphs $\{\mathcal{R}_k(\gph)\}_k$. In this way, while the choice of $\mathcal{R}_k$ is motivated by (i), we can {\em constrain} the new edges being added among nodes tha $k < k'$ then $\mathcal{R}_k(\gph)$ is more similar to $\gph$ than $\mathcal{R}_k'(\gph)$, meaning that newly added edges in $\mathcal{R}_k(\gph)$ have
+
+
+%-- and \textbf{consistent} meaning that given two graphs $\gph$ and $\gph'$ the rewirings modify the topology in a consistent manner. This is important as a rewiring may add a lot of noise to the training process if this is not the case. Figure \ref{fig:pitfall} highlights this issue, in which two rewirings $\mathcal{R}(\gph)$ and $\mathcal{R}(\gph')$ have drastically different behaviour given different input graphs. This highlights the fact that rewiring based on effective resistance is not consistent as it alters the topology of two graphs in a very different way.
+
+
+%Many works have proposed to alleviate over-squashing through rewiring operations \cite{topping2021understanding, arnaiz2022diffwire, deac2022expander, karhadkar2022fosr, nguyen2022revisiting,  black2023understanding}. One can think of rewiring as a map $\mathcal{R}: \R^{n \times n} \to \R^{n \times n}$ such that $\mathcal{R}(\gph)$ exhibits some more favourable properties compared to the original $\gph$. 
+%These techniques may be classified in two separate approaches: spatial and spectral rewirings \cite{digiovanni2023oversquashing}. 
+%\emph{Spatial rewiring} techniques \cite{digiovanni2023oversquashing} such as multi-hop GNNs or Graph-Transformers tend to connect all pairs of nodes within a certain distance and hence significantly decrease %quantities such as 
+% the diameter of the graph, i.e., $\mathsf{diam}(\mathcal{R}(\gph)) \ll \mathsf{diam}(\gph)$. \emph{Spectral rewiring} techniques instead aim to improve spectral connectivity quantities, often leading to more `surgical' edge additions among far-away nodes. One such quantity is known as the \emph{Cheeger constant} $h(\gph)$ that measures the energy required to separate a graph into two distinct communities. While computing the Cheeger constant directly quickly becomes computationally intractable as the graph grows, one can attempt to improves its proxy, the algebraic connectivity $\lambda(\gph)$, amounting to computing the first non-zero eigenvalue. Since the two quantities are related through the Cheeger inequality,  
+% $
+% 2h(\gph)\leq \lambda(\gph) \leq h^2(\gph)/2d_{\mathrm{max}}(\gph),
+% $
+% %establishes $h(\gph)$ and $\lambda(\gph)$ are intimately related via the . 
+% %
+% %In other words, 
+% spectral graph rewiring techniques that improve the spectral gap,   $\lambda(\mathcal{R}(\gph)) > \lambda(\gph)$, also improve the Cheeger constant, $h(\mathcal{R}(\gph)) > h(\gph)$.
+
+
+\section{A general paradigm: dynamic rewiring with local constraints}\label{sec:general_framework}
+
+In this Section, we discuss a general graph-rewiring paradigm that can enhance any MPNN and satisfies the criteria (i)--(iii) described above. 
+%In light of the analysis on the limitations of existing rewiring strategies, we argue that the only way of accommodating the conditions (i)--(iii) consists in replacing the single rewiring $\mathcal{R}$ with a sequence of rewiring $\{\mathcal{R}_\ell\}$. Namely, 
+Given a graph $\gph$, consider a trajectory of rewiring operations $\mathcal{R}_\ell$, starting at $\gph_0 = \gph$, of the form: 
+%and ending at an `ideal' graph $\gph_*$:
+\begin{equation}\label{eq:sequence_rewiring}
+\gph = \gph_0 \xhookrightarrow[]{\mathcal{R}_1} \gph_1 \xhookrightarrow[]{\mathcal{R}_2} \cdots \xhookrightarrow[]{\mathcal{R}_{L}} \gph_L.
+\end{equation}
+Since we think of $\gph_\ell$ as the input graph evolved along a dynamical process for $\ell$ iterations, we refer to $\gph_\ell$ as the $\ell$-{\em snapshot}. % at time (step) $\ell$. 
+For the sake of simplicity, we assume $\mathcal{R}_\ell = \mathcal{R}$, though it is straightforward to extend the discussion below to the more general case. In order to account for the multiple snapshots, we modify the layer form in \eqref{eq:mpnn_rewiring} as follows:
+\begin{equation}\label{eq:sequence_rewiring_mpnn}
+    \mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}\Big(\mathbf{x}_{v}^{(t-1)},\Big(\mathsf{a}_{\gph_\ell}^{(t)}(\{\!\!\{\mathbf{x}_{u}^{(t-1)}: (v,u)\in \E_\ell\}\!\!\})\Big)_{0\leq\ell\leq L}\Big).
+\end{equation}
+Below we describe a rewiring paradigm based on an arbitrary \textbf{\em connectivity measure} $\mu: \V \times \V \to \R$ and \textbf{\em locality measure} $\nu: \V \times \V \to \mathbb{R}$. The measure $\mu$ can be any topological quantity that captures how easily different pairs of nodes can communicate in a graph, while the measure $\nu$ is any quantity that penalizes interactions among nodes that are `distant' according to some metric on the input graph. In a nutshell, our choice of $\mathcal{R}$ {\em samples edges to add according to the constraint $\nu$, prioritizing those that maximally benefit the measure $\mu$.} By keeping this generality, we provide a universal approach to do graph-rewiring that can be of interest independently of the specific choices of $\mu$ and $\nu$.
+%
+
+
+ %, and thus the robustness of the graph topology to over-squashing as per \cite{black2023understanding,di2023over}.
+%
+%The locality measure instead is meant to favor connecting nodes that are closer in the input graph. %We first describe an approach to graph-rewiring that works with any choice of connectivity and locality measures; then, we will pick up two specific measures $\mu$ and $\delta$ and describe a specific instance of such framework termed \textbf{LASER}.
+\paragraph{Improving connectivity while preserving locality.} The first property we demand of the rewiring sequence is that %the chosen connectivity measure increases along the different snapshots, i.e., 
+for all nodes $v,u$, we have $\mu_{\gph_{\ell+1}}(v,u) \geq \mu_{\gph_{\ell}}(v,u)$ and that for {\em some} nodes, the inequality is {\em strict}. %A simple way to implement this procedure is to define $\mathcal{R}$ such that an edge $(v,u)$ belongs to $\E_{\ell}$ if the connectivity measure of $(v,u)$ is sufficiently small. 
+%Since the connectivity measure $\mu$ is usually a global quantity, i
+If we connect all pairs of nodes with low $\mu$-value, however, we might end up adding non-local edges across distant nodes, hence quickly corrupting the %partial ordering provided by 
+locality of $\gph$. To avoid this, %preserve the locality of the graph encoded in the measure $\nu$, we then
+we {\em constrain} each rewiring by requiring the measure $\nu$ to take values in a certain range $\mathcal{I}_\ell\subset[0,\infty)$: an edge $(v,u)$ appears in the $\ell$-snapshot (for $1\leq \ell \leq L$) according to the following rule:
+\begin{equation}\label{eq:local_constraint}
+(v,u)\in \mathsf{E}_{\ell} \,\, \text{if} \,\, \Big(\mu_{\gph_0}(v,u) < \epsilon \,\,\, \mathrm{and} \,\,\, \nu_{\gph_0}(v,u)\in\mathcal{I}_{\ell} \Big) \,\,\,  \mathrm{or} \,\,\, (v,u)\in\mathsf{E}_{\ell-1}. 
+\end{equation}
+To make the rewiring more efficient, the connectivity and locality measures are computed {\em once} over the input graph $\gph_0$. Since the edges to be added connect nodes with low $\mu$-values, the rewiring makes the graphs $\gph_\ell$ friendlier to message-passing as $\ell$ grows. Moreover, by taking increasing ranges of values for the intervals $\mathcal{I}_{\ell}$, we make sure that new edges connect distant nodes, as specified by $\nu$, only at later snapshots. %with respect to the input graph topology. 
+Sequential rewiring allows us to interpolate between the given graph and one with better connectivity, creating intermediate snapshots that {\em progressively} add non-local edges. By accounting for all the snapshots $\gph_\ell$ in \eqref{eq:mpnn_rewiring}, the GNN can access both the input graph, and more connected ones, %and an increasingly better sequence of message-passing templates %$\gph_{\ell}$ so that nodes $v,u$ that are distant, i.e. such that $\delta(v,u)$ is large, can at most interact directly only at the later snapshots. In particular, 
+%through the different aggregations maps $\mathsf{a}_{\gph_\ell}$, %the GNN is endowed with the ability to separate local contributions from non-local ones,
+at a much {\em finer level} than `instantaneous' rewirings, defined next. 
+
+%To justify this last point, we next draw an analogy between graph-rewiring frameworks and multi-relational GNNs. 
+
+% namely:
+% \begin{equation}\label{eq:improved_mu}
+% (v,u)\in \mathsf{E}_{\ell} \,\, \text{if} \,\, \mu_{\gph_0}(v,u) < \epsilon \,\,\, \mathrm{or} \,\,\,  (v,u)\in\mathsf{E}_{\ell-1},
+% \end{equation}
+% recursively for $1\leq \ell \leq L$ and for some threshold $\epsilon > 0$. This way, we guarantee that the over-squashing phenomenon is progressively alleviated as $\ell$ increases, and that later snapshots $\gph_\ell$ are friendlier to the propagation of information across distant nodes. However, the more connections we add to mitigate over-squashing, the more we change the input-topology and risk of losing information carried by it. To compensate for such effect, we explain why adopting a sequential approach allows us to retain the locality-bias afforded by the graph-topology better.
+
+
+\paragraph{Instantaneous vs sequential rewiring.} As discussed in Section \ref{sec:ideal_rewiring}, existing rewiring techniques --- particularly those of the spectral type --- often consider the simpler trajectory $\gph_0 \xhookrightarrow{} \mathcal{R}(\gph_0):=\gph_1$ (``instantaneous rewiring'').  
+The main drawback of this approach is that in order to improve the connectivity in a {\em single snapshot}, the rewiring map $\mathcal{R}$ is bound to either violate the locality constraint $\nu$, by adding edges between very distant nodes, or compromise the graph-sparsity by adding a large volume of (local) edges. In fact, if that were not the case, we would still be severely affected by over-squashing.  Conversely, sequential rewiring allows a {\em smoother} evolution from the input graph $\gph_0$ to a configuration $\gph_L$ which is more robust to over-squashing, so that we can more easily preserve the inductive bias afforded by the topology via local constraints under \eqref{eq:local_constraint}.
+%the rewiring operation via $\delta$, which we explain next. 
+
+
+
+\paragraph{An equivalent perspective: multi-relational GNNs.}
+In \citet{karhadkar2022fosr} the notion of relational rewiring was introduced for spectral methods. We expand upon this idea, by noticing that the general, sequential rewiring paradigm described above can be instantiated as a family of multi-relational GNNs
+\citep{battaglia2018relational, barcelo2022weisfeiler}. To this aim, consider a slightly more specific instance of \eqref{eq:sequence_rewiring_mpnn}, which extends common MPNN frameworks:
+\begin{equation}\label{eq:multi_gnn_1}
+\mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}\Big(\mathbf{x}_{v}^{(t-1)},\sum_{\ell = 0}^{L}\,\, \sum_{\substack{u:\\(v,u)\in\E_\ell}}\psi_{\ell}^{(t)}(\mathbf{x}_v^{(t-1)},\mathbf{x}_u^{(t-1)})\Big),
+\end{equation}
+where $\psi_\ell^{(t)}$ are learnable message functions depending on both the layer $t$ and the snapshot $\ell$. It suffices now to note that each edge set $\mathsf{E}_\ell$, originated from the rewiring sequence, can be given its own {\em relation}, so that \eqref{eq:multi_gnn_1} is indeed equivalent to the multi-relation GNN framework of \citet{battaglia2018relational}. In fact, since we consider rewiring operations that only add edges to improve the connectivity, we can rearrange the terms and rename the update and message-function maps, so that we aggregate over existing edges once, and separately over the newly added edges i.e. the set $\E_{\ell}\setminus \E_{\ell-1}$. Namely, we can rewrite \eqref{eq:multi_gnn_1} as
+\begin{equation}\label{eq:multi_gnn_2}
+   \mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}\Big(\mathbf{x}_{v}^{(t-1)},\sum_{u:\,(v,u)\in\E}\psi_{0}^{(t)}(\mathbf{x}_v^{(t-1)},\mathbf{x}_u^{(t-1)}) + \sum_{\ell = 1}^{L}\sum_{\substack{u: \\(v,u)\in\E_{\ell}\setminus\E_{\ell-1}}}\psi_\ell^{(t)}(\mathbf{x}_v^{(t-1)},\mathbf{x}_u^{(t-1)})\Big). 
+\end{equation}
+Accordingly, we see how our choice of sequential rewiring can be interpreted as an {\em extension} of relational rewiring in \citet{karhadkar2022fosr}, where $L=1$. Differently from \citet{karhadkar2022fosr}, the multiple relations $\ell\geq 1$ allow us to add connections over the graph among increasingly less local nodes, meaning that the edge-type $\ell$ is now associated to a notion of locality specified by the choice of the constraint $\nu(v,u)\in\mathcal{I}_\ell$. %The formalism could also be extended to more general aggregations beyond the sum. 
+We finally observe that the connection between graph-rewiring and relational GNNs is not surprising once we think of the sequence of rewiring in \eqref{eq:sequence_rewiring} as snapshots of a {\em temporal dynamics} over the graph connectivity. Differently from the setting of {\em temporal GNNs} \citep{rossi2020temporal} though, here the evolution of the connectivity over time is guided by our rewiring procedure rather than by an intrinsic law on the data. In fact, \citet{gao2022equivalence} studied the equivalence between temporal GNNs and static multi-relational GNNs, which further motivate the analogy discussed above.
+
+\section{Locality-Aware SEquential Rewiring: the LASER framework}\label{sec:laser_framework}
+
+We consider an instance of the outlined sequential rewiring paradigm, giving rise to the \textbf{LASER} framework used in our experiments. We show that \textbf{LASER} (i) mitigates over-squashing, (ii) preserves the inductive bias provided by the shortest-walk distance on $\gph$ better than spectral approaches, while (iii) being sparser than spatial-rewiring methods. %As typical to rewiring approaches, our framework affects the template used to exchange messages and hence
+%{\em extends any existing} $\MPNN$s. %First, we describe our choices of locality measure $\delta$ and of connectivity measure $\mu$. 
+ 
+\paragraph{The choice of locality.} We choose $\nu$ to be %natural notion of locality is that induced by 
+the {\em shortest-walk distance} $d_{\gph}$. In particular, if in \eqref{eq:local_constraint} we choose intervals $\mathcal{I}_\ell = \delta_{\ell+1}$, then at the $\ell$-snapshot $\gph_\ell$ we only add edges among nodes at distance {\em exactly} $\ell+1$. Our constraints prevent distant nodes from interacting at earlier snapshots and allows the GNN to learn message functions $\psi_\ell$ in \eqref{eq:multi_gnn_2} for each hop level $\ell$. % hence allowing the GNN to leverage the inductive bias afforded by the graph-distance more easily. 
+%In fact, if we did not have locality constraints and only considered a single relational type, the GNN would only be able to tell apart original edges from new ones, without building a hierarchical approach (edges among increasingly distant nodes).
+If we choose $\E_{\ell}\setminus\E_{\ell-1}$ to be the set of {\em all} edges connecting nodes whose distance is {\em exactly} $\ell + 1$, then \eqref{eq:multi_gnn_2} is equivalent to the $L$-hop MPNN class studied in \citet{feng2022powerful}. This way though, we %increase the number of messages to be exchanged significantly, 
+generally lose the sparsity of $\gph$ and increase the risk of over-smoothing. Accordingly, we propose to only add edges that satisfy the locality constraint and have connectivity measure `small' so that their addition is optimal for reducing over-squashing. %We discuss next the choice of the connectivity measure. % and the criterion adopted for adding edges. 
+
+%; throughout this work then, we focus on the setting where $\delta(v,u)$ is taken to be $d(v,u)$.
+
+%Once we are provided with a choice of $\mu$ that measures the robustness of the graph-topology to the over-squashing phenomenon, and we fix the locality measure to be the shortest-walk distance, we propose a rewiring strategy that {\em samples edges to add as specified by the locality constraint, prioritizing those that maximally benefit the connectivity measure.} Before we expand on how our rewiring framework works, we discuss the choice of the connectivity measure $\mu$.
+
+
+\paragraph{The choice of the connectivity measure $\mu$.} Although edge curvature or effective resistance $\mathsf{R}$ are related to over-squashing  \citep{topping2021understanding,black2023understanding,di2023over}, % we know that edge curvature or effective resistance are related to over-squashing and could hence inform our choice of the connectivity measure. %plausible candidates for the connectivity measure $\mu$, since increasing the former or reducing the latter, have theoretical guarantees to help mitigate over-squashing. 
+%However, 
+ computing these metrics incur high complexity -- $O(|\mathsf{E}|d_{\mathrm{max}}^2)$  for the curvature and $O(n^3)$ for $\mathsf{R}$. Because of that, we propose a more efficient connectivity measure: % $\mu_k$, % based on the powers of the adjacency matrix with added self-loops: 
+\begin{equation}\label{eq:mu_k}
+\mu_k(v, u) := (\tilde{\mathbf{A}}^k)_{vu}, \quad \tilde{\mathbf{A}} := \mathbf{A} + \mathbf{I}.
+\end{equation}
+Because of the self-loops, the entry $(\tilde{\mathbf{A}}^k)_{vu}$ equals the number of walks from $v$ to $u$ of length {\em at most} $k$. 
+%, hence including walks of length smaller than $k$ too. 
+Once we fix a value $k$, if $\mu_k(v,u)$ is large, then the two nodes $v,u$ have multiple alternative routes to exchange information (up to scale $k$) and would usually have small effective resistance. In particular, according to \citet[Theorem 4.1]{di2023over}, we know that the number of walks among two nodes  is a {\em proxy} for how sensitive a pair of nodes is to over-squashing. 
+
+\paragraph{LASER focus.} We can now describe our framework. Given a node $v$ and a snapshot $\gph_\ell$, we consider the set of nodes at distance exactly $\ell+1$ from $v$, which we denote by $\mathcal{N}_{\ell+1}(v)$. We introduce a global parameter $\rho\in (0,1]$ and add edges (with relation type $\ell$ as per \eqref{eq:multi_gnn_2}) among $v$ and the fraction $\rho$ of nodes in $\mathcal{N}_{\ell+1}(v)$ with the  lowest connectivity score -- if this fraction is smaller than one, then we round it to one. This way, we end up adding only a percentage $\rho$ of the edges that a normal multi-hop GNNs would have, but we do so by {\em prioritizing those edges that improve the connectivity measure the most}. To simplify the notations, we let $
+\mathcal{N}^\rho_{\ell+1}(v)\subset \mathcal{N}_{\ell+1}(v)$, be the $\rho$-fraction of nodes at distance $\ell+1$ from $v$, where $\mu_k$ in \eqref{eq:mu_k} takes on the lowest values. %Putting all the ingredients together then, 
+We express the layer-update of \textbf{LASER} as
+\begin{equation}
+\mathbf{x}_{v}^{(t)} = \mathsf{up}^{(t)}\Big(\mathbf{x}_{v}^{(t-1)},\sum_{u:\,(v,u)\in\E}\psi_{0}^{(t)}(\mathbf{x}_v^{(t-1)},\mathbf{x}_u^{(t-1)}) + \sum_{\ell = 1}^{L}\,\, \sum_{u\in\mathcal{N}^\rho_{\ell+1}(v)}\psi_\ell^{(t)}(\mathbf{x}_v^{(t-1)},\mathbf{x}_u^{(t-1)})\Big).
+     \label{eq:laser-update}
+\end{equation}
+We note that when $\rho=0$, equation~(\ref{eq:laser-update}) reduces to a standard MPNN on the input graph, while for $\rho=1$ we recover multi-relational $L$-hop MPNNs  \citep{feng2022powerful}. Although the framework encompasses different choices of the message-functions $\psi_\ell$, in the following we focus on the \textbf{LASER}-GCN variant, whose update equation is reported in Appendix (Section \ref{app:sec:theory}). 
+
+% \paragraph{LASER satisfies the rewiring  desiderata.} 
+
+We now show that the \textbf{LASER} framework satisfies the criteria (i)--(iii)  introduced in Section \ref{sec:ideal_rewiring}. %First, we note that it is straightforward to prove that connectivity improves thanks to the rewiring and hence over-squashing is alleviated, as desired in (i). In fact, the addition of edges among nodes at distance $\ell$ reduces the effective resistance of the graph \citep{chandra1996electrical} and its diameter, as argued in \citep{abboud2022shortest}. More specifically, 
+Let $
+\mathbf{J}^{(r)}(v,u) := \partial \mathbf{x}_v^{(r)}/\partial \mathbf{x}_u^{(0)}$
+be the Jacobian of features after $r$ layers of GCN on $\gph$, and similarly we let $\tilde{\mathbf{J}}^{(r)}(v,u)$ be the Jacobian of features after $r$ layers of \textbf{LASER}-GCN in \eqref{eq:laser-GCN}. In the following, we take the expectation with respect to the Bernoulli variable $\mathsf{ReLU}'$ which is assumed to have probability of success $\rho$ for all paths in the computational graph as in \citet{xu2018representation, di2023over}. We recall that given $i\in\mathsf{V}$ and $1\leq \ell\leq L$, $d_{i,\ell}$ enters \eqref{eq:laser-GCN}. %, and assume that the derivative $\mathsf{ReLU}$ in \eqref{eq:laser-GCN} is a Bernoulli variable such that all paths in the computational graph are activated with probability of success $\rho$.
+
+\begin{proposition}
+Let $v,u\in\mathsf{V}$ with $d_\gph(v,u) = r$, and assume that there exists a single path of length $r$ connecting $v$ and $u$.
+Assume that \textbf{LASER} adds an edge between $v$ and some node $j$ belonging to the path of length $r$ connecting $v$ to $u$, with $d_\gph(v,j) = \ell < r$. Then for all $m\leq r$, %in expectation over the Bernoulli variable $\mathsf{ReLU}'$, 
+we have
+\[
+\|\mathbb{E}[\tilde{\mathbf{J}}^{(r-\ell+1)}(v,u)]\|\geq \frac{(d_{\mathrm{min}})^{\ell}}{\sqrt{d_{v,\ell-1}d_{j,\ell-1}}} \|\mathbb{E}[\mathbf{J}^{(m)}(v,u)]\|.
+\]
+%\noindent with $d_{v,\ell-1},d_{j,\ell-1}$ entering \eqref{eq:laser-GCN}.
+\end{proposition}
+The result is not surprising and shows that in general, the \textbf{LASER}-rewiring can improve the Jacobian sensitivity significantly and hence alleviates over-squashing, satisfying desideratum (i). % In fact,  adding edges decrease the total effective resistance of the graph, which is related to over-squashing \citep{black2023understanding}.
+Next, we validate that the effects of the local constraints when compared to unconstrained, global spectral methods. % typically allow the sequential rewiring to retain more information contained in the input graph, as opposed to spectral-rewiring techniques. 
+Below, we let $\mathcal{D}_\gph$ be the {\em matrix of pairwise distances} associated with the graph $\gph$, i.e. $(\mathcal{D}_\gph)_{vu} = d_\gph(v,u)$. We propose to investigate $\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)}\|_F$, where $\|\cdot\|_F$ is the Frobenius norm and $\mathcal{R}(\gph)$ is either a baseline spectral rewiring, or our \textbf{LASER}-framework. We treat this quantity as a proxy for how well a rewiring framework is able to preserve the inductive bias given by the input graph. In fact, for many graphs (including molecular-type with small average degree), spectral rewirings incur a larger Frobenius deviation even if they add fewer edges, since these edges typically connect very distant nodes in the graph. To this aim, we show a setting where \textbf{LASER} preserves more of the locality inductive bias than spectral-based methods provided we choose the factor $\rho$ small enough. Below, we focus on a case that, according to \cite{di2023over,black2023understanding}, we know to be a worst-case scenario for over-squashing considering that the commute time scales cubically in the number of nodes. Put differently, the graph below represents a prototypical case of `bottleneck' encountered when information has to travel from the end of the chain to the clique. % We state the following result informally, and point to the Appendix (Section \ref{app:sec:theory}) for a more precise statement. We show that for many graphs (including molecular-type with small average degree), spectral rewirings incur a larger Frobenius deviation even if they add fewer edges, since these edges typically connect very distant nodes in the graph.
+
+\begin{proposition}\label{prop:frob} Let $\mathsf{G}$ be a `lollipop' graph composed of a chain of length $L$ attached to a clique of size $n$ sufficiently large. Consider a spectral rewiring $\mathcal{R}$ which adds an edge between nodes with the highest effective resistance. We can choose the factor $\rho \in (0,1)$ as a function of $L$ so that \LASER with a single snapshot, on average, adds a number of edges that guarantees:
+\[
+\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} \geq \|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F}.
+\]
+% Next, we validate that the local constraints typically allow the sequential rewiring to retain more information contained in the input graph, as opposed to spectral-rewiring techniques. Below, we let $\mathcal{D}_\gph$ be the {\em matrix of pairwise distances} associated with the graph $\gph$, i.e. $(\mathcal{D}_\gph)_{vu} = d_\gph(v,u)$. We propose to investigate $\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)}\|_F$, where $\|\cdot\|_F$ is the Frobenius norm and $\mathcal{R}(\gph)$ is either a baseline spectral rewiring, or our \textbf{LASER}-framework. We treat this quantity as a proxy for how well a rewiring framework is able to preserve the graph-information.  We state the following result informally, and point to the Appendix (Section \ref{app:sec:theory}) for a more precise statement. We show that for many graphs (including molecular-type with small average degree), spectral rewirings incur a larger Frobenius deviation even if they add fewer edges, since these edges typically connect very distant nodes in the graph.
+
+% \begin{proposition}[Informal]\label{prop:frob} Given a global, effective resistance-based rewiring $\mathcal{R}$ as in \citet{black2023understanding}, and the maximal range $L$ in \eqref{eq:laser-GCN}, there exists a family of graphs $\mathcal{G}$ such that for any $\gph\in\mathcal{G}$, we obtain
+% \[
+%  \|\mathcal{D}_\gph - \mathcal{D}_{\textbf{LASER}}\|_F < \|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)}\|_F.
+% \]
+%even if $\mathcal{R}(\gph)$ consists of a single edge-addition.
+%There exist $L$ and family of graphs $\gph$, such that spectral rewiring methods result in graphs $\gph'$ satisfying  $||\mathbf{S}_{\gph'} - \mathbf{S}_{\gph}|| \gg ||\mathbf{S}_{\oplus_{\ell}\gph_\ell} - \mathbf{S}_{\gph}||$.
+\end{proposition}
+
+We refer to the Appendix (Section \ref{app:sec:theory}) for an explicit characterization on how large $n$ needs to be depending on $L$ and the proofs of the statements stated above. Finally, as desired in (iii), we observe that compared to dense multi-hop GNNs, LASER is more efficient since it only adds a fraction $\rho$ of edges for each node $v$ and each orbit-level $\mathcal{N}_{\ell+1}(v)$. In fact, for many sparse graphs (such as molecular ones) the model ends up adding a number of edges proportional to the number of nodes (see Section \ref{app:subsec:density} in the Appendix for a discussion and ablations).
+% the total number of edges 
+% added by our rewiring framework is linear in the number of node in $L$ snapshots by
+% \[
+% \sum_{\ell = 1}^{L}|\mathsf{E}_\ell| \leq n\rho\sum_{\ell =1}^{L}d_{\mathrm{max}}^{\ell} = n\rho d_{\mathrm{max}}\frac{d^{L}_{\mathrm{max}}-1}{d_{\mathrm{max}}-1}.
+% \]
+
+% In our experiments, we used small $L\in \{2,3,4\}$ and $\rho\in\{1/10,1/4,1/2\}$, typically resulting in much fewer edges added than dense $L$-hop GNNs or, in the extreme case, graph-Transformers.
+
+% \subsection{Graph-rewiring as multi-relational GNNs} 
+% Sequential rewiring has two main advantages: first, provided the right choice of $\mathcal{R}$, a trajectory of rewirings is {\em strictly more expressive}  than an instantaneous (`static') rewiring. Second, a trajectory allows the rewiring to distance itself progressively from the original graph $\gph_0$. This allows a rewiring map $\mathcal{R}$ to be more consistent as the point at which a specific type of edge occurs in the rewiring is more consistent throughout different graphs. One can also think of current rewiring approaches as considering $\gph_0$ and $\mathcal{R}(\gph_0) = \sqcup_{i=1}^K \gph_i$, meaning that current rewiring techniques `mix' different types of rewired edges adding additional noise and reducing the consistency.
+% %
+% We construct a model $\mathsf{DGNN}: (\gph_0, \dots, \gph_K) \to \gph_0$ that takes as input a sequence of $K$ rewirings and outputs a signal over the original graph, 
+% \[
+% \mathbf{x}_v^{(t)} = \mathsf{com}^{(t)}\left(\mathbf{x}_v^{(t-1)}, \bigoplus_{k}\mathsf{agg}^{(t)}\left(\{\!\!\{ \mathbf{x}_u^{(t-1)}\,:\, u\in \mathsf{E}_k\}\!\!\} \right) \right).
+% \]
+% Here,   
+% $\bigoplus$ is some aggregation operator (not necessarily permutation-invariant over the ordering of the snapshots). We note the close relationship between this model and R-GNNs \cite{battaglia2018relational}, which is obtained as a special case when $\bigoplus$ is a summation operation. Under this interpretation, we consider edges in different snapshots as having different relations. This may be seen as a more general approach to \citep{karhadkar2022fosr} as they consider the special case in which there are two relations. In our approach, we can consider the sequence of snapshots as a multi-graph as an edge $u \sim v$ may be present in more than one snapshot and as a consequence may be multi-relational. 
+
+%\subsection{LASER satisfies the list of desiderata}
+
+
+% We now show how DGNNs and R-GNNs more generally are able to alleviate the over-squashing phenomenon extending bounds from \cite{di2023over}. We consider in our analysis MPNNs of the form
+% \begin{equation}
+% \label{eq:rgnn}
+% \mathbf{x}_v^{(t)} = \sigma \left(\W_r^{(t-1)} \mathbf{x}_v^{(t-1)} + \sum_k \W_k^{(t-1)}\sum_u (\Ab_k)_{vu} \mathbf{x}_u^{(t-1)}  \right),
+% \end{equation}
+% where $\sigma$ is a non-linearity and $\W$s are learnable weight matrices of appropriate dimension. $\Ab_k$ denotes the adjacency matrix of $\gph_k$ with $(\Ab_k)_{vu}=1$ if $(v,u) \in \E_k$ and zero otherwise. 
+
+% \begin{theorem}
+% Consider a GNN as in Equation \ref{eq:rgnn} with $T$ layers, $L_\sigma$ the Lipschitz constant of $\sigma$, $||\W||$ the maximum absolute entry of any of the weight matrices, and $w$ the width (hidden dimension). Consider two nodes $v, u \in \V$. We have:
+
+% \begin{equation}
+%     \left\|\frac{\partial \mathbf{x}_v^{(T)}}{\partial \mathbf{x}_u^{(0)}}\right\| \leq \left(L_\sigma \|\W\|w \right)^T \left(\left(\Ib + \sum_k \Ab_k\right)^T \right)_{vu}
+% \end{equation}
+% \end{theorem}
+
+% Since $(\Ib + \sum_k \Ab_k)_{vu} \geq (\Ib + \Ab_K)_{vu}$, in which we would recover the classical graph rewiring paradigm, we conclude that dynamic rewiring results in better sensitivity upper bounds. Due to the similarity of DGNN and R-GNNs at the model level, these bounds apply to R-GNNs as well.
+
+
+%\paragraph{Improved Expressivity.}Consider a 4-clique $\gph = K_4$, and a grid on $4$ nodes $\gph' = G_4$. As $\gph$ is a clique, there are no possible edge additions. Instead consider applying SDRF on $G_4$, then after two iterations we have that $\mathcal{R}(\gph') = K_4 = \gph$. As a consequence, the two graphs will become indistinguishable. This, however, would not be the case given a trajectory of rewirings as both $\gph$ and $\gph'$ would be considered in the computation.
+
+
+
+% There are many sensible ways to choose an evolution map $\mathcal{R}$ and we remark that our DGNN framework remains general enough to accommodate a wide range of rewirings. One fundamental requirement is that $\mathcal{R}$ must be permutation-equivariant in order to preserve the overall permutation-equivariance of the model. In line with spectral rewiring approaches, we propose an $\mathcal{R}$ that progressively improves the algebraic connectivity of the graph. Assuming each graph in the sequence $\gph_0, \dots, \gph_K$ is connected, then this implies that we would like to construct a rewiring such that $\lambda(\gph_0) \geq \dots \geq \lambda(\gph_K)$, where $\lambda(\gph)$ denotes the smallest non-zero eigenvalue of the graph Laplacian. Constructing an evolution map $\mathcal{R}$ satisfying this is not challenging as densifying the graph is a sufficient strategy. It is however also a natural desideratum to request the graphs to remain sparse to help delay over-smoothing and to avoid close to quadratic computational costs that come with dense graphs. These two requests align well with the concept of expander graphs -- infinite families of graphs that exhibit strong connectivity properties but remain sparse. In other words, we wish to propose an evolution procedure that takes any graph and evolves it to an expander-like structure in a permutation-equivariant way.
+
+% One can view this evolution procedure as a way to learn at different scales of the graph. Information from $\gph_0$ allows the model to retain the inductive bias given by the graph, while the progressive rewirings allow to learn over more global scales of the graph until $\gph_K$ is reached. Expander graphs are good   sparse spectral approximations to fully-connected graphs and as a consequence learning over $\gph_K$ the model is able to capture more global information over the graph.
+
+% In our algorithm, targeting $\gph_*$ is achieved via two distinct processes: densification and sparsification. During densification we repeatedly add edges between nodes that have the highest effective resistance, until some stop condition is reached. The goal of this process is to connect areas in the graph which are poorly connected, but doing this in an optimal way by minimizing the number of edges added so to preserve properties of hte input graph such as density and degree distribution. %while trying to preserve the original topology as much as possible. 
+% The next step is sparsification, in which we remove edges that have Ricci curvature above some threshold. Importantly, this is done without disconnecting the graph, as removing an edge with positive curvature will never disconnect the graph. This process is repeated for the number of snapshots.
+
+% \paragraph{Model.} Our model has an \emph{inception-like} architecture, where for an $\MPNN$ taking as input a graph $\gph$ we treat the various rewirings as follows:
+
+% \begin{equation}
+%         \mathsf{DGNN}_L \left(\gph_0, \mathcal{R} \right) = \operatornamewithlimits{\Big\Vert}_{l=0}^L \MPNN \left( \gph_l \right)
+% \end{equation}
+
+
+
+% % \paragraph{`Naive' baseline.} Choose as $\mathcal{R}$ a simple graph-densifier, where after $n^{2}-\lvert E \rvert$ steps, we converge to a complete graph. 
+
+
+% \paragraph{General protocol.} The approach we introduce here is, in fact, quite general and can be described as follows. We wish to provide $\mathcal{R}$ with some inductive bias. This will, typically, be encoded in the choice of measures $\{\pi_k\}, \mu$ defined on the graph. Usually, $\pi_k$ may quantify the connectivity of the graph, if we are interested in alleviating over-squashing for example, while $\mu$ is a measure of the density of the graph. Accordingly, we wish to choose rewiring operations such that
+% \begin{equation*}
+%     \pi_k(\mathcal{R}(\gph)) > \pi_k(\gph), \quad \mu(\mathcal{R}(\gph)) \leq \mu(\gph).
+% \end{equation*}
+% \noindent This strategy does extend to more arbitrary rewiring (and reshaping) protocols. Explicitly, $\pi_k$ can, for instance, measure (i) the existence of certain topological (sub)structures; (ii) the smoothness of certain structural (positional) encoding; (iii) or it can be a map assessing the `expressivity' of the $\MPNN$. The last point is particularly relevant, since one can interpret the sequence of rewiring as a {\em filtration} where specific subgraphs (substructures) are condensed (discarded) in $\gph_k$.
+
+
+% \paragraph{Todos}
+% Need to check that two non-isomorphic graphs are mapped to different things (trivial). Check that two isomorphic graphs are mapped to same thing <- slightly harder but can probably argue that in expectation this happens (if we pick uniformly in tie breaks etc..).
+
+% Check if composition instead of concatenation performs better and/or is more appealing.
+
+
+% Once we create snapshots $\gph_k$ we can think of them as instances of some temporal dynamics, say at the edge-level, of the form $\gph_k = \mathcal{F}(\gph_0, t_k)$. Accordingly, we can now rely on any temporal-GNN framework. In fact, we could take inspiration from {\em On the Equivalence Between
+% Temporal and Static Equivariant Graph Representations} by Gao and Ribeiro and consider a static graph $\gph_\infty = (\mathsf{V},\mathsf{E}_\infty)$ such that $\mathsf{E}_\infty = \cup_k \mathsf{E}_k$ and then assign an edge attribute $\mathbf{z}_e$ to each $e\in\mathsf{E}_\infty$ of the form
+% $\mathbf{z}_e = \left(1,0,0,1,1,\ldots\right)$ encoding whether $e$ existed at each time step $k$. We can then: (i) Have separate aggregation over the different snapshots and only combine information at the end of each block (what we have been doing so far); or (ii) at each layer have a relation $\mathsf{MPNN}$ that aggregates over the different edge types (i.e. the snapshot $k$) 
+% \[
+% \mathbf{h}_v^{(t)} = \mathsf{com}^{(t)}\left(\mathbf{h}_v^{(t-1)}, \bigoplus_{k}\mathsf{agg}^{(t)}\left(\{\!\!\{ \mathbf{h}_u^{(t-1)}\,:\, u\in \mathsf{E}_k\}\!\!\} \right) \right).
+% \]
+% \noindent In practice $\bigoplus$ can be a concatenation or $\bigoplus_k \tilde{\mathbf{h}}^{(t)}_k = \sum_k \alpha_k^{(t)}\tilde{\mathbf{h}}^{(t)}_k$ with $\alpha_k^{(t)} \geq 0$ and $\sum_k \alpha_k^{(t)} = 1$ for all $t$. (iii) We could also have a slightly simpler framework of the form -- perhaps after passing the edge feature through a learnable encoder: %where we pass any edge labelling $\mathbf{z}_e$ through an encoder and then compute
+% \[
+% \mathbf{h}_v^{(t)} = \mathsf{com}^{(t)}\left(\mathbf{h}_v^{(t-1)}, \sum_{(v,u)\in\mathsf{E}_\infty}\mathsf{MSS}^{(t)}\left(\mathbf{h}_v^{(t-1)},\mathbf{h}_u^{(t-1)},\mathbf{z}_{vu}\right)\right).
+% \]
+
+
+
+% Finally, (iv) in light of this simple analogy we could rely on any existing temporal-GNN framework to aggregate information over the different snapshots. 
+
+
+\section{Experiments}\label{sec:exp}
+In this section, we validate our claims on a range of tasks and benchmarks. Beyond comparing the performance of \LASER to existing baselines, we run ablations to address the following {\em important questions}: (1) Does \LASER improve the graph's connectivity? (2) Does \LASER preserve locality information better than spectral rewiring approaches? (3) What is the impact of the fraction $\rho$ of edges sampled? (4) What if we sample edges to be added from $\mathcal{N}_{\ell+1}(v)$ randomly, rather than optimally according to $\mu$ in \eqref{eq:mu_k}? (5) Is \LASER scalable to large graphs? In the Appendix (Section \ref{app:sec:additional-results}), we provide a density comparison between \LASER and Multi-Hop GNNs, discuss our tie-breaking procedure that guarantees equivariance in expectation and further improves performance, provide an ablation using different underlying
+MPNNs, and discuss additional motivation for the need for locality. We also provide, in Section \ref{app:scalability}, a more thorough scalability analysis.
+
+% In this section, we validate our claims on a range of tasks and benchmarks. We recall that our \LASER framework effectively depends on two important parameters, whose impact we want to study: the number of snapshots $L$ (equivalently, the number of edge types as per \eqref{eq:laser-GCN}), and the fraction $\rho$ of edges that are sampled from $\mathcal{N}_{\ell+1}(v)$ according to our measure of connectivity \eqref{eq:mu_k}.
+ 
+
+% \subsection{Real-world Tasks}
+% \begin{wraptable}{r}{9.75cm}
+% \vspace{-4mm}
+% \caption{Results for the \pepfunc, \pepstruct, and \texttt{PCQM-Contact} datasets. Performances are Average Precision (AP) (higher is better), Mean Absolute Error (MAE) (lower is better), and Mean Reciprocal Rank (MRR) (higher is better), respectively.}\label{tab:peptides-exps}
+% \scalebox{0.75}{
+%     \begin{tabular}{l c c c}\toprule
+%     \multirow{2}{*}{\textbf{Model}} &\multicolumn{1}{c}{\pepfunc} &\multicolumn{1}{c}{\pepstruct} & \multicolumn{1}{c}{\texttt{PCQM-Contact}}  \\ \cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4}
+%     &\textbf{Test AP $\uparrow$} &\textbf{Test MAE $\downarrow$} & \textbf{Test MRR $\uparrow$} \\\midrule
+%     GCN &0.5930$\pm$0.0023 & 0.3496$\pm$0.0013 &0.3234$\pm$0.0006\\
+%     Transformer+LapPE & 0.6326$\pm$0.0126 &\textbf{0.2529}$\pm$0.0016 & 0.3174$\pm$0.0020\\
+%     \midrule
+%     FOSR &0.5947$\pm$0.0027& 0.3473$\pm$0.0007 & 0.2626$\pm$0.0007 \\
+%     FOSR-R &0.4629$\pm$0.0071 &0.3078$\pm$0.0026& 0.2783$\pm$0.0008 \\
+%     SDRF &0.5947$\pm$0.0035& 0.3478$\pm$0.0013& 0.3227$\pm$0.0009\\
+%     SDRF-R &0.5851$\pm$0.0033& 0.3404$\pm$0.0015&0.3249$\pm$0.0006\\
+%     \midrule 
+%     \LASER &\textbf{0.6440}$\pm$0.0010& 0.3043$\pm$0.0019&\textbf{0.3275}$\pm$0.0011\\
+%     \bottomrule
+%     \end{tabular}
+%     }
+% \end{wraptable} 
+
+\begin{wraptable}{r}{8.75cm}
+\vspace{-4mm}
+\caption{Results for the \pepfunc, \pepstruct, and \texttt{PCQM-Contact} datasets. Performances are Average Precision (AP) (higher is better), Mean Absolute Error (MAE) (lower is better), and Mean Reciprocal Rank (MRR) (higher is better), respectively.}\label{tab:peptides-exps}
+\scalebox{0.75}{
+    \begin{tabular}{l c c c}\toprule
+    \multirow{2}{*}{\textbf{Rewiring}} &\multicolumn{1}{c}{\pepfunc} &\multicolumn{1}{c}{\pepstruct} & \multicolumn{1}{c}{\texttt{PCQM-Contact}}  \\ \cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4}
+    &\textbf{Test AP $\uparrow$} &\textbf{Test MAE $\downarrow$} & \textbf{Test MRR $\uparrow$} \\\midrule
+    None &0.5930$\pm$0.0023 & 0.3496$\pm$0.0013 &0.3234$\pm$0.0006\\
+    % Transformer+LapPE & 0.6326$\pm$0.0126 &\textbf{0.2529}$\pm$0.0016 & 0.3174$\pm$0.0020\\
+    \midrule
+    % FOSR-R &0.4629$\pm$0.0071 &0.3078$\pm$0.0026& 0.2783$\pm$0.0008 \\
+    SDRF &0.5947$\pm$0.0035& 0.3404$\pm$0.0015& 0.3249$\pm$0.0006\\
+    % SDRF-R &0.5851$\pm$0.0033& 0.3404$\pm$0.0015&0.3249$\pm$0.0006\\
+    GTR &0.5075$\pm$0.0029& 0.3618$\pm$0.0010&0.3007$\pm$0.0022\\
+    FOSR &0.5947$\pm$0.0027& 0.3078$\pm$0.0026 & 0.2783$\pm$0.0008 \\
+    BORF &0.6012$\pm$0.0031& 0.3374$\pm$0.0011& TIMEOUT \\
+    \midrule 
+    \LASER &\textbf{0.6440}$\pm$0.0010& \textbf{0.3043}$\pm$0.0019&\textbf{0.3275}$\pm$0.0011\\
+    \bottomrule
+    \end{tabular}
+    }
+\end{wraptable} 
+
+\paragraph{Benchmarks.}
+% We evaluate on the Long Range Graph Benchmark (LRGB) \citep{dwivedi2022long} and TUDatasets \citep{morris2020tudataset}. In the experiments, we fix the underlying model to GCN, but provide ablations with different popular MPNNs in the Appendix (Section \ref{app:different-mpnns}). We compare \LASER to state-of-the-art graph rewiring techniques currently available: Stochastic Discrete Ricci Flow (SDRF) \citep{topping2021understanding}, a curvature-based spatial approach, and First Order Spectral Rewiring (FOSR) \citep{karhadkar2022fosr}, a global rewiring technique based on maximally increasing the spectral gap of the graph. Based on \citet{karhadkar2022fosr} and the parallelism we draw between rewiring and multi-relational GNNs, for both SDRF and FOSR, we evaluate with both a standard and relational \citep{schlichtkrull2018modeling} model for FOSR and SDRF, where we assign original and rewired edges distinct relational types. In particular, R-GCN in these cases is then a special instance of \eqref{eq:mpnn_rewiring}. For additional details on the tasks and hyper-parameters, we refer to the Appendix (Section \ref{appendix:exps}). 
+We evaluate on the Long Range Graph Benchmark (LRGB) \citep{dwivedi2022long} and TUDatasets \citep{morris2020tudataset}. In the experiments, we fix the underlying model to GCN, but provide ablations with different popular MPNNs in the Appendix (Section \ref{app:different-mpnns}). For spatial curvature-based rewirings, we compare against SDRF \citep{topping2021understanding} and BORF \citep{nguyen2023revisiting}. For spectral techniques, we compare against FOSR \citep{karhadkar2022fosr}, a spectral gap rewiring technique, and GTR \citep{black2023understanding}, an effective resistance rewiring technique. We also compare to DiffWire \citep{arnaiz2022diffwire}, a differentiable rewiring technique.
+
+Based on \citet{karhadkar2022fosr} and the parallelism we draw between rewiring and multi-relational GNNs, for all techniques, we report results tuned over both a `standard' and relational \citep{schlichtkrull2018modeling} model for the baselines, where we assign original and rewired edges distinct relational types. In particular, R-GCN in these cases is then a special instance of \eqref{eq:mpnn_rewiring}. For additional details on the tasks and hyper-parameters, we refer to the Appendix (Section \ref{appendix:exps}).
+
+% \paragraph{LRGB.} We consider the \texttt{Peptides} ($15\,535$ graphs) and \texttt{PCQM-Contact} ($529\,434$ graphs) datatsets, both from the Long Range Graph Benchmark (LRGB). There are two tasks associated with \texttt{Peptides} --- %\pepfunc and \pepstruct. 
+% \pepfunc is a graph classification task in which the goal is to predict the peptide function from $10$ classes, while % with performance measured in Average Precision (AP). 
+% \pepstruct is a graph regression task in which the goal is to predict 3D properties of the peptides. % with performance measured in Mean Absolute Error (MAE). 
+% \texttt{PCQM-Contact} is a link-prediction task, in which the goal is to predict pairs of distant nodes that will be adjacent in 3D space. %with performance being measured in Mean Reciprocal Rank (MRR) \cite{bordes2013translating}.
+% % We evaluate on the \texttt{Peptides} dataset composed of $15\,535$ graphs from the Long Range Graph Benchmark (LRGB). \cite{dwivedi2022long}. There are two tasks assosciated to the \texttt{Peptides} dataset, \pepfunc and \pepstruct. \pepfunc is graph classification task in which the goal is to predict the peptide function from $10$ classes, with performance measured in Average Precision (AP). \pepstruct is a graph regression task in which the goal is to predict 3D properties of the peptides at the graph level, with performance measured in Mean Absolute Error (MAE). 
+% We provide in the Appendix (Section \ref{appendix:exps}), further details on the experiments (hyper-parameters, hardware, and source code). 
+
+
+\paragraph{LRGB.} We consider the \texttt{Peptides} ($15\,535$ graphs) and \texttt{PCQM-Contact} ($529\,434$ graphs) datatsets, from the Long Range Graph Benchmark (LRGB). There are two tasks associated with \texttt{Peptides}, a peptide function classification task \pepfunc and a peptide structure regression task \pepstruct. \texttt{PCQM-Contact} is a link-prediction task, in which the goal is to predict pairs of distant nodes that will be adjacent in 3D space. We replicate the experimental settings from \citet{dwivedi2022long}, with a $5$-layer MPNN for each of the rewirings as the underlying model. We choose the hidden dimension in order to respect the $500$k parameter budget. In Table \ref{tab:peptides-exps}, we report the performance on the three tasks. \LASER convincingly outperforms all baselines on the three tasks, while the other rewiring baselines frequently perform worse than the standard GCN model. On \texttt{PCQM-Contact}, the rewiring time for BORF surpasses the $60$ hour limit enforced by \cite{dwivedi2020benchmarking} on our hardware, so we assign it a TIMEOUT score.
+% We emphasize that, in order to assess the impact of the rewiring only, we have avoided using additional positional features in our \LASER framework.
+
+\paragraph{TUDatasets.} We evaluate \LASER on the \texttt{REDDIT-BINARY}, \texttt{IMDB-BINARY}, \texttt{MUTAG}, \texttt{ENZYMES}, \texttt{PROTEINS}, and \texttt{COLLAB} tasks from TUDatasets, which were chosen by \citet{karhadkar2022fosr} under the claim that they require long-range interactions. We evaluate on $25$ random splits, fixing the hidden dimension for all models to $64$ and the number of layers to $4$, as in \citet{karhadkar2022fosr}. We avoid the use of dropout and use Batch Norm \citep{ioffe2015batch}. We refer to the Appendix (Section \ref{app:tudatasets}) for further details on the hyper-parameters and a discussion on some drawbacks of these tasks. Table \ref{tab:tudatasets} shows the results on the aforementioned benchmarks. 
+% We note that the standard GCN model with no rewiring achieves a better mean rank than SDRF and FOSR. % occasionally beat the baseline, the baseline does in fact achieve a better mean rank over the $6$ tasks. 
+\LASER most consistently achieves the best classification accuracy, attaining the highest mean rank. 
+% We note that the addition of Batch Normalization and the removal of the high dropout in our experiments could justify the relative strength of the GCN baseline compared to the results reported in \citet{karhadkar2022fosr}.
+% We evaluate on a 80\%/10\%/10\% train/val/test split on $25$ random splits. We fix the hidden dimension for all models to $64$ and the number of layers to $4$ as in \citet{karhadkar2022fosr}, but set dropout rate to $0\%$ instead of $50\%$ as we deem this more conventional. %appropriate setting for evaluating the rewiring procedure. 
+% We train for $100$ epochs. For these experiments, we fix the underlying MPNN to GCN.
+ \vspace{-2.5mm}
+\begin{table}[!h]
+	\caption{Accuracy $\pm$ std over $25$ random splits for the datasets and rewirings. Colors highlight \textcolor{red}{First}, \textcolor{blue}{Second}, and \textcolor{orange}{Third}; we  report the mean rank achieved on the valid runs. OOM is Out of Memory.}
+ %denotes the best scoring rewiring technique for the dataset and MPNN architecture of interest. The mean rank denotes the mean rank achieved given the rewiring technique and MPNN architecture.} 
+	\label{tab:tudatasets}
+\resizebox{\textwidth}{!}{
+			\centering
+			\scriptsize %
+			\bgroup
+%
+			\def\arraystretch{1.2}
+			\begin{tabular}{lccccccc} 
+%
+        \toprule 
+        Rewiring & \texttt{REDDIT-BINARY} & \texttt{IMDB-BINARY} & \texttt{MUTAG} & \texttt{ENZYMES} & \texttt{PROTEINS} & \texttt{COLLAB} & Mean Rank \\ \hline 
+None & 81.000$\pm$2.717 & \second{64.280}$\pm$1.990 & 74.737$\pm$5.955 & 28.733$\pm$5.297 & 64.286$\pm$2.004 & 
+68.960$\pm$2.284 & 4.83 \\
+\hline
+DiffWire & OOM & 59.000$\pm$3.847 & \third{80.421}$\pm$9.707 & 28.533$\pm$4.475 & \second{72.714}$\pm$2.946 & 65.440$\pm$2.177 & 4.83 \\
+GTR & \second{85.700}$\pm$2.786 & 52.560$\pm$4.104 & 78.632$\pm$6.201 & 26.333$\pm$5.821 & \third{72.303}$\pm$4.658 & 68.024$\pm$2.299 & 4.67 \\
+SDRF & 84.420$\pm$2.785 & 58.290$\pm$3.201 & 74.526$\pm$5.355 & \second{30.567}$\pm$6.188 & 68.714$\pm$4.233 & \second{70.222}$\pm$2.571 & 4.50 \\
+FOSR & \first{85.930}$\pm$2.793 & 60.400$\pm$5.855 & 75.895$\pm$7.211 & 28.600$\pm$5.253 & 71.643$\pm$3.428 & \third{69.848}$\pm$3.485 & 3.67 \\
+BORF & 84.920$\pm$2.534 & \third{60.820}$\pm$3.877 & \second{81.684}$\pm$7.964 & \third{30.500}$\pm$6.593 & 68.411$\pm$4.122 & OOM & 3.60 \\
+\hline
+\LASER & \third{85.458}$\pm$2.827 & \first{64.333}$\pm$3.298 & \first{82.204}$\pm$6.728 & \first{34.333}$\pm$6.936 & \first{74.381}$\pm$3.443 & \first{70.923}$\pm$2.538  & 1.37\\
+% \hline
+% SpiderGlobal-2& 77.9200$\pm$3.6405 & 61.1200$\pm$4.1887 & 71.3683$\pm$6.6705 & 33.5334$\pm$5.1058 & 65.0716$\pm$2.1624 & 70.2400$\pm$1.9308 \\
+% SpiderGlobal-3& 82.2600$\pm$2.5342 & 62.9600$\pm$3.5942 & 75.7892$\pm$4.7074 & 29.4001$\pm$5.9978 & 64.2143$\pm$3.3685 & 69.8240$\pm$1.9410 \\
+        \bottomrule\\[-1em]
+        
+
+
+
+				\end{tabular}
+			\egroup
+
+	\hspace{0.01pt}
+	\linebreak[4]
+}	
+ %
+ % \vspace{-4mm}
+\end{table}
+ \vspace{-5mm}
+% \subsection{Ablation studies}
+
+\paragraph{Ablation studies.} In the following, we choose FOSR as a typical spectral rewiring approach, while taking \LASER with $\rho = 1$ as an instance of a dense, multi-hop GNN (i.e. classical spatial rewiring). For the purpose of these ablations, we conduct experiments on the \texttt{Peptides} dataset. We start by investigating questions (1) and (2), namely, how well \LASER improves connectivity while respecting locality. To this end, we increment the number of snapshots from $2$ to $5$ given densities $\rho=0.1$ and $\rho=1$ for \LASER and instead vary the number of edge additions of FOSR spanning the values $10$, $20$, $50$, and $100$. To assess the connectivity, we report the mean total effective resistance --- which is a good proxy for over-squashing \citep{black2023understanding,di2023over} --- while for the locality, we evaluate the norm of the difference between the original graph distance matrix and that of the rewired graph $\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)}\|_F$ as per Proposition \ref{prop:frob}. Figure \ref{fig:peptides-ablation} shows the results of this ablation. We validate that the sparse \LASER framework decreases the mean total effective resistance consistently over increasing snapshots as well as other rewiring techniques. Moreover, we find that \LASER with $\rho = 0.1$ is {\em better} than dense spatial methods and especially surpasses spectral approaches {\em at preserving information contained in the distance matrix}.  
+
+%adding a larger quantity of edges is able to better preserve both the locality and still retain good levels of connectivity as the snapshots increase.
+
+% \begin{wrapfigure}{r}{9cm}
+% \caption{Performance on the \texttt{Peptides-func} (AP $\uparrow$) and \texttt{Peptides-struct} (MAE  $\downarrow$) tasks when varying the number of snapshots from $2$ to $5$ and the orbit density from $10\%$ to $100\%$. The baseline indicates a standard GCN model.}\label{fig:peptides-ablation}
+% \includegraphics[width=9cm]{figures/peptides-ablation.pdf}
+% \end{wrapfigure} 
+
+% \begin{wrapfigure}{r}{7cm}
+% \caption{Edit distance.}\label{fig:edit-distance}
+% \includegraphics[width=7cm]{figures/edit-distance.pdf}
+% \end{wrapfigure} 
+
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/edit-distance.pdf}
+  \captionof{figure}{Total effective resistance and graph distance, as measured by the Frobenius norm,  when varying the number of snapshots from $2$ to $5$ and $\rho$ from $0.1$ to $1$. }
+  \label{fig:peptides-ablation}
+\end{minipage}%
+  % \hspace{1em}% Space between image A and B
+\hspace{0.2cm}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/peptides-ablation.pdf}
+  \captionof{figure}{Performance on the \texttt{Peptides} tasks when varying the number of snapshots from $2$ to $5$ and $\rho$ from $0.1$ to $1$. The baseline indicates a standard GCN model.}
+  \label{fig:snapshots}
+\end{minipage}
+\end{figure}
+\begin{wraptable}{r}{7cm}
+
+\vspace{-4mm}
+\caption{Comparison between \LASER and random sampling, with $L=3$ and $\rho = 0.1$.}\vspace{-4mm}
+\scalebox{0.75}{
+\begin{tabular}{cccc}\\ \toprule
+\label{table:random-rewiring-ablation}
+Model & \pepfunc $\uparrow$ & \pepstruct $\downarrow$ \\\midrule
+Random &0.4796$\pm$0.0067& 0.3382$\pm$0.0019  \\
+\midrule
+\LASER & \textbf{0.6414}$\pm$0.0020 & \textbf{0.3119}$\pm$0.0005  \\  
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+\end{wraptable} 
+Next, we investigate question (3), i.e. the impact of the fraction $\rho$ of edges being sampled,  by increasing the number of snapshots from $2$ to $5$ and varying the density $\rho$ ranging $0.1$, $0.25$, $0.5$, and $1$, with results reported in Figure \ref{fig:snapshots}. The majority of the {\em performance gains are obtained through a sparse rewiring}, as even with $\rho = 0.1$ the performance is greatly increased over the baseline. The additional density in the orbits does seem to help with performance, but this comes at the cost of density.
+
+Finally, we address question (4), by evaluating how sampling edges uniformly over the nodes at distance $\ell+1$ given a density $\rho$, compares to our choice of prioritizing edges with lowest connectivity score $\mu$ as per \eqref{eq:mu_k}. We report the results in Table \ref{table:random-rewiring-ablation}. % shows the results given $3$ snapshots and $\rho = 0.1$. 
+  We see that \LASER greatly outperforms the random rewiring, verifying our claim that guiding the rewiring through $\mu$ is a more sound approach.
+
+%Table \ref{table:random-rewiring-ablation} compares the rewiring procedure in LASER to one in which we uniformly sample edges in the orbit. In both experiments, we fix the number of snapshots to $3$ and the orbit density to $10\%$. The LASER rewiring approach seems to be significantly superior to random sampling. We conjecture that the random addition of edges is sub-optimal from a spectral perspective and given a fixed density is outperformed by our selection process.
+
+\paragraph{Scalability.} The operations required to compute $\mu$ and $\nu$ in \LASER are designed to be efficiently implemented on modern hardware accelerators, mostly relying on matrix multiplication. Furthermore, the rewiring operation is done once and stored for future runs. The $\rho$ factor can be tuned to calibrate the density of the rewiring, giving further control on the training efficiency. \LASER does not seem to significantly impact the run-time compared to the standard baseline models and we found through a synthetic benchmarking experiment that our implementation of \LASER \emph{is able to rewire graphs with 100k nodes and a million edges in 2 hours}. This is in contrast to FOSR and SDRF that failed to finish the computation within 24 hours. We report a large number of benchmarking experiments, alongside a theoretical complexity analysis in the Appendix (Section \ref{app:scalability}).
+
+% The main computational costs of \LASER are due to taking matrix powers of $\mathbf{A}$ to compute the connectivity measure $\mu$ and then sorting based on $\mu$ to select the edges with the lowest connectivity. Fortunately, these operations are highly optimized on modern hardware. We further note that such computation only occurs once as a pre-training step and is subsequently stored for future runs. At run-time, the $\rho$ factor can be tuned to calibrate the density of the rewiring, giving further control on the efficiency. We found \LASER to not significantly impact the run-time compared to the standard baseline models and found through a synthetic benchmarking experiment that our implementation of \LASER \emph{is able to rewire graphs with 100k nodes and a million edges in 2 hours}. This is unlike the competing FOSR and SDRF methods that do not finish the computation after 24 hours. We report a large number of benchmarking experiments, alongside pseudo-code of \LASER and a theoretical complexity analysis in the Appendix (Section \ref{app:scalability}), showcasing the strong scalability of \LASER and the low overhead induced by the technique during training.
+
+\section{Conclusion}
+In this work, we have identified shortcomings of rewiring techniques and argued that a rewiring must: (i) improve connectivity, (ii) respect locality, and (iii) preserve sparsity. Unlike current spectral and spatial rewirings that compromise some of these properties, we have outlined a general rewiring paradigm that meets criteria (i)--(iii) by interpolating between the input graph and a better connected one via locally constrained sequential rewiring. We have then proposed a specific instance of this paradigm --- \LASER --- and verified, both theoretically and empirically, that it satisfies (i)-(iii). %We empirically show that \LASER matches or significantly outperforms current rewiring techniques on a range of benchmarks and performed extensive ablations to verify our claims.  
+
+\paragraph{Limitations and Future Work.} %We believe to have uncovered an interesting research direction that proposes a more principled approach to rewiring techniques. 
+In this paper, we considered a simple instance of the general rewiring paradigm outlined in Section \ref{sec:general_framework}, but we believe that an interesting research direction would be to explore alternative choices for both the connectivity and locality measures, ideally incorporating features in a differentiable pipeline similar to \citet{arnaiz2022diffwire}. Furthermore, the identification between graph-rewiring on the one hand, and multi-relational GNNs and temporal-GNNs on the other, could lead to interesting connections between the two settings, both theoretically (e.g., what is the expressive power of a certain rewiring policy?) and practically, where techniques working in one case could be effortlessly transferred to the other. Finally, we highlight that, as is customary in rewiring approaches, it is always hard to pinpoint with certainty the reason for any performance improvement, including whether such an improvement can be truly credited to over-squashing and long-range interactions. We have tried to address this point through multiple ablations studies.
+
+
+%Table \ref{table:random-rewiring-ablation} compares the rewiring procedure in LASER to one in which we uniformly sample edges in the orbit. In both experiments, we fix the number of snapshots to $3$ and the orbit density to $10\%$. The LASER rewiring approach seems to be significantly superior to random sampling. We conjecture that the random addition of edges is sub-optimal from a spectral perspective and given a fixed density is outperformed by our selection process.
+\vspace{-40pt}
+\section{Acknowledgements}
+FdG, FB, and MB are partially supported by the EPSRC Turing AI World-Leading Research Fellowship No. EP/X040062/1. We would like to thank Google Cloud for kindly providing computational resources for this work.
+
+% \begin{ack}
+% Use unnumbered first level headings for the acknowledgments. All acknowledgments
+% go at the end of the paper before the list of references. Moreover, you are required to declare
+% funding (financial activities supporting the submitted work) and competing interests (related financial activities outside the submitted work).
+% More information about this disclosure can be found at: \url{https://neurips.cc/Conferences/2023/PaperInformation/FundingDisclosure}.
+
+
+% Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to autmoatically hide this section in the anonymized submission.
+% \end{ack}
+
+
+\bibliography{iclr2024_conference}
+\bibliographystyle{iclr2024_conference}
+
+\clearpage
+\appendix
+
+
+\section{Additional details on theory and framework}\label{app:sec:theory}
+
+
+
+In this Section, we report additional considerations about our framework and provide proofs for the theoretical results stated in Section \ref{sec:laser_framework}.
+
+First, we report the variant of GCN-\LASER to make things more concrete:
+\begin{equation}\label{eq:laser-GCN}
+\mathbf{x}_{v}^{(t)} = \mathsf{ReLU}\Big(\sum_{u\in \mathcal{N}_1(v)\cup\{v\}}\frac{1}{\sqrt{d_v d_u}}\mathbf{W}_0^{(t)}\mathbf{x}_{u}^{(t-1)} + \sum_{\ell = 1}^{L}\,\, \sum_{u\in\mathcal{N}^\rho_{\ell+1}(v)}
+\frac{1}{\sqrt{d_{v,\ell} d_{u,\ell}}}\mathbf{W}_{\ell}^{(t)} 
+\mathbf{x}_u^{(t-1)})\Big),
+\end{equation}
+where $\mathbf{W}_{\ell}^{(t)}$, for $0\leq \ell \leq L$, are learnable weight matrices, while $d_{i,\ell}$ is equal to the degree induced by the distance matrix associated with the value $\ell$, for each node $i\in\mathsf{V}$. We base most of our evaluation on the model in \eqref{eq:laser-GCN}.
+
+
+%For convenience we restate the two results in order.
+
+\begin{proposition}
+Let $v,u\in\mathsf{V}$ with $d_\gph(v,u) = r$, and assume that there exists a single path of length $r$ connecting $v$ and $u$.
+Assume that \textbf{LASER} adds an edge between $v$ and some node $j$ belonging to the path of length $r$ connecting $v$ to $u$, with $d_\gph(v,j) = \ell < r$. Finally, assume for simplicity that all products of weight matrices have unit norm. Then for all $m\leq r$, %in expectation over the Bernoulli variable $\mathsf{ReLU}'$, 
+we have
+\[
+\|\mathbb{E}[\tilde{\mathbf{J}}^{(r-\ell+1)}(v,u)]\|\geq \frac{(d_{\mathrm{min}})^{\ell}}{\sqrt{d_{v,\ell-1}d_{j,\ell-1}}} \|\mathbb{E}[\mathbf{J}^{(m)}(v,u)]\| 
+\]
+%\noindent with $d_{v,\ell-1},d_{j,\ell-1}$ entering \eqref{eq:laser-GCN}.
+\end{proposition}
+
+\begin{proof}
+We first note that extending the result to arbitrary weight matrices is trivial, since one would just obtain an extra factor in the lower bound of the form $\omega^{r-\ell + 1}/(\omega')^{m}$ depending on the spectral bounds (i.e. singular values bounds) of the weight matrices entering \LASER-GCN and GCN, respectively.
+
+Following the assumptions, we can argue precisely as in \citet{xu2018representation} and \citet[Section 5]{di2023over} and write the Jacobian of node features after $m$ layers of GCN \citep{kipf2016semi} as 
+    \[
+    \mathbb{E}[\mathbf{J}^{(m)}(v,u)] = \rho \prod_{k = 1}^{m}\mathbf{W}^{(k)}(\hat{\mathbf{A}}^m)_{vu},
+    \]
+where $\hat{\mathbf{A}} = \mathbf{D}^{-1/2}\mathbf{A}\mathbf{D}^{-1/2}$ is the symmetrically normalized adjacency matrix. In particular, we can then estimate the norm of the Jacobian matrix simply by:
+\[
+\|\mathbb{E}[\mathbf{J}^{(m)}(v,u)]\| = \rho \|\prod_{k = 1}^{m}\mathbf{W}^{(k)}\|(\hat{\mathbf{A}}^m)_{vu} = \rho (\hat{\mathbf{A}}^m)_{vu},
+\]
+where we have used our simplifying assumption on the norm of the weights. In particular, since $d_\gph(v,u) = r$, if $m\leq r$ then the term above vanishes which satisfies the lower bound in the claim. Let us then consider the case $m=r$. We can write the unique path of length $r$ connecting $v$ and $u$ as a tuple $(v,u_1,\ldots,u_{r-1},u)$, so that 
+\[
+\|\mathbb{E}[\mathbf{J}^{(m)}(v,u)]\| = \rho \frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_s}.
+\]
+Similarly, given our \LASER-GCN framework in \eqref{eq:laser-GCN} and the assumptions, we can bound the norm of the expected Jacobian as
+\[
+\|\mathbb{E}[\tilde{\mathbf{J}}^{(r-\ell+1)}(v,u)]\| =  \rho  \|\prod_{k = 2}^{r-\ell+1}\mathbf{W}_0^{(k)}\mathbf{W}_{\ell-1}^{(1)}\|(\hat{\mathbf{A}}_{\ell-1})_{vj}(\hat{\mathbf{A}}^{m-\ell})_{ju} = \rho (\hat{\mathbf{A}}_{\ell-1})_{vj}(\hat{\mathbf{A}}^{m-\ell})_{ju}, 
+\]
+where $(\hat{\mathbf{A}}_\ell)_{ij} = 1/\sqrt{d_{i,\ell} d_{j,\ell}}$ as defined in \eqref{eq:laser-GCN} if $d_\gph(i,j) = \ell+1$ and zero otherwise. If we now take the ratio of the two expected values, we can bound them from below as
+\[
+\frac{\|\mathbb{E}[\tilde{\mathbf{J}}^{(r-\ell+1)}(v,u)]\|}{\|\mathbb{E}[\mathbf{J}^{(r)}(v,u)]\|} = \frac{(\hat{\mathbf{A}}_{\ell-1})_{vj}(\hat{\mathbf{A}}^{m-\ell})_{ju}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_s}} \geq \frac{(\hat{\mathbf{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_s}}\geq \frac{(d_{\mathrm{min}})^\ell}{\sqrt{d_{v,{\ell-1}} d_{j,{\ell-1}}}},
+\]
+where we have used that by assumption there must exist only one path of length $m-\ell$ from $j$ to $u$, which has same degrees $\{d_s\}$. 
+\end{proof}
+
+
+
+\begin{proposition} Let $\mathsf{G}$ be a `lollipop' graph composed of a chain of length $L$ attached to a clique of size $n$ sufficiently large. Consider a spectral rewiring $\mathcal{R}$ which adds an edge between nodes with the highest effective resistance. We can choose the factor $\rho \in (0,1)$ as a function of $L$ so that \LASER with a single snapshot, on average, adds a number of edges that guarantees:
+\[
+\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} \geq \|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F}.
+\]
+\end{proposition}
+
+
+\begin{proof}
+Let us denote the end node of the chain by $v$, while $z$ is the node belonging to both the chain and the clique, and $u$ be any node in the interior of the clique.
+It is known that the commute time between $v$ and $u$ scales cubically in the total number of nodes \citep{chandra1996electrical}, so an algorithm aimed at minimizing the effective resistance will add an edge between $v$ and a point in the interior of the clique --- which we rename $u$ without loss of generality. Accordingly, the distance between $v$ and any point in the interior has changed by at least $(L+1) - 2$. Besides, the distance between $v$ and $z$  has changed by $L - 2$. We can then derive the lower bound:
+% Consider a family of graphs $\mathcal{G}$ and a spectral-rewiring approach that is based on adding edges based on those that maximally decrease the effective resistance. For simplicity, say that this method only adds a {\em single} edge. We let $\gamma > 0$ be the lower bound of maximal pairwise effective resistance over all graphs in $\mathcal{G}$. Since the pairwise distance is always larger or equal than the effective resistance, we can bound the Frobenius norm of the difference between the distance matrices as 
+\[
+\|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} \geq \sqrt{(n-1)(L - 1)^2 + (L-2)^2}.
+\]
+Let us now consider the case of \LASER with a single snapshot. We want to choose $\rho$ sufficiently small so to avoid adding too many edges. In order to do that, let us focus on the chain. Any node in the chain with the exception of the one before $z$, which we call $z'$ (which has the whole clique in its 2-hop), has a 2-hop neighbourhood of size at most $2$. Accordingly, given a number of edges $k$ we wish to be adding, if we choose 
+\[
+\rho = \frac{k}{2L},
+\]
+it means that our algorithm, on average, will only add $k$ edges over the chain. To avoid vacuous cases, consider $k \geq 2$. Accordingly, the pairwise distance between any couple of nodes along the chain is changed by at most $k$. For what concerns the clique instead, let us take the worst-case scenario where $z'$ is connected to any node in the clique. Then, the distance between any node in the clique and any node in the chain has changed by $(k+1)$. If we put all together, we have shown that
+\[
+\|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F} \leq \sqrt{L^2 k^2 + nL(k+1)^2}.
+\]
+Therefore, the bound we have claimed holds if and only if
+\begin{equation}
+    L^2 k^2 + nL(k+1)^2 \leq (n-1)(L - 1)^2 + (L-2)^2.
+\end{equation}
+One can now manipulate the inequality and find that the bound is satisfied as long as 
+\[
+n \geq \frac{k^2 L^2 + 2L - 3}{L^2(1 - k^2) - 3L - 2kL +1}
+\]
+and note that the denominator is always positive if $k^2 < L/4$ and $L \geq 8$. Accordingly, we conclude that if 
+\[
+\rho \leq \frac{\sqrt{L/4}}{L} = \frac{1}{2\sqrt{L}}
+\]
+and $L\geq 8$ our claim holds. In particular, \LASER will have added $k\in (0, \sqrt{L}/2)$ edges in total.
+% Assume now that the family of graphs is sparse with most nodes having small degree (as for molecular graphs) and that $\rho$ is small, then we can approximate the lower bound as above with some constant $c$ as
+% \[
+% \|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F} \geq \sqrt{\sum_{\ell = 1}^{L}\sum_{v\in\mathsf{V}}c\ell^2} \leq \sqrt{ncL^{3}}.
+% \]
+% In fact, note that one could take $c$ as
+% \[
+% c:= \rho(d_{\mathrm{max}})^{L+1},
+% \]
+% and if $L = \mathcal{O}(1)$ as in our implementation, $d_{\mathrm{max}}$ is small and $\rho$ is chosen accordingly, then $c=\mathcal{O}(1)$. Now, choose $\rho$ such that
+% \[
+% \gamma > 1 + \sqrt{ncL^{3}},
+% \]
+% then
+% \[
+% \|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} \geq \|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F}.
+% \]
+\end{proof}
+% \begin{proposition}
+%     Consider an effective resistance-based rewiring with a single edge addition between nodes with largest maximal resistance. Consider a family of graphs $\mathcal{G}$ of size $n$ with maximal degree $d_{\mathrm{max}}$ and let $c = \rho d_{\mathrm{max}}^{L+1}$. Then the lower bound in Proposition \ref{prop:frob} holds whenever the smallest maximal effective resistance $\gamma$ over $\mathcal{G}$ satisfies
+%     \[
+%     \gamma > 1 + \sqrt{ncL^{3}}.
+%     \]
+
+% \end{proposition}
+% Note in fact, that for any graph $\gph$ such that two nodes $v,u$ have distance $r$ and admit a single path among them, then the effective resistance of $v,u$ is precisely equal to $r$.
+
+\section{Experimental Details}
+\label{appendix:exps}
+\paragraph{Reproducibility statement.} We release our code on the following URL \url{https://github.com/Fedzbar/laser-release} under the MIT license. For the additional baselines, we borrowed the implementations provided by the respective authors. We slightly amended the implementation of GTR as it would encounter run-time errors when attempting to invert singular matrices on certain graphs.    
+
+\paragraph{Hyper-parameters.} 
+For the LRGB experiments, we use the same hyper-parameters and configurations provided by \citet{dwivedi2020benchmarking}, respecting a $500$k parameter budget in all the experiments.  We lightly manually tune the number of snapshots with values $L \in \{2, 3, 4, 5 \}$ and the density with values $\{1/10, 1/4, 1/2\}$ for \textbf{LASER}. For FOSR, SDRF, and GTR we search the number of iterations from $\{5, 20, 40 \}$, similarly to their respective works. For BORF, as the rewiring is much more expensive, especially on these `larger' datasets, we fix the number of iterations to $1$. We point out that with the implementation provided by the authors, BORF would exceed the $60$ hours limit imposed by \cite{dwivedi2022long} on our hardware for \texttt{PCQM-Contact} and for this reason we assigned it a TIMEOUT value. 
+
+For the TUDatasets experiments, we use ADAM \citep{kingma2017adam} with default settings and use the \texttt{ReduceLROnPlateau} scheduler with a patience of $20$, a starting learning rate of $0.001$, a decay factor of $1/2$, and a minimum learning rate of $1 \times 10^{-5}$. We apply Batch Norm \citep{ioffe2015batch}, use ReLU as an activation function, and fix the hidden dimension to $64$. We do not use dropout, avoid using a node encoder and use a weak (linear) decoder to more accurately compare the various rewiring methods. We lightly manually tune the number of snapshots with values $L \in \{2, 3 \}$ and the density with values $\{1/10, 1/4, 1/2\}$ for \textbf{LASER}. For FOSR, SDRF, and GTR we search the number of iterations from $\{5, 20, 40 \}$, similarly to their respective works. For BORF, we sweep over $\{ 1, 2, 3\}$ iterations. For DiffWire, we search between a normalized or Laplacian derivative and set the number of centers to $5$.    
+
+For both LRGB and the TUDatasets the additional baseline models are also further tuned using either a relational or non-relational GCN. For instance, in the main text we group the results of FOSR and R-FOSR together for clarity. In general, we found relational models to perform better than the non-relational counter-parts. Such a result is consistent with results reported by other rewiring works.
+
+\paragraph{Hardware.} Experiments were ran on $2$ machines with $4\times$ NVIDIA Tesla T4 (16GB) GPU, $16$ core Intel(R) Xeon(R) CPU (2.00GHz), and $40$ GB of RAM, hosted on the Google Cloud Platform (GCP). For the \texttt{PQCM-Contact} experiments we increased the RAM to 80GB and the CPU cores to $30$.
+
+\subsection{Datasets}
+\paragraph{LRGB} We consider the \pepstruct, \pepfunc, and \texttt{PCQM-Contact} tasks from the Long Range Graph Benchmark (LRGB) \citep{dwivedi2022long}. \pepfunc ($15\,535$ graphs) is a graph classification task in which the goal is to predict the peptide function out of $10$ classes. The performance is measured in Average Precision (AP). \pepstruct ($15\,535$ graphs) is a graph regression task in which the goal is to predict 3D properties of the peptides with the performance being measured in Mean Absolute Error (MAE). \texttt{PCQM-Contact} ($529\,434$ graphs) is a link-prediction task in which the goal is to predict pairs of distant nodes (when considering graph distance) that are instead close in 3D space. In our experiments, we follow closely the experimental evaluation in \citet{dwivedi2022long}, we fix the number of layers to $5$ and fix the hidden dimension as such to respect the $500$k parameter budget. For \texttt{Peptides} we use a $70\%/15\%/15\%$ train/test/split, while for \texttt{PCQM-Contact} we use a $90\%/5\%/5\%$ split. We train for $500$ epochs on \texttt{Peptides} and for $200$ on \texttt{PCQM-Contact}. We would like to also point out that in work concurrent to ours, \cite{tonshoff2023did} have shown that there are better hyper-parameter configurations than the ones used by \cite{dwivedi2022long} for the LRGB tasks that significantly improve the performance of certain baselines.
+
+\paragraph{TUDatasets} We consider the \texttt{REDDIT-BINARY} ($2\,000$ graphs), \texttt{IMDB-BINARY} ($1\,000$ graphs), \texttt{MUTAG} ($188$ graphs), \texttt{ENZYMES} ($600$ graphs), \texttt{PROTEINS} ($1\,113$ graphs), and \texttt{COLLAB} ($5\,000$ graphs) tasks from TUDatasets \citep{morris2020tudataset}. These datasets were chosen by \citet{karhadkar2022fosr}, under the claim that they require long-range interactions. We train for $100$ epochs over $25$ random seeds with a $80\%/10\%/10\%$ train/val/test split. We fix the number of layers to $4$ and the hidden dimension to $64$ as in \citet{karhadkar2022fosr}. However, unlike \citet{karhadkar2022fosr}, we apply Batch Norm and set dropout to $0\%$ instead of $50\%$. We also avoid using multi-layered encoders and decoders, in order to more faithfully compare the performance of the rewiring techniques. The reported performance is accuracy $\pm$ standard deviation $\sigma$. We note that \cite{karhadkar2022fosr} report as an uncertainty value $\sigma / \sqrt{N}$ with $N$ being the number of folds. As they set $N=100$, they effectively report mean $\pm \sigma / 10$. We instead report simply the standard deviation $\sigma$ as we deemed this to be more commonly used within the community.
+
+\subsection{Discussion on the TUDatasets}
+\label{app:tudatasets}
+ In Table \ref{tab:tudatasets}, we show an evaluation of \LASER on the \texttt{REDDIT-BINARY}, \texttt{IMDB-BINARY}, \texttt{MUTAG}, \texttt{ENZYMES}, \texttt{PROTEINS}, and \texttt{COLLAB} tasks from the TUDatasets, which were chosen by \citet{karhadkar2022fosr} under the claim that they require long-range interactions. We evaluate on a 80\%/10\%/10\% train/val/test split on $25$ random splits. We fix the hidden dimension for all models to $64$ and the number of layers to $4$ as in \citet{karhadkar2022fosr}, but set dropout rate to $0\%$ instead of $50\%$ as we deem this more appropriate. The goal of the evaluation is to compare the rewiring techniques directly, while the high dropout may complicate a more direct evaluation. %appropriate setting for evaluating the rewiring procedure. 
+We train for $100$ epochs. For these experiments, we fix the underlying MPNN to GCN. 
+
+We point out that the datasets chosen in the evaluation of \citet{karhadkar2022fosr} have characteristics that may be deemed problematic. First, many of the datasets contain few graphs. For instance, \texttt{MUTAG} contains $188$ graphs, meaning that only $18$ graphs are part of the test set. Further, \texttt{REDDIT-BINARY}, \texttt{IMDB-BINARY}, and \texttt{COLLAB} do not have node features and are augmented with constant feature vectors. Consequently, is not immediately clear how much long-range interactions play a role in these tasks, or in fact, how to even define over-squashing on graphs without (meaningful) features. For these reasons, we believe the LRGB tasks to be more indicative of the benefits of graph-rewiring to mitigate over-squashing. 
+
+Furthermore, the standard deviation of the reported accuracy is relatively large on some of the benchmarks, especially on the smaller \texttt{MUTAG} and \texttt{ENZYMES} tasks. While we report directly the standard deviation $\sigma$ in our uncertainty quantification, \citet{karhadkar2022fosr} instead report $\sigma/\sqrt{N}$ with $N$ being the number of folds. In \citet{karhadkar2022fosr} they set $N=100$, meaning that effectively they report the standard deviation divided by a factor of $10$. The high uncertainty in these datasets can be also seen in the results from \citet{karhadkar2022fosr}. In particular, an accuracy of $\approx 68.3\%$ on \texttt{MUTAG} is reported using a GCN without rewiring, while an accuracy of $\approx 49.9\%$ is reported on \texttt{MUTAG} with an R-GCN without rewiring. However, the two models should achieve similar accuracy, as the R-GCN without rewiring is equivalent to a standard GCN model as there are no further edge types in \texttt{MUTAG}. 
+
+For these reasons, we believe that while the results of \LASER on the TUDatasets are strong and beat the other baselines, any evaluation done on these tasks should be considered with a degree of caution as the high standard deviation and quality issues of the chosen tasks leave the results possibly less conclusive. Regardless, we retain such an evaluation in our work for completeness of comparison with the benchmarks used by \cite{karhadkar2022fosr}.
+
+\section{Additional Results}
+\label{app:sec:additional-results}
+In this Section, we provide additional results and ablations. In Section \ref{app:perm-equivariance}, we discuss the orbit sampling procedure that makes \LASER permutation-equivariant in expectation. In Section \ref{app:subsec:density}, we provide a density comparison between \LASER and multi-hop GNNs ($\rho = 1$). In Section \ref{app:different-mpnns}, we show that \LASER is able to work well over a range of popular MPNNs. Finally, in Section \ref{app:motivating-locality}, we give further motivation for the need for locality. 
+
+\subsection{Permutation-Equivariance of \LASER.}
+\label{app:perm-equivariance}
+
+When selecting the edges that need to be rewired given the connectivity measure $\mu$, care needs to be given when handling the tie-breaks in order to remain permutation-equivariant. Assume we have to select $k$ nodes from a partially ordered set of size $n > k$, given a reference node $v$. Further assume that nodes from $k' + 1 < k$ to $p > k$ have equivalent connectivity measure, i.e. we are given a sequence of nodes $u_1, \dots, u_n$ such that:
+\begin{equation*}
+    \mu(v, u_1) \leq \dots \leq \mu(v, u_{k'}) < \mu(v, u_{k' + 1}) =  \dots = \mu(v, u_{p}) \leq \dots \leq \mu(v, u_n).
+\end{equation*}
+
+We start by selecting the first $k'$ nodes $u_1,\dots, u_{k'}$ as they are the ones with lowest connectivity measure. Next, we have to select the remaining $k - k'$ nodes from $u_{k' + 1}, \dots, u_p$. If we naively select the nodes $u_{k' + 1}, \dots, u_k$, we would encounter permutation-equivariance issues as we would be relying on an arbitrary ordering of the nodes. Instead, in \LASER we sample uniformly the remaining $k - k'$ from the nodes $k' + 1, \dots, p$ that have equivalent connectivity measure, assuring permutation-equivariance in expectation. Table \ref{table:equivariant-tiebreak} shows that the permutation-equivariant implementation performs better than the naive implementation of simply selecting the first $k$ nodes sorted with respect to $\mu$. In practice this shuffling can be implemented efficiently by sampling a random vector $\mathbf{x} \sim \mathcal{N}(\mathbf{0}, \sigma \mathbf{I})$, with $\sigma$ very small and then adding this to the vector of connectivity measures, i.e. $\hat{\boldsymbol{\mu}} = \boldsymbol{\mu} + \mathbf{x}$. When $\sigma$ is small enough, this has the effect of uniformly breaking the tie-breaks, without breaking the absolute order of the connectivity measures.
+
+\begin{table}
+\centering
+\caption{Performance on the \texttt{Peptides} tasks given a \LASER implementation that is not permutation-equivariant (choosing top $k$ based on $\mu$ and tie-breaks are chosen based on node id) and one that is equivariant (through sampling uniformly from the tie-breaks). Bold denotes best.}
+\scalebox{1}{
+\begin{tabular}{lccc}\\ \toprule
+% \caption{hello}
+\label{table:equivariant-tiebreak}
+Rewiring & \pepfunc $\uparrow$ & \pepstruct $\downarrow$ \\\midrule
+\LASER - Not Equivariant & 0.6385$\pm$0.0048&0.3162$\pm$0.0032  \\  
+\midrule
+\LASER &\textbf{0.6447}$\pm$0.0033&\textbf{0.3151}$\pm$0.0006  \\
+
+\bottomrule
+\end{tabular}
+}
+\end{table} 
+
+% \begin{wraptable}{r}{8.7cm}
+% \vspace{-4mm}
+% \caption{Performance on the \texttt{Peptides} tasks given a \LASER implementation that is not permutation-equivariant (choosing top $k$ based on $\mu$ and tie-breaks are chosen based on node id) and one that is equivariant (through sampling uniformly from the tie-breaks).}
+% \scalebox{0.8}{
+% \begin{tabular}{lccc}\\ \toprule
+% % \caption{hello}
+% \label{table:equivariant-tiebreak}
+% Rewiring & \pepfunc $\uparrow$ & \pepstruct $\downarrow$ \\\midrule
+% \LASER - Not Equivariant & 0.6385$\pm$0.0048&0.3162$\pm$0.0032  \\  
+% \midrule
+% \LASER &\textbf{0.6447}$\pm$0.0033&\textbf{0.3151}$\pm$0.0006  \\
+
+% \bottomrule
+% \end{tabular}
+% }
+% \vspace{-2mm}
+% \end{wraptable} 
+
+\subsection{Density Ablation.}\label{app:subsec:density}
+Table \ref{table:density} reports the mean added edges per graph (counting undirected edges only once) given $\rho = 0.1$ and $\rho = 1$ on the \texttt{Peptides} graphs. We note that regardless of $\rho$, we always add a minimum of $1$ edge per node orbit. Given that the (molecular) graphs in peptides are very sparse graphs with an average of $~151$ nodes and $~307$ edges, the table highlights a \emph{worst-case scenario} for \LASER as the orbits grow relatively slowly. Having said this, the number of added edges grows at a significantly lower rate given $\rho = 0.1$. This showcases the use of $\rho$ to control the density of the graphs. The minimum number of node rewirings added being set to $1$ is a design choice and this can also be further tuned to control the density, if desired.
+
+\begin{table}
+\centering
+\caption{Mean added edges per graph given a \LASER rewiring with a density of $\rho = 0.1$ and $\rho = 1$ on the \texttt{Peptides} dataset.}
+\scalebox{1}{
+\begin{tabular}[h]{lcccc}\\ \toprule
+% \caption{Hello}
+\label{table:density}
+Density & $2$ Snapshots & $3$ Snapshots & $4$ Snapshots & $5$ Snapshots \\\midrule
+\LASER $\rho = 0.1$ & 148.9 & 296.5 & 442.4 & 587.2
+ \\
+\LASER $\rho = 1$ & 205.8 & 434.7 & 691.6 & 986.1
+ \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Performance with Different Underlying MPNNs}
+\label{app:different-mpnns}
+We run experiments to evaluate the performance of \LASER operating over different MPNNs. We evaluate on popular MPNN models: Graph Convolution Networks (GCNs) \citep{kipf2016semi}, Graph Isomorphism Networks (GINs) \citep{xu2018how}, GAT \citet{velivckovic2017graph}, and GraphSAGE (SAGE) \cite{hamilton2017inductive}. Table \ref{tab:convolutions} shows the results on \pepfunc and \pepstruct obtained by varying the underlying MPNN. We see that \LASER improves the baseline MPNN performance consistently reaching best or near best performance. This is not the case for FOSR and SDRF that often end up harming the performance of the baseline MPNN, even when using a relational model. This experiment provides evidence supporting the fact \LASER is able to function well regardless of the underlying convolution being considered. 
+
+\begin{table}[h!]
+
+\caption{Results for \pepfunc and \pepstruct. Performances are Average Precision (AP) (higher is better) and Mean Absolute Error (MAE) (lower is better), respectively. Results in \textbf{bold} denote the best result for each MPNN.}
+    \centering
+\begin{tabular}{l c c}\toprule
+\label{tab:convolutions}
+    \multirow{2}{*}{\textbf{Model}} &\multicolumn{1}{c}{\pepfunc} &\multicolumn{1}{c}{\pepstruct} \\ \cmidrule(lr){2-2} \cmidrule(lr){3-3}
+    &\textbf{Test AP $\uparrow$} &\textbf{Test MAE $\downarrow$} \\
+    \midrule
+    GCN &0.5930$\pm$0.0023 & 0.3496$\pm$0.0013 \\
+    GCN-FOSR-R &0.4629$\pm$0.0071 &0.3078$\pm$0.0026 \\
+    GCN-SDRF-R &0.5851$\pm$0.0033& 0.3404$\pm$0.0015\\
+    GCN-\LASER &\textbf{0.6440}$\pm$0.0010& \textbf{0.3043}$\pm$0.0019\\
+    \midrule
+    GIN &0.5799$\pm$0.0006 & 0.3493$\pm$0.0007 \\
+    GIN-FOSR-R &0.4864$\pm$0.0054 &\textbf{0.2966}$\pm$0.0024 \\
+    GIN-SDRF-R &0.6131$\pm$0.0084& 0.3394$\pm$0.0012\\ 
+    GIN-\LASER & \textbf{0.6489}$\pm$0.0074 & 0.3078$\pm$0.0026\\
+    \midrule 
+    GAT &0.5800$\pm$0.0061 & 0.3506$\pm$0.0011 \\
+    GAT-FOSR-R &0.4515$\pm$0.0044 &0.3074$\pm$0.0029 \\
+    GAT-SDRF-R &0.5756$\pm$0.0037& 0.3422$\pm$0.0008\\ 
+    GAT-\LASER &\textbf{0.6271}$\pm$0.0052 & \textbf{0.2971}$\pm$0.0037\\
+    \midrule
+    SAGE &0.5971$\pm$0.0041 & 0.3480$\pm$0.0007 \\
+    SAGE-FOSR-R &0.4678$\pm$0.0068 &\textbf{0.2986}$\pm$0.0013 \\
+    SAGE-SDRF-R &0.5892$\pm$0.0040& 0.3408$\pm$0.0011\\ 
+    SAGE-\LASER &\textbf{0.6464}$\pm$0.0032 & 0.3004$\pm$0.0032\\
+    \bottomrule
+    \end{tabular}   
+\end{table}
+
+\subsection{Motivating Locality}
+\label{app:motivating-locality}
+In this section, we motivate the desire for a rewiring technique to respect the locality of the graph. Preserving locality is a natural inductive bias to have whenever we assume that the graph-structure associated with the data is aligned with the downstream task.
+For instance, molecular systems observe long-range interactions that decay with the distance, in the form of Coulomb electrostatic forces. This  behaviour also naturally appears in social networks, transaction networks, or more generally in physical systems, in which interactions that are nearby are more likely to be important for a given task. Accordingly, given a budget of edges to be added, it is sensible to prioritise adding connections between nodes that are closer.
+
+Through a spectral rewiring, one is able to efficiently improve the information flow, but this often greatly modifies the information given by the topology of the graph, as shown in Figure \ref{fig:peptides-ablation}. This may be beneficial in tasks in which mixing all information quickly is important, but GNNs usually do not operate under such conditions. In fact, in tasks in which locality `should' be preserved, spectral rewirings tend to perform poorly, as shown in Table \ref{tab:peptides-exps}. Furthermore, it is unclear to what extent spectral graph-rewirings are able to deal with generalization to variying graph sizes. For instance, a spectral rewiring on a very large peptide chain will connect the most distant parts of the peptide, drastically reducing spatial quantities such as diameter. Instead, on a small molecule this change in topology would be comparably much more tame. On the other hand, local rewiring techniques naturally generalize to different graph sizes as the mechanism via which they alter the topology is much more consistent, being a local procedure.
+
+Figure \ref{fig:local-global-ablation} further motivates the need for locality in \LASER and supports the claim that locality is the main source of improvement, rather than the more expressive architecture capable of handling a sequence of snapshots. In the experiment, we compare \LASER to a version of FOSR in which each snapshot contains $10$ rewirings. We observe that for \LASER  a larger quantity of snapshots seems to benefit the performance. Instead, with FOSR there is a slight degrade in performance. Regardless, even with a growing number of snapshots, FOSR is not able to compete with \LASER. This supports the claim that even within our snapshot framework, it is important for the snapshots to remain local, rather than acting globally as done in FOSR. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.55\linewidth]{figures/relational-ablation.pdf}
+    \caption{Average Precision (AP) on \pepfunc obtained by varying the number of snapshots for \LASER and FOSR, respecting the 500k parameter budget. For \LASER, we fix $\rho = 0.1$. For FOSR, each snapshot contains $10$ iterations.}
+    \label{fig:local-global-ablation}
+\end{figure}
+
+
+
+\section{Scalability and Implementation}
+\label{app:scalability}
+
+In this section, we provide theoretical and practical insights on the scalability of \LASER to large graphs. We start by providing a theoretical complexity analysis, followed by benchmarking pre-processing and training times for the various rewiring techniques under comparison on our hardware. We find that the \LASER rewiring procedure is able to scale to synthetically generated graphs with $100$k nodes and a million edges. We further find that the densification due to the rewiring does not significantly impact the total training and inference time when compared to the underlying MPNN without rewirings on real-world tasks. 
+
+\subsection{Complexity Analysis} 
+The computations in \LASER during the pre-processing time are achieved in two steps: (1) the connectivity measure $\mu$ and locality measure $\nu$ are computed for the graph $\gph$ and (2) $\mu$ is used to guide the rewiring of the edges given the density factor $\rho$ and constrained by the locality measure $\nu$. Algorithm $\ref{alg:conn-and-locality}$ describes the computation done in step (1) and Algorithm $\ref{alg:laser}$ the computation in step (2).
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Statex{\textbf{Input}: Adjacency matrix $\Ab$, Number of snapshots $L$, Connectivity radius $C = 8$}
+		\Statex{\textbf{Output}: Locality matrix $\mathbf{D}$, Connectivity matrix $\mathbf{M}$}
+		\State{$\mathbf{D} \gets \Ab$}
+            \State{$\Ab_\texttt{curr} \gets \Ab$}
+            \State{$\Ab_\texttt{next} \gets \Ab^2$}		
+            \For{$r = 2, \cdots, L$}
+            \State{$\Ab_\texttt{curr} \gets \text{clip}(\Ab_\texttt{curr})$}
+            \State{$\Ab_\texttt{next} \gets \text{clip}(\Ab_\texttt{next})$}
+            %\State{$\Ab_{diff} \gets \Ab_\texttt{next} - \Ab_\texttt{curr}$}
+            %\State{$\mathbf{D}_{diff} \gets r\Ab_{diff}$}
+            \State{$\mathbf{D} \gets \mathbf{D} + r( \Ab_\texttt{next} - \Ab_\texttt{curr})$} \Comment{Adds nodes at distance $r$ to $\mathbf{D}$.}
+            \State{$\Ab_\texttt{curr} \gets \Ab_\texttt{next}$} \Comment{Setup next iteration.}
+            \State{$\Ab_\texttt{next} \gets \Ab_\texttt{next}\Ab$}	
+		\EndFor
+
+        \State{$\mathbf{M} \gets \Ab^C$}
+        \State{\Return $\mathbf{D}, \mathbf{M}$}
+	\end{algorithmic}
+	\caption{\textbf{Fast $\mu, \nu$ Computation}}
+	\label{alg:conn-and-locality}
+\end{algorithm}
+
+While the implementation depends on the choices for $\mu$ and $\nu$ in step (1), our specific choices are particularly efficient. Both of our measures can be in fact computed with matrix multiplication and other simple matrix operations that are highly efficient on modern hardware. For square matrices of size $n$, we set the cost of matrix multiplication to $O(n^3)$ in our analysis for simplicity although there are more efficient procedures for this operation. 
+In particular the computational complexity -- assuming the number of snapshots $L$ to be sufficiently small which is the case in practice -- of $\mu$ and $\nu$ is $O(n^3)$ with $n$ being the number of nodes considered, while the memory complexity is $O(n^2)$. We further note that while computing effective resistance also has a theoretical complexity of $O(n^3)$, it involves (pseudo-)inverting the graph Laplacian which in practice has a significant prefactor when compared to matrix multiplication and often runs into numerical stability issues. 
+
+The computations in Algorithm \ref{alg:laser} are similarly efficient and easily parallelizable as the computation for each node is independent. We find that the computational complexity is $O(n^2)$ as each node-wise calculation is $O(n)$ and there are $n$ such operations. Overall, the entire procedure of $\LASER$ therefore has a cost of $O(n^3)$, with the primary overhead being the cost of taking matrix powers of the adjacency matrix $\Ab$. In these calculations we are absorbing the costs due to the number of snapshots $L$ as a prefactor, which is a reasonable assumption as $L$ is constant, small, and independent of $n$. As shown in the benchmarking experiments, in practice the cubic cost shows very strong scalability as the operations required in our computations are highly optimized on modern hardware accelerators and software libraries.  
+
+
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Statex{\textbf{Input}: Graph $\gph$, Locality matrix $\mathbf{D}$, Connectivity matrix $\mathbf{M}$, Locality value $r$, Density $\rho$}
+		\Statex{\textbf{Output}: Rewired edges $\E'_r$ for locality $r$}
+            \State{$\E'_r \gets \text{empty}()$}
+            \For{node in $\gph$}
+            \State{$\mathbf{D}_\texttt{node}, \mathbf{M}_\texttt{node} \gets \mathbf{D}[\texttt{node}, :], \mathbf{M}[\texttt{node}, :]$}
+            \State{$\mathbf{M}_\texttt{node} \gets \mathbf{M}_\texttt{node}[\mathbf{D}_\texttt{node} = r]$} \Comment{Consider only the nodes at locality value $r$.}
+            \State{$k = \text{round}( \rho |\mathbf{M}_\texttt{node}| )$} \Comment{Edges to add $k$ are the fraction $\rho$ of the orbit size.}
+            \State{\text{$\E_r^\texttt{node} \gets \text{getNewEdgesRandomEquivariant}(\mathbf{M}_\texttt{node}, k)$}}
+            \State{$\E'_r.\text{addEdges}(\E_r^\texttt{node})$}
+            \EndFor
+        \State \Return $\E'_r$
+	\end{algorithmic}
+	\caption{\textbf{\LASER rewiring for locality value $r$}}
+	\label{alg:laser}
+\end{algorithm}
+
+
+\subsection{Real-world Graphs Scaling}
+In Table \ref{tab:scalability_rewiring}, we show rewiring pre-processing and training times on \texttt{PCQM-Contact} and pre-processing times on \texttt{PascalVOC-SP} datasets from LRGB. \texttt{PCQM-Contact} has more than $500$k graphs with an average node degree of $\approx 30$ per graph. We find that the rewiring and inference times between FOSR, SDRF, and \LASER are very similar. \texttt{PascalVOC-SP} is a dataset with $\approx 11$k graphs, but with a considerably larger average node degree of $\approx 480$. We find that \LASER is still extremely efficient, especially when compared to SDRF, with FOSR being the fastest. We further remark that the FOSR and SDRF implementations rely on custom CUDA kernel implementations with Numba to accelerate the computations. We specifically avoided such optimizations in order to preserve the clarity of the implementation and found the performance of \LASER to be efficient enough without such optimizations regardless. We envision that a custom CUDA kernel implementation of \LASER could be used for further speedups. 
+
+In Table \ref{tab:sage-scaling}, we show the training time impact of the various rewiring techniques with SAGE as the underlying MPNN on the \pepfunc task. We find that the rewiring techniques overall add small overhead to the SAGE implementation. In particular, \LASER with $L=1$ has the same training time of FOSR and SDRF but achieves significantly higher performance. 
+\begin{table}[h!]
+
+\caption{Rewiring and Training+Inference times for the \texttt{PCQM-Contact} and 
+\label{tab:scalability_rewiring}
+\texttt{PascalVOC-SP} datasets.}
+    \centering
+\begin{tabular}{l l l l}\toprule
+    Dataset & FOSR & SDRF & \LASER \\ \midrule
+    PCQM Training+Inference Time (GIN) & 11h 47m & 11h 51m	& 12h 21m \\
+    PCQM Rewiring Time & 5m 20s & 5m 36s & 4m 15s \\
+    PascalVOC-SP Rewiring Time&	4m 3s&31m 30s & 9m 6s\\ 
+    \bottomrule
+    \end{tabular}   
+\end{table}
+
+\begin{table}[h!]
+\caption{Run-time on  \pepfunc with different rewirings and SAGE. For FOSR and SDRF we set the number of iterations to $40$ and for \LASER we set $\rho=0.5$. $L$ denotes the number of rewirings.}
+\label{tab:sage-scaling}
+    \centering
+\begin{tabular}{l l l l l c}\toprule
+    Model & Training Time & Rewiring Time & $L$ & Parameters & Test AP $\uparrow$\\ \midrule
+    SAGE & 46m 26s & N/A & 0 & 482k & 0.5971$\pm$0.0041 \\
+    SAGE-FOSR-R & 55m 51s & 35s & 1 & 494k & 0.4678$\pm$0.0068 \\
+    SAGE-SDRF-R & 54m 52s & 21s & 1 & 494k & 0.5892$\pm$0.0040\\ 
+    \midrule
+    SAGE-\LASER & 54m 50s & 33s & 1 & 494k &  0.6442$\pm$0.0028\\
+    SAGE-\LASER & 1h 4m 28s & 42s &3 & 495k &\textbf{0.6464}$\pm$0.0032\\
+    \bottomrule
+    \end{tabular}   
+\end{table}
+
+% \begin{wraptable}{r}{6.5cm}
+% \vspace{-4mm}
+% \caption{Mean added edges per graph given a \LASER rewiring with a density of $\rho = 0.1$ and $\rho = 1$ on the \texttt{Peptides} dataset.}
+% \scalebox{0.8}{
+% \begin{tabular}[h]{lcccc}\\ \toprule
+% % \caption{Hello}
+% \label{table:density}
+% Density & $2$ Snapshots & $3$ Snapshots & $4$ Snapshots & $5$ Snapshots \\\midrule
+% \LASER $\rho = 0.1$ & 148.9 & 296.5 & 442.4 & 587.2
+%  \\
+% \LASER $\rho = 1$ & 205.8 & 434.7 & 691.6 & 986.1
+%  \\
+% \bottomrule
+% \end{tabular}
+% }
+% \vspace{-2mm}
+% \end{wraptable} 
+
+\subsection{Synthetic Scaling Experiment} 
+To further benchmark the scalability of the rewiring time, we construct an Erdos-Renyi synthetic benchmark with $n$ nodes and Bernoulli probability $p=10/n$, i.e. in expectation we have $10n$ edges. In these synthetic experiments, we benchmark on a machine with 44 cores and 600GB of RAM. Setting $n=10$k (meaning $\approx 100k$ edges), \LASER ($\rho=0.5, L=1$) takes 11s, while FOSR and SDRF with $0.001n = 100$ iterations take 45s and 5m 48s respectively. On $n=100$k (meaning $\approx 1$ million edges), \LASER completes the computation in 2h 16m, while FOSR and SDRF do not terminate after more than 24 hours of computation. We emphasize that these graphs are much larger than what graph rewiring techniques are designed for, yet \LASER is still able to handle them with success due to its efficient design.
+
+Overall, in these synthetic experiments, we found that \LASER is able to scale to very large graphs and with a reasonable run-time on modest hardware. Scaling to larger graphs with  millions of nodes would likely require some further form of sampling, with this being a common practice used to scale GNNs to very large graphs \citep{hamilton2017inductive}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
