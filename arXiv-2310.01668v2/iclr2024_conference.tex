@@ -858,7 +858,10 @@ where we have used that by assumption there must exist only one path of length $
 
 \begin{proof}
 Let us denote the end node of the chain by $v$, while $z$ is the node belonging to both the chain and the clique, and $u$ be any node in the interior of the clique.
-It is known that the commute time between $v$ and $u$ scales cubically in the total number of nodes \citep{chandra1996electrical}, so an algorithm aimed at minimizing the effective resistance will add an edge between $v$ and a point in the interior of the clique --- which we rename $u$ without loss of generality. Accordingly, the distance between $v$ and any point in the interior has changed by at least $(L+1) - 2$. Besides, the distance between $v$ and $z$  has changed by $L - 2$. We can then derive the lower bound:
+It is known that the commute time between $v$ and $u$ scales cubically in the total number of nodes \citep{chandra1996electrical}, so an algorithm aimed at minimizing the effective resistance will add an edge between $v$ and a point in the interior of the clique --- which we rename $u$ without loss of generality. 
+Accordingly, the distance between $v$ and any point in the interior has changed by at least $(L+1) - 2$. 
+Besides, the distance between $v$ and $z$  has changed by $L - 2$. 
+We can then derive the lower bound:
 % Consider a family of graphs $\mathcal{G}$ and a spectral-rewiring approach that is based on adding edges based on those that maximally decrease the effective resistance. For simplicity, say that this method only adds a {\em single} edge. We let $\gamma > 0$ be the lower bound of maximal pairwise effective resistance over all graphs in $\mathcal{G}$. Since the pairwise distance is always larger or equal than the effective resistance, we can bound the Frobenius norm of the difference between the distance matrices as 
 \[
 \|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} \geq \sqrt{(n-1)(L - 1)^2 + (L-2)^2}.
@@ -867,7 +870,12 @@ Let us now consider the case of \LASER with a single snapshot. We want to choose
 \[
 \rho = \frac{k}{2L},
 \]
-it means that our algorithm, on average, will only add $k$ edges over the chain. To avoid vacuous cases, consider $k \geq 2$. Accordingly, the pairwise distance between any couple of nodes along the chain is changed by at most $k$. For what concerns the clique instead, let us take the worst-case scenario where $z'$ is connected to any node in the clique. Then, the distance between any node in the clique and any node in the chain has changed by $(k+1)$. If we put all together, we have shown that
+it means that our algorithm, on average, will only add $k$ edges over the chain. 
+To avoid vacuous cases, consider $k \geq 2$. 
+Accordingly, the pairwise distance between any couple of nodes along the chain is changed by at most $k$. 
+For what concerns the clique instead, let us take the worst-case scenario where $z'$ is connected to any node in the clique. 
+Then, the distance between any node in the clique and any node in the chain has changed by $(k+1)$. 
+If we put all together, we have shown that
 \[
 \|\mathcal{D}_\gph - \mathcal{D}_{\LASER} \|_{F} \leq \sqrt{L^2 k^2 + nL(k+1)^2}.
 \]
