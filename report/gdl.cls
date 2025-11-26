@@ -3,12 +3,11 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
-\LoadClass{article}
+\LoadClass[8pt]{article}
 
 \RequirePackage{times}
 \usepackage[scaled=.95]{helvet}
 
-\RequirePackage{graphicx, hyperref}
 \usepackage[square,sort,comma,numbers]{natbib}
 
 \RequirePackage{latexsym,ifthen,rotating,calc,textcase,booktabs,color,endnotes}
@@ -18,7 +17,7 @@
 \flushbottom
 \frenchspacing
 
-\usepackage[text={174mm,258mm},%
+\usepackage[text={200mm,270mm},%
 papersize={210mm,297mm},%
 columnsep=12pt,%
 headsep=21pt,%
@@ -70,6 +69,10 @@ centering]{geometry}
 \renewcommand{\scriptsize}{\fontsize{7.0}{8.5pt}\selectfont}
 \renewcommand{\large}{\fontsize{12}{14pt}\selectfont}
 \newcommand{\titlesize}{\fontsize{18.0}{20pt}\selectfont}
+
+
+
+
 
 \newbox\absbox
 \def\abstract{\lrbox\absbox\minipage{\textwidth}%
