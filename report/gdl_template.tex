@@ -215,7 +215,7 @@
 
 
 %% commands from the paper
-\newcommand{\gph}{{G}} % graph G
+\newcommand{\gph}{G}
 \newcommand{\MPNN}{\text{MPNN}}
 \newcommand{\cheeg}{{h}_{\text{Cheeg}
 }}
@@ -231,12 +231,10 @@
 \newcommand{\mpas}{\text{a}}
 \newcommand{\agg}{\texttt{agg}}
 \newcommand{\com}{\text{com}}
-% \newcommand{\gph}{\text{G}} % graph G
 \newcommand{\colfirst}{\textcolor{red}}
 \newcommand{\colsecond}{\textcolor{blue}}
 \newcommand{\colthird}{\textcolor{violet}}
 % \newcommand{\MPNN}{\text{MPNN}}
-\newcommand{\rew}{\mathcal{R}}
 \newcommand{\eigen}{\boldsymbol{\psi}}
 \newcommand{\cost}{{c}}
 \newcommand{\W}{\mathbf{W}}
@@ -331,8 +329,8 @@
 
 
 % CHANGE THESE
-\def\groupid{------}
-\def\projectid{------}
+\def\groupid{FBFRJT} % Fabian Bosshard, Fanny Rorri, Jimena Tagle
+\def\projectid{LASER}
 
 \begin{document}
 
@@ -372,7 +370,11 @@ Fabian Bosshard, Fanny Rorri, Laura Jimena Tagle Muñoz \\
 
 \section{Introduction}
 
-% Here you should clarify the context of your project and the problem you are dealing with. You should also make a brief summary of the main results and contributions (i.e., if you tried to replicate the results of an existing paper you should say if you were successful or not). The introduction should help the reader to follow along for the rest of the paper.
+% Here you should clarify the context of your project and the problem you are dealing with. 
+% You should also make a brief summary of the main results and contributions (i.e., if you tried to replicate the results of an existing paper you should say if you were successful or not). 
+% The introduction should help the reader to follow along for the rest of the paper.
+
+
 
 \gls{laser}
 
@@ -436,16 +438,15 @@ The entry $(\hat{\matr{A}}^{k})_{vu}$ can be computed explicitly as follows:
     (\hat{\matr{A}}^{k})_{vu}
     =
     \sum_{\pi}
-    \prod_{(x, y) \in \pi} \frac{1}{\sqrt{d_x d_y}}
+    \prod_{(x, y) \in E_\pi} \frac{1}{\sqrt{d_x d_y}}
 \end{equation}
-where the sum is over all walks $\pi = (v, \ldots, u)$
-of length $k$ from $v$ to $u$.
+the sum is over all walks $\pi = (v, \ldots, u)$ of length $k$ from $v$ to $u$ and the product is over the edges \(E_\pi = \{(v, u_1), \ldots, (u_{k-1}, u)\}\) on the walk.
 \end{proposition}
 
 
 
 \begin{corollary}\label{cor:multi_hop_propagation_single_path}
-Let $v,u \in V$ with $r = d_{\gph}(v,u)$, where $d_{\gph}(\cdot,\cdot)$ denotes the shortest-path distance.
+Let $v,u \in V$ with $r = d_{G}(v,u)$, where $d_{G}(\cdot,\cdot)$ denotes the shortest-path distance.
 Assume there is exactly one path
 \[
     (v, u_{1}, \ldots, u_{r-1}, u)
@@ -514,11 +515,11 @@ For $\ell \in \N_0$, we define the \emph{distance-($\ell+1$) adjacency matrix} $
     \bigl(\matr{A}_{\ell}\bigr)_{uv}
     =
     \begin{cases}
-        1 & d_{\gph}(u,v) = \ell+1\\
+        1 & d_{G}(u,v) = \ell+1\\
         0 & \text{otherwise}
     \end{cases}
 \end{equation}
-where $d_{\gph}(u,v)$ is the shortest-path distance.
+where $d_{G}(u,v)$ is the shortest-path distance.
 The corresponding \emph{layer degree} of a node $v$ at distance level $\ell$ is
 \begin{equation}\label{eq:layer_degree}
     d_{v,\ell}
@@ -541,7 +542,7 @@ so that
 \bigl(\hat{\matr{A}}_{\ell}\bigr)_{uv}
 =
 \begin{cases}
-    \frac{1}{\sqrt{d_{u,\ell} d_{v,\ell}}} & d_{\gph}(u,v) = \ell+1 \\
+    \frac{1}{\sqrt{d_{u,\ell} d_{v,\ell}}} & d_{G}(u,v) = \ell+1 \\
     0 & \text{otherwise}
 \end{cases}
 \end{verticalhack}
@@ -693,12 +694,64 @@ i.e. two nodes have small commute time exactly when they have small effective re
 
 \section{Theoretical analysis}\label{sec:theoretical_analysis}
 
+
+\subsection{Dynamic rewiring paradigm}
+
+The main contribution of \cite{barbero2024laser} is the following idea:
+Instead of applying a single rewired graph \(\mathcal{R}(G)\), consider a sequence of rewired graphs
+\begin{equation}\label{eq:sequence_rewiring}
+\gph = \gph_0 \xhookrightarrow[]{\mathcal{R}} \cdots \xhookrightarrow[]{\mathcal{R}} \gph_{\ell-1} \xhookrightarrow[]{\mathcal{R}} \gph_{\ell} \xhookrightarrow[]{\mathcal{R}} \cdots \xhookrightarrow[]{\mathcal{R}} \gph_L
+\end{equation}
+where \(G_\ell\) is called the \(\ell\)-snapshot, since we think of \(G_\ell\) as the input graph evolved along a dynamical process for \(\ell\) iterations.
+
+
+The variant to derive the theoretical results in \cite{barbero2024laser} is a \gls{gcn}-\gls{laser} architecture
+\begin{equation}\label{eq:laser-GCN}
+\begin{aligned}
+% \vect{x}_{v}^{(t)} 
+%  =&  \operatorname{ReLU}\Bigg( 
+%   \sum_{u\in \mathcal{N}_1(v)\cup\{v\}}\frac{\matr{W}_0^{(t)}\vect{x}_{u}^{(t-1)} }{\sqrt{d_v d_u}}\\
+%  &+ 
+%  \sum_{\ell = 1}^{L} \sum_{u\in\mathcal{N}^\rho_{\ell+1}(v)}
+% \frac{\matr{W}_{\ell}^{(t)} \vect{x}_u^{(t-1)}}{\sqrt{d_{v,\ell} d_{u,\ell}}}
+% \Bigg)
+\vect{x}_{v}^{(t)} 
+ =&  \operatorname{ReLU}\Bigg( 
+  \sum_{u\in \mathcal{N}_1(v)\cup\{v\}}
+  \frac{1}{\sqrt{d_v d_u}} \cdot \matr{W}_0^{(t)}\vect{x}_{u}^{(t-1)}\\
+ &+ 
+ \sum_{\ell = 1}^{L} 
+ \sum_{u\in\mathcal{N}^\rho_{\ell+1}(v)}
+\frac{1}{\sqrt{d_{v,\ell} d_{u,\ell}}} \cdot \matr{W}_{\ell}^{(t)} \vect{x}_u^{(t-1)}
+\Bigg)
+\end{aligned}
+\end{equation}
+where \(\matr{W}_{\ell}^{(t)}\), for \(\ell = 0, \ldots, L\), 
+are learnable weight matrices and 
+\begin{equation}\label{eq:laser-neighborhood}
+\mathcal{N}^\rho_{\ell + 1}(v) \subset \mathcal{N}_{\ell + 1}(v) := \{u \in V \mid d_{G_0}(u,v) = \ell + 1\}
+\end{equation}
+is a \(\rho\)-fraction of nodes at distance exactly \(\ell + 1\) from \(v\) with the lowest connectivity score \(\mu\) in the original graph \(G = G_0\). 
+So, for the \(\ell^{\text{th}}\) snapshot \(G_\ell\), \gls{laser} considers \(\rho \cdot d_{v,\ell + 1}\) artificial edges from \(v\) to nodes at distance \(d_{G_0}(u,v) = \ell + 1\).
+
+
+
+
 \subsection{Jacobian sensitivity}
 
-\[
+Let \(\matr{J}^{(t)}(v, u) := \partial \vect{x}_v^{(t)} / \partial \vect{x}_u^{(0)}\) be the Jacobian of features after \(t\) layers of message passing on \(G\) using a \gls{gcn} as described in \cite{kipf2016semi},
+and similarly let \(\smash{\tilde{\matr{J}}}^{(t)}(v, u)\) be the Jacobian after \(t\) layers using \gls{laser}, as defined in \autoref{eq:laser-GCN}.
+
+\begin{proposition}\label{prop:jacobian_sensitivity}
+Let $v,u \in V$ with $r = d_{G_0}(v,u)$, where $G_0$ is the original graph before applying \gls{laser}.
+Assume there is exactly one path \(\pi \subset G_0\) of length \(r\) connecting \(v\) and \(u\) (see \autoref{fig:jacobian_sensitivity_path}).
+
+
+\begin{figure}[h]
+\centering
 \begin{tikzpicture}[
   font=\footnotesize,
-  scale=0.5,
+  scale=0.45,
   vertex/.style={
     circle,
     draw,
@@ -740,17 +793,60 @@ i.e. two nodes have small commute time exactly when they have small effective re
 \def\offset{-0.5cm};
 \draw[measure] ($(v) + (0, -1) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_0}(v,u) = r$} ($(u) + (0, -1) + (0, \offset)$);
 \draw[measure] ($(v) + (0, -2) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_0}(v,j) = \ell$} ($(j) + (0, -2) + (0, \offset)$);
-\draw[measure, densely dashed] ($(v) + (0, -3) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_\ell}(v,u) = \color{blue} 1 + \color{black} r - \ell$} ($(u) + (0, -3) + (0, \offset)$);
+\draw[measure, densely dashed] ($(v) + (0, -3) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_{\color{red} \ell - 1}}(v,u) = \color{blue} 1 + \color{black} r - \ell$} ($(u) + (0, -3) + (0, \offset)$);
 
 \end{tikzpicture}
+\caption{
+Unique shortest path \(\pi \subset G_0\) between \(v\) and \(u\) of length \(r\) with an intermediate node \(j\) at distance \(\ell\) from \(v\).
+The dashed blue line indicates the edge added by \gls{laser}.
+}
+\label{fig:jacobian_sensitivity_path}
+\end{figure}
+
+
+\noindent
+Assume \gls{laser} adds an edge between \(v\) and a node \(j \in V_\pi\) with \(d_{G_0}(v,j) = \ell < r\).
+Furthermore, assume that all products of weight matrices have unit norm.
+Then for all \(m \leq r\) we have
+\begin{equation}\label{eq:jacobian_sensitivity}
+\left\|\Exp\left[\smash{\tilde{\matr{J}}}^{(r - \ell + 1)}(v, u)\right]\right\|
+\geq
+\frac{(d_{\min})^{\ell} \sqrt{\frac{d_j}{d_u}}}{\sqrt{d_{v,\ell - 1} d_{j,\ell - 1}}}
+\left\|\Exp\left[\matr{J}^{(m)}(v, u)\right]\right\|
+\end{equation}
+where \(d_{\min} = \min_{v \in V} d_v\) is the minimum degree in \(G_0\).
+\end{proposition}
+
+
+\begin{proof}
+In the following, the expectations are with respect to \(\operatorname{ReLU}'\) which is assumed to have probability of success \(p\) for all paths in the computational graph as in \cite{xu2018representation, digiovanni2023over}.
+The Jacobian after \(m\) layers of \gls{gcn} is
+\[
+\left\| \Exp\left[\matr{J}^{(m)}(v, u)\right] \right\|
+=
+ p \left\| \prod_{k=1}^{m} \matr{W}^{(k)} \right\| (\hat{\matr{A}}^{m})_{vu}
+ =
+  p (\hat{\matr{A}}^{m})_{vu}
+\]
+where we used the unit-norm assumption on the weight matrices and \(\hat{\matr{A}}\) denotes the normalized adjacency matrix from \autoref{def:normalized_adjacency}.
+
+For \(m < r\), the expression above vanishes, satisfying \eqref{eq:jacobian_sensitivity}, so we consider \(m = r\) from now on.
+
+With the same assumptions, the Jacobian after \(r - \ell + 1\) layers of \gls{laser} is
+\[
+\begin{aligned}
+\left\| \Exp\left[\smash{\tilde{\matr{J}}}^{(r - \ell + 1)}(v, u)\right] \right\|
+=&
+  p \left\| \prod_{k=2}^{r - \ell + 1} \matr{W}_0^{(k)}  {\color{blue}\matr{W}_{\ell - 1}^{(1)}} \right\|
+  (\hat{\matr{A}}_{\ell - 1})_{vj} (\hat{\matr{A}}^{r - \ell})_{ju} \\
+=&
+  p (\hat{\matr{A}}_{\ell - 1})_{vj} (\hat{\matr{A}}^{r - \ell})_{ju}
+\end{aligned}
 \]
 
-
-
-
-We have a unique path
+As we can see in \autoref{fig:jacobian_sensitivity_path}, we have a unique path
 \[
-(v = u_0, u_1, \dots, u_{r-1}, u_r = u),
+(v = u_0, u_1, \dots, u_{r-1}, u_r = u)
 \]
 and we assume \(j = u_\ell\).
 From \autoref{cor:multi_hop_propagation_single_path}, for the full path from \(v\) to \(u\):
@@ -769,10 +865,16 @@ For the sub-path from \(j = u_\ell\) to \(u = u_r\) of length \(r-\ell\), the sa
 \prod_{s=\ell+1}^{r-1} \frac{1}{d_{u_s}}.
 \]
 
-Now we plug this into our expression:
+Now we calculate the ratio
 \[
 \begin{aligned}
-\frac{(\hat{\matr{A}}_{\ell-1})_{vj}(\hat{\matr{A}}^{r-\ell})_{ju}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_{u_s}}}
+\frac{
+\left\| \Exp\left[\smash{\tilde{\matr{J}}}^{(r - \ell + 1)}(v, u)\right] \right\|
+}{
+\left\| \Exp\left[\matr{J}^{(r)}(v, u)\right] \right\|
+}
+&=
+\frac{(\hat{\matr{A}}_{\ell-1})_{vj}(\hat{\matr{A}}^{r-\ell})_{ju}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_{u_s}}} \\
 &=
 \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\color{red}\ell\color{black}-1}\frac{1}{d_{u_s}}}
 \cdot
@@ -789,73 +891,83 @@ Now we plug this into our expression:
 \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
 \color{black}
 \cdot
-\frac{1}{\sqrt{d_j d_u}}
-\cdot
-\frac{\prod_{s=\ell+1}^{r-1} \frac{1}{d_{u_s}}}{\frac{1}{d_{u_\ell}}\prod_{s=\ell+1}^{r-1} \frac{1}{d_{u_s}}} \\
+\frac{\frac{1}{\sqrt{d_j d_u}}\prod_{s=\ell+1}^{r-1} \frac{1}{d_{u_s}}}{\frac{1}{d_{u_\ell}}\prod_{s=\ell+1}^{r-1} \frac{1}{d_{u_s}}} \\
 &=
 \color{gray}
 \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
 \color{black}
 \cdot
-\frac{1}{\sqrt{d_j d_u}} \cdot d_{u_\ell} \\
+\frac{d_{u_\ell}}{\sqrt{d_j d_u}} \\
 &=
-\color{gray}
+% \color{gray}
 \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
-\color{black}
+% \color{black}
 \cdot
 \sqrt{\frac{d_j}{d_u}}
 \end{aligned}
 \]
-So
-\begin{equation}\label{eq:laser_ratio_exact}
-\frac{(\hat{\matr{A}}_{\ell-1})_{vj}(\hat{\matr{A}}^{r-\ell})_{ju}}
-{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_{u_s}}}
-=
-\frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
-\cdot
-\sqrt{\frac{d_j}{d_u}}
-\end{equation}
-
-
+% So
+% \begin{equation}\label{eq:laser_ratio_exact}
+% \frac{(\hat{\matr{A}}_{\ell-1})_{vj}(\hat{\matr{A}}^{r-\ell})_{ju}}
+% {\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_{u_s}}}
+% =
+% \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
+% \cdot
+% \sqrt{\frac{d_j}{d_u}}
+% \end{equation}
 Using
 \[
-(\hat{\matr{A}}_{\ell-1})_{vj} = \frac{1}{\sqrt{d_{v,\ell-1} d_{j,\ell-1}}}
+(\hat{\matr{A}}_{\ell-1})_{vj} 
+\overset{\text{\eqref{eq:normalized_distance_layer_adjacency}}}{=} 
+\frac{1}{\sqrt{d_{v,\ell-1} d_{j,\ell-1}}}
 \]
 and
 \[
 \frac{1}{\sqrt{d_v d_u}}\prod_{s=1}^{\ell-1} \frac{1}{d_{u_s}}
 \le
-\frac{1}{d_{\min}^\ell}
+\frac{1}{(d_{\min})^\ell}
 \]
-we obtain the bound
-\begin{equation}\label{eq:laser_ratio_first_factor_bound}
+we obtain
+\[
 \frac{(\hat{\matr{A}}_{\ell-1})_{vj}}{\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{\ell-1}\frac{1}{d_{u_s}}}
-\;\ge\;
+\ge
 \frac{(d_{\min})^\ell}{\sqrt{d_{v,\ell-1} d_{j,\ell-1}}}
-\end{equation}
-
-
-Combining \eqref{eq:laser_ratio_exact} and
-\eqref{eq:laser_ratio_first_factor_bound} yields
-\begin{equation}\label{eq:laser_ratio_final_bound}
-\boxed{
-\frac{(\hat{\matr{A}}_{\ell-1})_{vj}(\hat{\matr{A}}^{r-\ell})_{ju}}
-     {\frac{1}{\sqrt{d_v d_u}}\prod_{s = 1}^{r-1}\frac{1}{d_{u_s}}}
+\]
+which, combined with the previous equation, gives
+\[
+\frac{
+\left\| \Exp\left[\smash{\tilde{\matr{J}}}^{(r - \ell + 1)}(v, u)\right] \right\|
+}{
+\left\| \Exp\left[\matr{J}^{(r)}(v, u)\right] \right\|
+}
 \ge
 \frac{(d_{\min})^\ell}{\sqrt{d_{v,\ell-1} d_{j,\ell-1}}}
 \cdot
 \sqrt{\frac{d_j}{d_u}}
-}
-\end{equation}
+\]
+concluding the proof.
+\end{proof}
 
 
 
 
-\subsection{Locality awareness}
+\subsection{Preservation of locality}
 
 
+\begin{proposition}\label{prop:locality_preservation}
 
+Following \cite{digiovanni2023over}, we compare how much a rewiring perturbs the shortest-path distances by means of the Frobenius norm
 \[
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{G'}\bigr\|_{F},
+    \qquad
+    (\mathcal{D}_G)_{uv} = d_{G}(u,v).
+\]
+
+
+
+
+\begin{figure}[h]
+\centering
 \begin{tikzpicture}[
   font=\footnotesize,
   scale=0.5,
@@ -876,7 +988,7 @@ Combining \eqref{eq:laser_ratio_exact} and
 \def\cliqueRadius{2.5cm}
 \coordinate (cliqueCenter) at ($(\zLocation,0) + (\cliqueRadius,0)$);
 
-\node[circle, draw, dashed, fill=blue!20, minimum size=\cliqueRadius, inner sep=0pt] (clique) at (cliqueCenter) {};
+\node[circle, draw, dashed, fill=orange!20, minimum size=\cliqueRadius, inner sep=0pt] (clique) at (cliqueCenter) {};
 \node at (cliqueCenter) {$|\texttt{clique}| = n$};
 
 
@@ -893,8 +1005,164 @@ Combining \eqref{eq:laser_ratio_exact} and
 \def\offset{-0.5cm};
 \draw[measure] ($(v) + (0, -1) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$L$} ($(z) + (0, -1) + (0, \offset)$);
 \end{tikzpicture}
-\]
+\caption{
+Lollipop graph with a chain of length \(L\) attached to a clique of size \(n\).
+}
+\label{fig:lollipop_graph}
+\end{figure}
 
+
+
+\end{proposition}
+
+\paragraph{Setup.}
+Let $G$ be a lollipop graph consisting of a path of length $L$ attached to a clique of size $n$.
+Let $v$ be the endpoint of the path, $z$ the junction between path and clique, and let the other $n-1$ clique nodes be “interior” nodes.
+
+\subsubsection*{Spectral rewiring: lower bound}
+
+Consider a spectral rewiring $\mathcal{R}$ that adds one edge between the pair with largest effective resistance, which in this graph is $(v,u)$ for some interior clique node $u$.
+Before rewiring,
+\[
+    d_{G}(v,u) = L+1,
+    \qquad
+    d_{G}(v,z) = L.
+\]
+After adding $(v,u)$ we have
+\[
+    d_{\mathcal{R}(G)}(v,u) = 1,
+    \qquad
+    d_{\mathcal{R}(G)}(v,w) \le 2 \ \text{for all interior clique } w,
+    \qquad
+    d_{\mathcal{R}(G)}(v,z) \le 2.
+\]
+Hence, for each of the $n-1$ interior clique nodes
+\[
+    \bigl|d_{G}(v,w) - d_{\mathcal{R}(G)}(v,w)\bigr|
+    \;\ge\; (L+1) - 2 = L-1,
+\]
+and for $z$
+\[
+    \bigl|d_{G}(v,z) - d_{\mathcal{R}(G)}(v,z)\bigr|
+    \;\ge\; L - 2.
+\]
+Restricting the Frobenius sum to these $n$ pairs yields
+\begin{equation}\label{eq:frob_spectral_lower}
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}^{2}
+    \;\ge\;
+    (n-1)(L-1)^{2} + (L-2)^{2},
+\end{equation}
+and therefore
+\begin{equation}\label{eq:frob_spectral_lower_root}
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}
+    \;\ge\;
+    \sqrt{(n-1)(L-1)^{2} + (L-2)^{2}}.
+\end{equation}
+
+\subsubsection*{LASER: upper bound}
+
+Now consider \gls{laser} with a single snapshot restricted to distance-$2$ edges.
+On the path, every node except the penultimate one $z'$ has at most two distance-$2$ neighbours; $z'$ has the whole clique at distance $2$.
+If we choose $\rho$ such that
+\begin{equation}\label{eq:rho_k_relation}
+    \rho = \frac{k}{2L},
+\end{equation}
+then the \emph{expected} number of new edges incident to path nodes is $k$.
+Assuming that at most $k$ such edges are added, we obtain uniform bounds on the distance changes.
+
+\paragraph{Path--path pairs.}
+Each new edge connects two nodes at distance $2$, so using it on a shortest path can shorten that path by at most $1$.
+Any path between two nodes $x,y$ on the path can traverse at most $k$ new edges, hence
+\[
+    \bigl|d_{G}(x,y) - d_{\text{LASER}}(x,y)\bigr| \le k
+    \quad\text{for all path nodes } x,y.
+\]
+There are at most $L^{2}$ ordered path--path pairs, so their contribution to the Frobenius norm satisfies
+\begin{equation}\label{eq:frob_laser_chain}
+    \sum_{\substack{x,y \text{ on path}}}
+    \bigl(d_{G}(x,y) - d_{\text{LASER}}(x,y)\bigr)^{2}
+    \;\le\;
+    L^{2} k^{2}.
+\end{equation}
+
+\paragraph{Path--clique pairs.}
+In the worst case, one of the $k$ new edges connects $z'$ directly to some clique node.
+Then any shortest path between a path node $x$ and a clique node $c$ can use at most $k$ shortcuts along the path and one shortcut to enter the clique.
+Thus
+\[
+    \bigl|d_{G}(x,c) - d_{\text{LASER}}(x,c)\bigr|
+    \;\le\; k+1
+    \quad\text{for all } x \text{ on the path and } c \text{ in the clique}.
+\]
+There are $nL$ such ordered pairs, giving
+\begin{equation}\label{eq:frob_laser_chain_clique}
+    \sum_{\substack{x \text{ on path}\\ c \text{ in clique}}}
+    \bigl(d_{G}(x,c) - d_{\text{LASER}}(x,c)\bigr)^{2}
+    \;\le\;
+    nL (k+1)^{2}.
+\end{equation}
+
+Distances between clique nodes are not increased by adding local edges from the path and are at most mildly decreased; their contribution can be bounded and is dominated by the two terms above.
+Hence we obtain the global upper bound
+\begin{equation}\label{eq:frob_laser_upper}
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}^{2}
+    \;\le\;
+    L^{2} k^{2} + nL (k+1)^{2},
+\end{equation}
+and therefore
+\begin{equation}\label{eq:frob_laser_upper_root}
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
+    \;\le\;
+    \sqrt{L^{2} k^{2} + nL (k+1)^{2}}.
+\end{equation}
+
+\subsubsection*{Comparison and corrected parameter constraints}
+
+A sufficient condition for \gls{laser} to be more locality-preserving than the spectral rewiring is
+\[
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
+    \;\le\;
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}.
+\]
+Using \eqref{eq:frob_spectral_lower_root} and \eqref{eq:frob_laser_upper_root}, this is guaranteed if
+\begin{equation}\label{eq:ineq_nkL_raw}
+    L^{2} k^{2} + nL (k+1)^{2}
+    \;\le\;
+    (n-1)(L-1)^{2} + (L-2)^{2}.
+\end{equation}
+Rearranging~\eqref{eq:ineq_nkL_raw} and solving for $n$ gives
+\begin{equation}\label{eq:n_bound_correct}
+    n
+    \;\ge\;
+    \frac{k^{2} L^{2} + 2L - 3}
+         {L^{2} - Lk^{2} - 2Lk - 3L + 1},
+\end{equation}
+provided the denominator is positive.
+A sufficient condition for the denominator to be positive is
+\begin{equation}\label{eq:k_condition}
+    k^{2} < \frac{L}{4}, \qquad L \ge 8,
+\end{equation}
+which we verified analytically for $k \in \N$.
+Using the relation $\rho = k/(2L)$ from~\eqref{eq:rho_k_relation}, the constraint \eqref{eq:k_condition} is equivalent to
+\begin{equation}\label{eq:rho_bound_correct}
+    \rho^{2} < \frac{1}{16 L}
+    \quad\Longleftrightarrow\quad
+    \rho < \frac{1}{4\sqrt{L}}.
+\end{equation}
+
+In summary, on lollipop graphs with $L \ge 8$, sufficiently small sampling rate
+$\rho < 1/(4\sqrt{L})$ and $n$ satisfying~\eqref{eq:n_bound_correct}, we obtain
+\begin{equation}\label{eq:final_locality_comparison}
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
+    \;\le\;
+    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F},
+\end{equation}
+i.e.\ \gls{laser} perturbs the shortest-path distances less than the spectral effective-resistance-based rewiring.
+
+Compared to the original derivation, we note that:
+(i) the path--clique bound should be interpreted as a worst-case inequality $\le k+1$ rather than an equality;
+(ii) the algebraic manipulation leading to the bound on $n$ in~\eqref{eq:n_bound_correct} fixes a sign error in the denominator; and
+(iii) the correct constraint on $\rho$ is~\eqref{eq:rho_bound_correct}, which differs by a factor of $2$ from the value stated in the paper.
 
 
 
@@ -958,8 +1226,10 @@ Combining \eqref{eq:laser_ratio_exact} and
 % Try to summarize the achievements of your project and its limits, suggesting (when appropriate) possible extensions and future works.
 
 % Bibliography
-% \bibliography{bibliography}
-% \bibliographystyle{unsrtnat}
+\bibliography{bibliography}
+\bibliographystyle{unsrtnat}
+
+
 % \clearpage
 
 \end{document}
