@@ -432,7 +432,7 @@ or, entrywise,
 \]
 \end{definition}
 
-\begin{proposition}[multi-hop propagation]\label{prop:multi_hop_propagation}
+\begin{fact}[multi-hop propagation]\label{prop:multi_hop_propagation}
 The entry $(\hat{\matr{A}}^{k})_{vu}$ can be computed explicitly as follows:
 \begin{equation}\label{eq:multi_hop_propagation}
     (\hat{\matr{A}}^{k})_{vu}
@@ -441,7 +441,7 @@ The entry $(\hat{\matr{A}}^{k})_{vu}$ can be computed explicitly as follows:
     \prod_{(x, y) \in E_\pi} \frac{1}{\sqrt{d_x d_y}}
 \end{equation}
 the sum is over all walks $\pi = (v, \ldots, u)$ of length $k$ from $v$ to $u$ and the product is over the edges \(E_\pi = \{(v, u_1), \ldots, (u_{k-1}, u)\}\) on the walk.
-\end{proposition}
+\end{fact}
 
 
 
@@ -550,14 +550,14 @@ so that
 \]
 \end{definition}
 
-Finally, we denote by
-\begin{equation}\label{eq:minimum_degree}
-    d_{\min}
-    =
-    \min_{v \in V} d_v
-\end{equation}
-the \emph{minimum node degree} in the graph.
-% Bounds involving powers of $d_{\min}$ quantify how the worst-case degree along a path affects information flow and Jacobian norms in \gls{gcn}- and \gls{laser}-type architectures.
+% Finally, we denote by
+% \begin{equation}\label{eq:minimum_degree}
+%     d_{\min}
+%     =
+%     \min_{v \in V} d_v
+% \end{equation}
+% the \emph{minimum node degree} in the graph.
+
 
 
 
@@ -685,6 +685,11 @@ giving a geometric interpretation of how ``far apart'' two nodes are in terms of
 i.e. two nodes have small commute time exactly when they have small effective resistance.
 
 
+\section{Related works}
+
+% Give a brief summary of (some) existing methods that are related to you project. For instance, you can refer to~\citet{gilmer2017neural}, or simply~\cite{gilmer2017neural}, for introducing Message Passing Neural Networks. In this section it is important to provide readers references to the current state of the art and the foundations of the presented method. 
+
+% N.B.: When referencing a different approach, it is not necessary to provide a detailed description, only one/two brief sentences are enough. The interested readers can eventually read the referenced work. 
 
 
 
@@ -818,6 +823,7 @@ Then for all \(m \leq r\) we have
 \left\|\Exp\left[\smash{\tilde{\matr{J}}}^{(r - \ell + 1)}(v, u)\right]\right\|
 \geq
 \frac{(d_{\min})^{\ell} \sqrt{\frac{d_j}{d_u}}}{\sqrt{d_{v,\ell - 1} d_{j,\ell - 1}}}
+\cdot
 \left\|\Exp\left[\matr{J}^{(m)}(v, u)\right]\right\|
 \end{equation}
 where \(d_{\min} = \min_{v \in V} d_v\) is the minimum degree in \(G_0\).
@@ -951,7 +957,7 @@ which, combined with the previous equation, gives
 \cdot
 \sqrt{\frac{d_j}{d_u}}
 \]
-concluding the proof.
+which can be rearranged ro the claimed bound \eqref{eq:jacobian_sensitivity}.
 \end{proof}
 \begin{remark}
 Compared to the bound stated in \cite{barbero2024laser}, our derivation yields an additional multiplicative factor $\sqrt{d_j/d_u}$ in~\eqref{eq:jacobian_sensitivity}, 
@@ -966,14 +972,20 @@ but does not affect the qualitative conclusion on the benefit of \gls{laser} for
 \subsection{Preservation of locality}
 
 
-\begin{proposition}\label{prop:locality_preservation}
 
-Following \cite{digiovanni2023over}, we compare how much a rewiring perturbs the shortest-path distances by means of the Frobenius norm
-\[
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{G'}\bigr\|_{F},
-    \qquad
-    (\mathcal{D}_G)_{uv} = d_{G}(u,v).
-\]
+\begin{proposition}\label{prop:locality_preservation}
+Let $\gph$ be a lollipop graph as in \autoref{fig:lollipop_graph}, composed of a chain of length $L$ attached to a clique of size $n$.
+Consider a spectral rewiring $\mathcal{R}$ that adds a single edge between the pair of nodes with largest effective resistance.
+Then there exists a choice of $\rho = \rho(L) \in (0,1)$ such that \gls{laser} with a single snapshot satisfies
+\begin{equation}\label{eq:locality_preservation_goal}
+  \|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} 
+  \geq
+  \|\mathcal{D}_\gph - \mathcal{D}_{\text{\gls{laser}}} \|_{F}
+\end{equation}
+for all sufficiently large $n$.
+\end{proposition}
+
+
 
 
 
@@ -1001,12 +1013,15 @@ Following \cite{digiovanni2023over}, we compare how much a rewiring perturbs the
 \coordinate (cliqueCenter) at ($(\zLocation,0) + (\cliqueRadius,0)$);
 
 \node[circle, draw, dashed, fill=orange!20, minimum size=\cliqueRadius, inner sep=0pt] (clique) at (cliqueCenter) {};
-\node at (cliqueCenter) {$|\texttt{clique}| = n$};
+\node at ($(cliqueCenter) + (0, 1/3*\cliqueRadius)$) {$|\texttt{clique}| = n$};
 
 
 \node[vertex, label={[anchor=base, label distance=7pt]below:{$v$}}] (v) at (0, 0) {};
 \node[vertex, label={[anchor=base, label distance=7pt]below:{$z'$}}] (zprime) at ($(\zLocation,0) - (0.2*\zLocation,0)$) {};
 \node[vertex, label={[anchor=base, label distance=7pt, xshift=-6pt, yshift=3]below:{$z$}}] (z) at (\zLocation, 0) {};
+
+\node[vertex, label={[anchor=base, label distance=7pt, xshift=6pt, yshift=3]below:{$u$}}] (cliqueNode1) at ($(cliqueCenter) - (0, 1/3*\cliqueRadius)$) {};
+
 
 \draw[] (v) -- ($(v)!1/5!(zprime)$);
 \draw[dotted] ($(v)!1/5!(zprime)$) -- ($(v)!4/5!(zprime)$);
@@ -1018,171 +1033,81 @@ Following \cite{digiovanni2023over}, we compare how much a rewiring perturbs the
 \draw[measure] ($(v) + (0, -1) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$L$} ($(z) + (0, -1) + (0, \offset)$);
 \end{tikzpicture}
 \caption{
-Lollipop graph with a chain of length \(L\) attached to a clique of size \(n\).
+Lollipop graph with a chain of length \(L\) attached to a clique of size \(n\), a popular worst-case scenario for over-squashing \cite{digiovanni2023over,black2023understanding}.
 }
 \label{fig:lollipop_graph}
 \end{figure}
 
 
 
-\end{proposition}
 
-\paragraph{Setup.}
-Let $G$ be a lollipop graph consisting of a path of length $L$ attached to a clique of size $n$.
-Let $v$ be the endpoint of the path, $z$ the junction between path and clique, and let the other $n-1$ clique nodes be “interior” nodes.
 
-\subsubsection*{Spectral rewiring: lower bound}
+\begin{proof}
+Let $v$ be the endpoint of the chain, $z$ the articulation node (shared by chain and clique), and $u$ any node in the interior of the clique.
+It is known that the commute time~\eqref{eq:commute_time_effective_resistance} between $v$ and $u$ scales cubically in the total number of nodes \citep{chandra1996electrical}, so a rewiring that minimizes effective resistance will add an edge between $v$ and some interior clique node, which we denote again by $u$.
 
-Consider a spectral rewiring $\mathcal{R}$ that adds one edge between the pair with largest effective resistance, which in this graph is $(v,u)$ for some interior clique node $u$.
-Before rewiring,
+
+Before rewiring, $d_\gph(v,z) = L$ and $d_\gph(v,u) = L+1$.
+After adding the edge $(v,u)$, we have $d_{\mathcal{R}(\gph)}(v,u)=1$ and $d_{\mathcal{R}(\gph)}(v,z)\le 2$.
+For every interior clique node $u'$ (there are $n-1$ of them, including $u$), 
+\(
+d_\gph(v,u') \ge L+1
+\),
+\(
+d_{\mathcal{R}(\gph)}(v,u') \le 2
+\),
+so the distance decreases by at least $(L+1)-2 = L-1$.
+For $z$ the decrease is $L-2$.
+Thus,
+\begin{equation}\label{eq:locality_spectral_lb}
+  \|\mathcal{D}_\gph - \mathcal{D}_{\mathcal{R}(\gph)} \|_{F} 
+  \geq
+  \sqrt{(n-1)(L-1)^2 + (L-2)^2}
+\end{equation}
+
+
+\noindent Now consider \gls{laser} with a single snapshot.
+If we choose
+\begin{equation}\label{eq:rho_choice}
+  \rho = \frac{k}{2L}
+\end{equation}
+then, on average, at most $k$ edges will be added over the chain.
+Any chain node distinct from the predecessor of $z$, which we denote by $z'$, has at most two nodes in its $2$-hop neighborhood (it only ``sees'' the path), whereas $z'$ has the whole clique in its $2$-hop neighborhood.
+Therefore, the pairwise distance of any two nodes on the chain is changed by at most $k$ and there are $L^2$ such pairs.
+For clique-chain pairs, the distance can decrease at most $k+1$ and there are $nL$ such pairs.
+Thus,
+\begin{equation}\label{eq:locality_laser_ub}
+  \|\mathcal{D}_\gph - \mathcal{D}_{\text{\gls{laser}}} \|_{F} 
+  \le
+  \sqrt{L^2 k^2 + nL (k+1)^2 }
+\end{equation}
+
+\noindent
+Therefore, by combining \eqref{eq:locality_spectral_lb} and \eqref{eq:locality_laser_ub}, we know that
+\eqref{eq:locality_preservation_goal} holds, if
+\begin{equation}\label{eq:locality_ineq_raw}
+  L^2 k^2 + nL (k+1)^2 
+  \le
+  (n-1)(L-1)^2 + (L-2)^2
+\end{equation}
+Rearranging \eqref{eq:locality_ineq_raw} yields
+\begin{equation}\label{eq:n_threshold}
+  n \ge
+  \frac{L^2 k^2 + (L-1)^2 - (L-2)^2}{
+    (L-1)^2 - L (k+1)^2
+  }
+\end{equation}
+
+\noindent
+If we choose
 \[
-    d_{G}(v,u) = L+1,
-    \qquad
-    d_{G}(v,z) = L.
+  \rho < \frac{\frac{L-1}{\sqrt{L}} - 1}{2L} \approx \frac{1}{2\sqrt{L}}
 \]
-After adding $(v,u)$ we have
-\[
-    d_{\mathcal{R}(G)}(v,u) = 1,
-    \qquad
-    d_{\mathcal{R}(G)}(v,w) \le 2 \ \text{for all interior clique } w,
-    \qquad
-    d_{\mathcal{R}(G)}(v,z) \le 2.
-\]
-Hence, for each of the $n-1$ interior clique nodes
-\[
-    \bigl|d_{G}(v,w) - d_{\mathcal{R}(G)}(v,w)\bigr|
-    \;\ge\; (L+1) - 2 = L-1,
-\]
-and for $z$
-\[
-    \bigl|d_{G}(v,z) - d_{\mathcal{R}(G)}(v,z)\bigr|
-    \;\ge\; L - 2.
-\]
-Restricting the Frobenius sum to these $n$ pairs yields
-\begin{equation}\label{eq:frob_spectral_lower}
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}^{2}
-    \;\ge\;
-    (n-1)(L-1)^{2} + (L-2)^{2},
-\end{equation}
-and therefore
-\begin{equation}\label{eq:frob_spectral_lower_root}
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}
-    \;\ge\;
-    \sqrt{(n-1)(L-1)^{2} + (L-2)^{2}}.
-\end{equation}
-
-\subsubsection*{LASER: upper bound}
-
-Now consider \gls{laser} with a single snapshot restricted to distance-$2$ edges.
-On the path, every node except the penultimate one $z'$ has at most two distance-$2$ neighbours; $z'$ has the whole clique at distance $2$.
-If we choose $\rho$ such that
-\begin{equation}\label{eq:rho_k_relation}
-    \rho = \frac{k}{2L},
-\end{equation}
-then the \emph{expected} number of new edges incident to path nodes is $k$.
-Assuming that at most $k$ such edges are added, we obtain uniform bounds on the distance changes.
-
-\paragraph{Path--path pairs.}
-Each new edge connects two nodes at distance $2$, so using it on a shortest path can shorten that path by at most $1$.
-Any path between two nodes $x,y$ on the path can traverse at most $k$ new edges, hence
-\[
-    \bigl|d_{G}(x,y) - d_{\text{LASER}}(x,y)\bigr| \le k
-    \quad\text{for all path nodes } x,y.
-\]
-There are at most $L^{2}$ ordered path--path pairs, so their contribution to the Frobenius norm satisfies
-\begin{equation}\label{eq:frob_laser_chain}
-    \sum_{\substack{x,y \text{ on path}}}
-    \bigl(d_{G}(x,y) - d_{\text{LASER}}(x,y)\bigr)^{2}
-    \;\le\;
-    L^{2} k^{2}.
-\end{equation}
-
-\paragraph{Path--clique pairs.}
-In the worst case, one of the $k$ new edges connects $z'$ directly to some clique node.
-Then any shortest path between a path node $x$ and a clique node $c$ can use at most $k$ shortcuts along the path and one shortcut to enter the clique.
-Thus
-\[
-    \bigl|d_{G}(x,c) - d_{\text{LASER}}(x,c)\bigr|
-    \;\le\; k+1
-    \quad\text{for all } x \text{ on the path and } c \text{ in the clique}.
-\]
-There are $nL$ such ordered pairs, giving
-\begin{equation}\label{eq:frob_laser_chain_clique}
-    \sum_{\substack{x \text{ on path}\\ c \text{ in clique}}}
-    \bigl(d_{G}(x,c) - d_{\text{LASER}}(x,c)\bigr)^{2}
-    \;\le\;
-    nL (k+1)^{2}.
-\end{equation}
-
-Distances between clique nodes are not increased by adding local edges from the path and are at most mildly decreased; their contribution can be bounded and is dominated by the two terms above.
-Hence we obtain the global upper bound
-\begin{equation}\label{eq:frob_laser_upper}
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}^{2}
-    \;\le\;
-    L^{2} k^{2} + nL (k+1)^{2},
-\end{equation}
-and therefore
-\begin{equation}\label{eq:frob_laser_upper_root}
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
-    \;\le\;
-    \sqrt{L^{2} k^{2} + nL (k+1)^{2}}.
-\end{equation}
-
-\subsubsection*{Comparison and corrected parameter constraints}
-
-A sufficient condition for \gls{laser} to be more locality-preserving than the spectral rewiring is
-\[
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
-    \;\le\;
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F}.
-\]
-Using \eqref{eq:frob_spectral_lower_root} and \eqref{eq:frob_laser_upper_root}, this is guaranteed if
-\begin{equation}\label{eq:ineq_nkL_raw}
-    L^{2} k^{2} + nL (k+1)^{2}
-    \;\le\;
-    (n-1)(L-1)^{2} + (L-2)^{2}.
-\end{equation}
-Rearranging~\eqref{eq:ineq_nkL_raw} and solving for $n$ gives
-\begin{equation}\label{eq:n_bound_correct}
-    n
-    \;\ge\;
-    \frac{k^{2} L^{2} + 2L - 3}
-         {L^{2} - Lk^{2} - 2Lk - 3L + 1},
-\end{equation}
-provided the denominator is positive.
-A sufficient condition for the denominator to be positive is
-\begin{equation}\label{eq:k_condition}
-    k^{2} < \frac{L}{4}, \qquad L \ge 8,
-\end{equation}
-which we verified analytically for $k \in \N$.
-Using the relation $\rho = k/(2L)$ from~\eqref{eq:rho_k_relation}, the constraint \eqref{eq:k_condition} is equivalent to
-\begin{equation}\label{eq:rho_bound_correct}
-    \rho^{2} < \frac{1}{16 L}
-    \quad\Longleftrightarrow\quad
-    \rho < \frac{1}{4\sqrt{L}}.
-\end{equation}
-
-In summary, on lollipop graphs with $L \ge 8$, sufficiently small sampling rate
-$\rho < 1/(4\sqrt{L})$ and $n$ satisfying~\eqref{eq:n_bound_correct}, we obtain
-\begin{equation}\label{eq:final_locality_comparison}
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\text{LASER}} \bigr\|_{F}
-    \;\le\;
-    \bigl\|\mathcal{D}_G - \mathcal{D}_{\mathcal{R}(G)} \bigr\|_{F},
-\end{equation}
-i.e.\ \gls{laser} perturbs the shortest-path distances less than the spectral effective-resistance-based rewiring.
-
-Compared to the original derivation, we note that:
-(i) the path--clique bound should be interpreted as a worst-case inequality $\le k+1$ rather than an equality;
-(ii) the algebraic manipulation leading to the bound on $n$ in~\eqref{eq:n_bound_correct} fixes a sign error in the denominator; and
-(iii) the correct constraint on $\rho$ is~\eqref{eq:rho_bound_correct}, which differs by a factor of $2$ from the value stated in the paper.
+the denominator in \eqref{eq:n_threshold} is positive, and thus for sufficiently large $n$, \eqref{eq:locality_preservation_goal} holds.
+\end{proof}
 
 
 
-\section{Related works}
-
-% Give a brief summary of (some) existing methods that are related to you project. For instance, you can refer to~\citet{gilmer2017neural}, or simply~\cite{gilmer2017neural}, for introducing Message Passing Neural Networks. In this section it is important to provide readers references to the current state of the art and the foundations of the presented method. 
-
-% N.B.: When referencing a different approach, it is not necessary to provide a detailed description, only one/two brief sentences are enough. The interested readers can eventually read the referenced work. 
 
 \section{Methodology}
 
