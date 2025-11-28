@@ -124,16 +124,16 @@
 \declaretheorem[style=proofstyle, name=Proof, numbered=no]{proof}
 
 \declaretheoremstyle[headfont=\bfseries\color{funblue}, bodyfont=\normalfont\normalsize, spaceabove=\thmspace, spacebelow=\thmspace, qed=\ensuremath{\color{funblue}\blacktriangleleft}, postheadspace=1em]{examplestyle}
-\declaretheorem[style=examplestyle, name=Example,]{example}
+\declaretheorem[style=examplestyle, name=Example, numbered=no]{example}
 
 \declaretheoremstyle[headfont=\bfseries, bodyfont=\normalfont\normalsize, spaceabove=\thmspace, spacebelow=\thmspace, qed=\ensuremath{\blacktriangleleft}, postheadspace=1em]{remarkstyle}
-\declaretheorem[style=remarkstyle, name=Remark,]{remark}
+\declaretheorem[style=remarkstyle, name=Remark, numbered=no]{remark}
 
 \declaretheoremstyle[headfont=\color{alizarincrimsonred}\bfseries, bodyfont=\normalfont\normalsize, spaceabove=\thmspace, spacebelow=\thmspace, qed=\ensuremath{\color{alizarincrimsonred}\blacktriangleleft}, postheadspace=1em]{cautionstyle}
-\declaretheorem[style=cautionstyle, name=Caution, sibling=remark]{caution}
+\declaretheorem[style=cautionstyle, name=Caution, sibling=remark, numbered=no]{caution}
 
 \declaretheoremstyle[headfont=\bfseries, bodyfont=\normalfont\footnotesize, spaceabove=\thmspace, spacebelow=\thmspace, postheadspace=1em]{smallremarkstyle}
-\declaretheorem[style=smallremarkstyle, name=Remark, sibling=remark]{smallremark}
+\declaretheorem[style=smallremarkstyle, name=Remark, sibling=remark, numbered=no]{smallremark}
 
 \newenvironment{verticalhack}
   {\begin{array}[b]{@{}c@{}}\displaystyle}
@@ -732,7 +732,7 @@ are learnable weight matrices and
 \mathcal{N}^\rho_{\ell + 1}(v) \subset \mathcal{N}_{\ell + 1}(v) := \{u \in V \mid d_{G_0}(u,v) = \ell + 1\}
 \end{equation}
 is a \(\rho\)-fraction of nodes at distance exactly \(\ell + 1\) from \(v\) with the lowest connectivity score \(\mu\) in the original graph \(G = G_0\). 
-So, for the \(\ell^{\text{th}}\) snapshot \(G_\ell\), \gls{laser} considers \(\rho \cdot d_{v,\ell + 1}\) artificial edges from \(v\) to nodes at distance \(d_{G_0}(u,v) = \ell + 1\).
+So, for the \(\ell^{\text{th}}\) snapshot \(G_\ell\), \gls{laser} considers \(\rho \cdot d_{v,\ell}\) artificial edges from \(v\) to nodes at distance \(d_{G_0}(u,v) = \ell + 1\).
 
 
 
@@ -791,9 +791,15 @@ Assume there is exactly one path \(\pi \subset G_0\) of length \(r\) connecting 
 \node[above right=0pt of j, rotate=45, outer sep=2pt, inner sep=0pt, anchor=west] {$\in \mathcal{N}_{\ell}^{\rho}(v)$};
 
 \def\offset{-0.5cm};
-\draw[measure] ($(v) + (0, -1) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_0}(v,u) = r$} ($(u) + (0, -1) + (0, \offset)$);
-\draw[measure] ($(v) + (0, -2) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_0}(v,j) = \ell$} ($(j) + (0, -2) + (0, \offset)$);
-\draw[measure, densely dashed] ($(v) + (0, -3) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$d_{G_{\color{red} \ell - 1}}(v,u) = \color{blue} 1 + \color{black} r - \ell$} ($(u) + (0, -3) + (0, \offset)$);
+\draw[measure] ($(v) + (0, -1) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$
+% d_{G_0}(v,u) = 
+r$} ($(u) + (0, -1) + (0, \offset)$);
+\draw[measure] ($(v) + (0, -2) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$
+% d_{G_0}(v,j) = 
+\ell$} ($(j) + (0, -2) + (0, \offset)$);
+\draw[measure, densely dashed] ($(v) + (0, -3) + (0, \offset)$) -- node[below, outer sep = 2pt, inner sep = 0] {$
+% d_{G_{\color{red} \ell - 1}}(v,u) = 
+\color{blue} 1 + \color{black} r - \ell$} ($(u) + (0, -3) + (0, \offset)$);
 
 \end{tikzpicture}
 \caption{
@@ -947,6 +953,12 @@ which, combined with the previous equation, gives
 \]
 concluding the proof.
 \end{proof}
+\begin{remark}
+Compared to the bound stated in \cite{barbero2024laser}, our derivation yields an additional multiplicative factor $\sqrt{d_j/d_u}$ in~\eqref{eq:jacobian_sensitivity}, 
+which arises from the explicit evaluation of the subpath contribution $(\smash{\hat{\matr{A}}}^{r-\ell})_{ju}$. 
+This factor is generally non-unit unless further degree assumptions are imposed, 
+but does not affect the qualitative conclusion on the benefit of \gls{laser} for alleviating over-squashing.
+\end{remark}
 
 
 
@@ -1226,6 +1238,7 @@ Compared to the original derivation, we note that:
 % Try to summarize the achievements of your project and its limits, suggesting (when appropriate) possible extensions and future works.
 
 % Bibliography
+\renewcommand{\emph}[1]{\textit{#1}} 
 \bibliography{bibliography}
 \bibliographystyle{unsrtnat}
 
